@@ -21,7 +21,7 @@ export const validatePin =  (payload) => {
     }).catch (error =>  {
       dispatch(hideLoading());
       dispatch(actions.showAlert({
-        message:  error.message,
+        message:  typeof error === 'string' ? error : error.message,
         severity: 'error'
       }));
     });
@@ -40,7 +40,7 @@ export const checkTermlyResult = (payload) => {
           console.log('checkTermlyResult(): ', error);
           dispatch(hideLoading());
           dispatch(actions.showAlert({
-            message:  error,
+            message:  typeof error === 'string' ? error : error.message,
             severity: 'error'
           }));
         });
