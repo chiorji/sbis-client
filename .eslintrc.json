@@ -7,7 +7,7 @@
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "eqeqeq": ["error", "always"],
-    "no-console": "error",
+    "no-console": "warn",
     "no-unused-vars": "error",
     "comma-dangle": ["error", {
       "arrays": "never",
