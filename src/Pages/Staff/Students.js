@@ -13,7 +13,7 @@ const Students = () => {
       <Switch>
         <Route path={match.path} exact component={StudentsTable} />
         <Route path={`${match.path}/admission`} component={AdmissionForm} />
-        <Route path={`${match.path}/info`} component={StudentInfo} />
+        <Route path={`${match.path}/profile/:id`} component={StudentInfo} />
         <Route component={NotFound} />
       </Switch>
     </Grid>

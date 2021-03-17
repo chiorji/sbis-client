@@ -1,7 +1,6 @@
-/* eslint-disable no-console */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { DataGrid } from '@material-ui/data-grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/styles';
@@ -17,12 +16,17 @@ const useStyles = makeStyles(theme => ({
   },
   header: {
     marginBottom: theme.spacing(3)
+  },
+  viewProfileLink: {
+    color:     theme.palette.primary.dark,
+    '&:hover': {
+      transform: 'scale(1.05)'
+    }
   }
 }));
 
 const StudentsTable = ({ students, isLoading, getListing }) => {
-  const { root } = useStyles();
-  const history = useHistory(); // eslint-disable-line
+  const { root, viewProfileLink } = useStyles();
 
   useEffect(() => {
     getListing();
@@ -64,12 +68,20 @@ const StudentsTable = ({ students, isLoading, getListing }) => {
       id:              5,
       width:           200,
       headerClassName: 'list-header'
+    },
+    {
+      headerName:      'View Profile',
+      field:           'user_id',
+      id:              6,
+      width:           200,
+      headerClassName: 'list-header',
+      renderCell:      ({ value }) => <Link className={viewProfileLink} to={`/dashboard/students/profile/${value}`}>View profile</Link>
     }
   ];
 
   return (
     <>
-      <Typography variant="h4" gutterBottom>Student Listing</Typography>
+      <Typography variant="h5" gutterBottom>Student Listing</Typography>
       <div style={{ height: 500, width: '100%' }} className={root}>
         <div style={{ display: 'flex', height: '100%' }}>
           <div style={{ flexGrow: 1 }}>
@@ -81,7 +93,6 @@ const StudentsTable = ({ students, isLoading, getListing }) => {
               disableColumnMenu
               hideFooterSelectedRowCount
               disableColumnSelector
-              onRowClick={({ row:{ id } }, e) => console.log({ id })}
             />
           </div>
         </div>
@@ -92,7 +103,8 @@ const StudentsTable = ({ students, isLoading, getListing }) => {
 
 const mapState = ({ staff }) => ({
   students:  staff.stats.students,
-  isLoading: staff.isLoading
+  isLoading: staff.isLoading,
+  info:      staff.studentInfo
 });
 
 const mapDispatch = (dispatch) => ({
