@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CreateSubject = ({ staffList, createSubject, alert }) => {
+const CreateSubject = ({ staffList, createSubject, alert, fetchStaffList }) => {
   const { textFields } = useStyles();
 
   const [subject, setSubject] = useState({
@@ -84,6 +84,13 @@ const CreateSubject = ({ staffList, createSubject, alert }) => {
     'JUNIOR',
     'UNCATEGORIZED'
   ];
+
+  useEffect(() => {
+    if (!staffList.length) {
+      fetchStaffList();
+    }
+  }, [ staffList, fetchStaffList ]);
+
   return (
     <>
       <Typography variant="h5" gutterBottom>Create new subject</Typography>
@@ -114,10 +121,10 @@ const CreateSubject = ({ staffList, createSubject, alert }) => {
                   onChange={handleChange('teacher')}
                   label="Select teacher"
                 >
-                  {staffList.map((value) => (
-                    <MenuItem key={value}
-                      value={value.toLowerCase()}
-                    >{value}</MenuItem>
+                  {staffList.map(({ id, first_name, last_name }) => (
+                    <MenuItem key={id}
+                      value={id}
+                    >{`${first_name.toUpperCase()} ${last_name.toUpperCase()}`}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -158,8 +165,9 @@ const CreateSubject = ({ staffList, createSubject, alert }) => {
 };
 
 const mapDispatch = (dispatch) => ({
-  createSubject: (payload) => dispatch(actions.createSubject(payload)),
-  alert:         (sev, msg) => dispatch(actions.showAlert({
+  fetchStaffList: () => dispatch(actions.fetchStaffList()),
+  createSubject:  (payload) => dispatch(actions.createSubject(payload)),
+  alert:          (sev, msg) => dispatch(actions.showAlert({
     severity: sev,
     message:  msg
   }))
