@@ -9,6 +9,7 @@ export const validatePin =  (payload) => {
   const { pin, serial } = payload;
   return dispatch => {
     dispatch(showLoading());
+    dispatch(actions.getResultRequest());
     request.post(endpoints
       .validatePinSerial({ pin, serial })).then(({ data }) => {
       dispatch(push(`/result?page=validated&pin=${pin}&serial=${serial}`));
@@ -27,5 +28,44 @@ export const validatePin =  (payload) => {
   };
 };
 
-export const getResult = (payload) => {
+export const checkTermlyResult = (payload) => {
+  return dispatch => {
+    try {
+      dispatch(showLoading());
+      dispatch(actions.getResultRequest());
+      request.make(endpoints.checkTermlyResult(payload))
+        .then(({ data }) => {
+          console.log({ data });
+        }).catch(error => {
+          console.log('checkTermlyResult(): ', error);
+          dispatch(hideLoading());
+          dispatch(actions.showAlert({
+            message:  error,
+            severity: 'error'
+          }));
+        });
+    }catch(error){
+      dispatch(hideLoading());
+      dispatch(actions.showAlert({
+        message:  error,
+        severity: 'error'
+      }));
+    }
+  };
+};
+
+export const checkCumulativeResult = (payload) => {
+  return dispatch => {
+    dispatch(showLoading());
+    request.make(endpoints.checkCumulativeResult(payload)).then(({ data }) => {
+      console.log({ data });
+    }).catch(error => {
+      console.log('checkCumulativeResult(): ', error);
+      dispatch(hideLoading());
+      dispatch(actions.showAlert({
+        message:  error,
+        severity: 'error'
+      }));
+    });
+  };
 };
