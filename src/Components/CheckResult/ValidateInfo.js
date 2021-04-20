@@ -13,6 +13,10 @@ import { KeyboardDatePicker } from '@material-ui/pickers';
 import makeStyles from '@material-ui/styles/makeStyles';
 import CustomizedSwitches from '../Switch';
 import * as actions from '../../store/result/actions';
+import {
+  checkTermlyResult,
+  checkCumulativeResult
+} from '../../store/result/resultThunk';
 import { useQuery } from '../../utils';
 
 const useStyles = makeStyles(theme => ({
@@ -46,7 +50,8 @@ const ValidateInfo = ({
   checkCumulativeResult,
   classList,
   termOpts,
-  displayAlert
+  displayAlert,
+  isLoading
 }) => {
   const { formControl, invalidYear, callout } = useStyles();
   const [formValues, setFormValues] = useState({
@@ -239,7 +244,8 @@ const ValidateInfo = ({
           variant= 'outlined'
           type=   'submit'
           color=   'primary'
-          size=   'large'
+          size='large'
+          disabled={isLoading}
         >
           Check Result
         </Button>
@@ -256,16 +262,17 @@ function Message({ msg, cls }) {
   );
 }
 
-const mapState = ({ staff }) => ({
+const mapState = ({ staff, result }) => ({
   classList: staff.classList,
-  termOpts:  staff.terms
+  termOpts:  staff.terms,
+  isLoading: result.isLoading
 });
 
 
 /* eslint-disable no-console*/
 const mapDispatch = (dispatch) => ({
-  checkTermlyResult:     (payload) => console.log(payload),
-  checkCumulativeResult: (payload) => console.log(payload),
+  checkTermlyResult:     (payload) => dispatch(checkTermlyResult(payload)),
+  checkCumulativeResult: (payload) => dispatch(checkCumulativeResult(payload)),
   displayAlert:          (sev, msg) => dispatch(actions.showAlert({
     severity: sev,
     message:  msg
