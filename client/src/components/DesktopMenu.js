@@ -38,12 +38,12 @@ const DesktopMenu = ({name, links}) => {
   return (
     <ToolBar className={toolbar}>
       <Typography component="h2" variant="h5" className={icon}>
-        <Logo alt="Logo" className={logo} fill="currentColor"/>
         <Button {...{
           component: Link,
           to:        '/',
           color:     'inherit',
-          className: linkButton
+          className: linkButton,
+          startIcon: <Logo alt="Logo" className={logo} fill="currentColor"/>
         }}
         >{name}</Button>
       </Typography>
