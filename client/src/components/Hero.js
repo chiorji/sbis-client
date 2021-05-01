@@ -1,18 +1,11 @@
 import  React from 'react';
-import Container from '@material-ui/core/Container';
-import makeStyles from '@material-ui/styles/makeStyles';
-const useStyles = makeStyles(theme => ({
-  hero: {
-    border: '1px solid red'
-  }
-}));
+import Box from '@material-ui/core/Box';
 
 const Hero = ({children}) => {
-  const styles = useStyles();
   return (
-    <Container className={styles.hero}>
+    <Box width={1}>
       {children}
-    </Container>
+    </Box>
   );
 };
 

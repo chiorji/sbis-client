@@ -32,7 +32,7 @@ const NavBar = () => {
   }, [mobileView]);
 
   return (
-    <AppBar className={''}>
+    <AppBar position="sticky">
       {mobileView ? <MobileMenu
         name="S.B.I.S"
         drawerOpen={drawerOpen}
