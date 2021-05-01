@@ -1,5 +1,6 @@
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
+import pink from '@material-ui/core/colors/pink';
 
 const theme = createMuiTheme({
   palette: {
@@ -7,7 +8,10 @@ const theme = createMuiTheme({
       main: purple[800]
     },
     secondary: {
-      main: purple[300]
+      main: purple[700]
+    },
+    custom: {
+      main: pink[400]
     }
   }
 });
