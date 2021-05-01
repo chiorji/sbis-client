@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Themes from './components/Themes';
 import 'fontsource-roboto';
+import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>

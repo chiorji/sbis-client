@@ -16,8 +16,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2)
   },
   heading: {
-    color:      theme.palette.custom.main,
-    fontWeight: 'bold'
+    color:        theme.palette.custom.main,
+    fontWeight:   'medium',
+    marginBottom: theme.spacing(3)
   },
   paper: {
     width:   '100%',
