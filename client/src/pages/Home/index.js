@@ -4,6 +4,8 @@ import NavBar from '../../components/Nav';
 import Banner from '../../components/Banner';
 import About from '../../components/About';
 import EduFacilities from '../../components/EduFacilities';
+import WhyChooseUs from '../../components/WhyChooseUs';
+import {whyChooseUs} from '../../request/whyChooseUs';
 
 const Landing = () => {
   return (
@@ -14,6 +16,7 @@ const Landing = () => {
       </Hero>
       <About />
       <EduFacilities/>
+      <WhyChooseUs data={whyChooseUs}/>
     </>
   );
 };
