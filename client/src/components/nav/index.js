@@ -2,7 +2,7 @@ import React, {useState, useLayoutEffect, useCallback} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import DesktopMenu from './DesktopMenu';
 import MobileMenu from './MobileMenu';
-import {links} from '../request/links';
+import {links} from '../../request/links';
 
 const NavBar = () => {
   const [view, setView] = useState({
