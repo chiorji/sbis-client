@@ -12,7 +12,6 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import EmailIcon from '@material-ui/icons/Email';
 import PhoneEnabledIcon from '@material-ui/icons/PhoneEnabled';
 import RoomIcon from '@material-ui/icons/Room';
-import CopyRight from './CopyRight';
 import {links} from '../request/links';
 
 const useStyles = makeStyles(theme => ({
@@ -55,64 +54,61 @@ const useStyles = makeStyles(theme => ({
 const Footer = () => {
   const {container, paper, grid, icons, link, footerText} = useStyles();
   return (
-    <>
-      <Box component="footer" className={container} width={1}>
-        <Grid container className={grid}>
-          <Grid item xs={12} md={4}>
-            <Paper square elevation={0} className={paper}>
-              <Typography variant="h3" component="h5" gutterBottom>S.B.I.S</Typography>
-              <Typography component="div">
-                <Link href="https://facebook.com/sbis" target="_blank" rel="noopener noreferrer">
-                  <FacebookIcon className={icons} fill="currentColor"/>
-                </Link>
-                <Link href="https://facebook.com/sbis" target="_blank" rel="noopener noreferrer">
-                  <WhatsAppIcon className={icons} fill="currentColor"/>
-                </Link>
-                <Link href="https://twitter.com/sbis" target="_blank" rel="noopener noreferrer">
-                  <TwitterIcon className={icons} fill="currentColor"/>
-                </Link>
-                <Link href="mailto:successbuilders28@yahoo.com" target="_blank" rel="noopener noreferrer">
-                  <EmailIcon className={icons} fill="currentColor"/>
-                </Link>
-                <Link href="tel:+2348052452125">
-                  <PhoneEnabledIcon className={icons} fill="currentColor"/>
-                </Link>
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Paper square elevation={0} className={paper}>
-              <Typography variant="h5">Important Links</Typography>
-              {links.map(({id, label, to}) => (
-                <Link {...{
-                  component: RouterLink,
-                  to:        to,
-                  key:       id,
-                  color:     'inherit',
-                  style:     {textDecoration: 'none'},
-                  className: link
-                }}
-                >{label}</Link>
-              ))}
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Paper square elevation={0} className={paper}>
-              <Typography variant="h5" gutterBottom style={{display: 'flex',  alignItems: 'center'}}>
-                <RoomIcon fill="currentColor"/>
-                <Typography variant="p">Location</Typography>
-              </Typography>
-              <Typography component="address" className={footerText}>
+    <Box component="footer" className={container} width={1}>
+      <Grid container className={grid}>
+        <Grid item xs={12} md={4}>
+          <Paper square elevation={0} className={paper}>
+            <Typography variant="h3" component="h5" gutterBottom>S.B.I.S</Typography>
+            <Typography component="div">
+              <Link href="https://facebook.com/sbis" target="_blank" rel="noopener noreferrer">
+                <FacebookIcon className={icons} fill="currentColor"/>
+              </Link>
+              <Link href="https://facebook.com/sbis" target="_blank" rel="noopener noreferrer">
+                <WhatsAppIcon className={icons} fill="currentColor"/>
+              </Link>
+              <Link href="https://twitter.com/sbis" target="_blank" rel="noopener noreferrer">
+                <TwitterIcon className={icons} fill="currentColor"/>
+              </Link>
+              <Link href="mailto:successbuilders28@yahoo.com" target="_blank" rel="noopener noreferrer">
+                <EmailIcon className={icons} fill="currentColor"/>
+              </Link>
+              <Link href="tel:+2348052452125">
+                <PhoneEnabledIcon className={icons} fill="currentColor"/>
+              </Link>
+            </Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <Paper square elevation={0} className={paper}>
+            <Typography variant="h5">Important Links</Typography>
+            {links.map(({id, label, to}) => (
+              <Link {...{
+                component: RouterLink,
+                to:        to,
+                key:       id,
+                color:     'inherit',
+                style:     {textDecoration: 'none'},
+                className: link
+              }}
+              >{label}</Link>
+            ))}
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <Paper square elevation={0} className={paper}>
+            <Typography variant="h5" gutterBottom style={{display: 'flex',  alignItems: 'center'}}>
+              <RoomIcon fill="currentColor"/>
+              <Typography variant="p">Location</Typography>
+            </Typography>
+            <Typography component="address" className={footerText}>
               Success Builders Street by SChool Rd., near Bethel
               Anglican Church, by Acha Str., Iyiowa Odekpe, Onitsha
               Zone, Anambra State.
-              </Typography>
-            </Paper>
-          </Grid>
+            </Typography>
+          </Paper>
         </Grid>
-      </Box>
-      <CopyRight />
-    </>
+      </Grid>
+    </Box>
   );
 };
 
