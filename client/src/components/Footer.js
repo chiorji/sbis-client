@@ -96,9 +96,9 @@ const Footer = () => {
         </Grid>
         <Grid item xs={12} md={3}>
           <Paper square elevation={0} className={paper}>
-            <Typography variant="h5" gutterBottom style={{display: 'flex',  alignItems: 'center'}}>
+            <Typography variant="body1" component="div" gutterBottom style={{display: 'flex',  alignItems: 'center'}}>
               <RoomIcon fill="currentColor"/>
-              <Typography variant="p">Location</Typography>
+              <Typography variant="h5">Location</Typography>
             </Typography>
             <Typography component="address" className={footerText}>
               Success Builders Street by SChool Rd., near Bethel
