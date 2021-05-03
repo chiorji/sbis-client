@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link as RouterLink} from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import ToolBar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/icons/Menu';
-import Typography from '@material-ui/core/Typography';
 import Drawer from '@material-ui/core/Drawer';
 import MenuDisplayChoice from './MenuDisplayChoice';
 
@@ -28,7 +29,14 @@ const MobileMenu = ({name, drawerOpen, closeDrawer, links}) => {
       >
         <MenuDisplayChoice links={links} largeScreen={false} menuStyle={''}/>
       </Drawer>
-      <Typography component="h2" variant="h6">{name}</Typography>
+      <Button
+        {...{
+          component: RouterLink,
+          color:     'inherit',
+          to:        '/',
+          style:     {textDecoration: 'none', fontSize: '20px', fontWeight: 'bold'}
+        }}
+      >{name}</Button>
     </ToolBar>
   );
 };
