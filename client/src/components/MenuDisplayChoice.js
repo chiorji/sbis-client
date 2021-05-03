@@ -10,7 +10,7 @@ const MenuDisplayChoice = ({links, largeScreen, menuStyle}) => {
       component: RouteLink,
       to:        to,
       color:     'inherit',
-      style:     {textDecoration: 'none'},
+      style:     {textDecoration: 'none', width: '250px'},
       key:       id
     }}
     >
