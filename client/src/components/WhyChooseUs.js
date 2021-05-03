@@ -34,7 +34,7 @@ const WhyChooseUs = ({data}) => {
       >Why register your ward with us?</Typography>
       <Grid container spacing={5}>
         {data.map(item => (
-          <WhyChooseUsGrid {...item} />
+          <WhyChooseUsGrid key={item.heading} {...item} />
         ))}
       </Grid>
       <Typography component="div" className={callToAction}>
