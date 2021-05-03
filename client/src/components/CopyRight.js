@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
   box: {
     textAlign:       'center',
     fontSize:        'small',
-    color:           theme.palette.primary.main,
+    color:           theme.palette.grey[500],
     backgroundColor: theme.palette.dark.main,
     padding:         theme.spacing(2)
   }
