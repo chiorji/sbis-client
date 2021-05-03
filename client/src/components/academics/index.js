@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Accordion from './Accordion';
 import makeStyles from '@material-ui/styles/makeStyles';
+import Footer from '../Footer';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,14 +16,17 @@ const useStyles = makeStyles(theme => ({
 const Academics = () => {
   const {root} = useStyles();
   return (
-    <Box className={root}>
-      <Container>
-        <Typography variant="h4">Academics</Typography>
-      </Container>
-      <Container>
-        <Accordion />
-      </Container>
-    </Box>
+    <>
+      <Box className={root}>
+        <Container>
+          <Typography variant="h4">Academics</Typography>
+        </Container>
+        <Container>
+          <Accordion />
+        </Container>
+      </Box>
+      <Footer />
+    </>
   );
 };
 
