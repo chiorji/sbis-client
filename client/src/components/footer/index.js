@@ -12,7 +12,8 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import EmailIcon from '@material-ui/icons/Email';
 import PhoneEnabledIcon from '@material-ui/icons/PhoneEnabled';
 import RoomIcon from '@material-ui/icons/Room';
-import {links} from '../request/links';
+import CopyRight from './CopyRight';
+import {links} from '../../request/links';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -108,6 +109,7 @@ const Footer = () => {
           </Paper>
         </Grid>
       </Grid>
+      <CopyRight />
     </Box>
   );
 };

@@ -1,13 +1,13 @@
 import React from 'react';
-import Nav from '../components/Nav';
-import CopyRight from '../components/CopyRight';
+import Nav from '../components/nav';
+import Footer from '../components/footer';
 
 const Layout = ({children}) => {
   return (
     <>
       <Nav />
       {children}
-      <CopyRight />
+      <Footer />
     </>
   );
 };
