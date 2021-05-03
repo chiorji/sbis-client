@@ -19,8 +19,7 @@ const useStyles = makeStyles(theme => ({
   container: {
     backgroundColor: theme.palette.dark.main,
     paddingTop:      theme.spacing(2),
-    paddingBottom:   theme.spacing(1),
-    minHeight:       '350px'
+    minHeight:       '300px'
   },
   paper: {
     backgroundColor:                'transparent',
@@ -99,9 +98,9 @@ const Footer = () => {
           </Grid>
           <Grid item xs={12} md={3}>
             <Paper square elevation={0} className={paper}>
-              <Typography variant="h5" gutterBottom>
+              <Typography variant="h5" gutterBottom style={{display: 'flex',  alignItems: 'center'}}>
                 <RoomIcon fill="currentColor"/>
-              Visit us today
+                <Typography variant="p">Location</Typography>
               </Typography>
               <Typography component="address" className={footerText}>
               Success Builders Street by SChool Rd., near Bethel
