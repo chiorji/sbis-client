@@ -6,6 +6,7 @@ import About from '../../components/About';
 import EduFacilities from '../../components/EduFacilities';
 import WhyChooseUs from '../../components/WhyChooseUs';
 import {whyChooseUs} from '../../request/whyChooseUs';
+import Footer from '../../components/Footer';
 
 const Landing = () => {
   return (
@@ -16,7 +17,8 @@ const Landing = () => {
       </Hero>
       <About />
       <EduFacilities/>
-      <WhyChooseUs data={whyChooseUs}/>
+      <WhyChooseUs data={whyChooseUs} />
+      <Footer/>
     </>
   );
 };
