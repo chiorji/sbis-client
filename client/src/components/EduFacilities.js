@@ -47,10 +47,11 @@ const EduFacilities = () => {
     <Box className={box}>
       <Container className={container}>
         <Typography variant="h4" className={heading}>Education and Facilities</Typography>
-        <Typography>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Quos eos, reiciendis adipisci doloribus quae sit, repellendus ad
-      debitis culpa sapiente, provident dolore asperiores unde a
-        maiores nisi. Labore, numquam quas!</Typography>
+        <Typography>Our school is a great place for learning.
+        A place for moulding future leaders of the society.
+        <br /> Our cores values surrounds every life of our student,
+        and makes the student a perfect tool to better human race,
+          and the self</Typography>
       </Container>
       <Container>
         <Grid container spacing={3}>
