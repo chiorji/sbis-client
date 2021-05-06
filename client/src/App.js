@@ -1,5 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import LoadingBar from 'react-redux-loading-bar';
 import Layout from './layout';
 import Home from './pages/Home';
 import Academics from './pages/academics';
@@ -12,6 +13,9 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Layout>
+          <header>
+            <LoadingBar />
+          </header>
           <Route path='/' exact component={Home} />
           <Route path='/academics' component={Academics} />
           <Route path="/gallery" component={Gallery} />
