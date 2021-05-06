@@ -1,6 +1,7 @@
 import React from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import {Link as RouteLink} from 'react-router-dom';
+import {HashLink} from 'react-router-hash-link';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 
@@ -19,7 +20,7 @@ const MenuDisplayChoice = ({links, largeScreen, menuStyle}) => {
   ) :
     <Button
       {...{
-        component: RouteLink,
+        component: to.indexOf('#') !== -1 ? HashLink : RouteLink,
         to:        to,
         color:     'inherit',
         key:       id,

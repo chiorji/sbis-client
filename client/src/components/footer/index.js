@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import {Link as RouterLink} from 'react-router-dom';
+import {HashLink} from 'react-router-hash-link';
 import makeStyles from '@material-ui/styles/makeStyles';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
@@ -55,7 +56,7 @@ const useStyles = makeStyles(theme => ({
 const Footer = () => {
   const {container, paper, grid, icons, link, footerText} = useStyles();
   return (
-    <Box component="footer" className={container} width={1}>
+    <Box component="footer" className={container} width={1} id="contact">
       <Grid container className={grid}>
         <Grid item xs={12} md={4}>
           <Paper square elevation={0} className={paper}>
@@ -84,7 +85,7 @@ const Footer = () => {
             <Typography variant="h5">Important Links</Typography>
             {links.map(({id, label, to}) => (
               <Link {...{
-                component: RouterLink,
+                component: to.indexOf('#') !== -1 ? HashLink : RouterLink,
                 to:        to,
                 key:       id,
                 color:     'inherit',
