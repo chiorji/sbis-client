@@ -1,18 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Themes from './components/Themes';
 import 'fontsource-roboto';
 import './index.css';
+import store from './store';
+
+require('dotenv').config();
 
 ReactDOM.render(
   <React.StrictMode>
-    <CssBaseline />
-    <Themes>
-      <App />
-    </Themes>
+    <Provider store={store}>
+      <CssBaseline />
+      <Themes>
+        <App />
+      </Themes>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
