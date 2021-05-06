@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 const MenuDisplayChoice = ({links, largeScreen, menuStyle}) => {
   return links.map(({label, to, id}) => !largeScreen  ? (
     <Link {...{
-      component: RouteLink,
+      component: to.indexOf('#') !== -1 ? HashLink : RouteLink,
       to:        to,
       color:     'inherit',
       style:     {textDecoration: 'none', width: '250px'},
