@@ -1,16 +1,14 @@
-/* eslint-disable */
 import React from 'react';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import makeStyles from '@material-ui/styles/makeStyles'
+import makeStyles from '@material-ui/styles/makeStyles';
 
 const useStyles = makeStyles(theme => ({
   card: {
+    border:    `1px solid ${theme.palette.grey[300]}`,
     '&:hover': {
       backgroundColor: theme.palette.grey[200]
     }
@@ -20,26 +18,30 @@ const useStyles = makeStyles(theme => ({
   },
   heading: {
     color: theme.palette.primary.dark
+  },
+  cardWrap: {
+    margin: theme.spacing(2)
   }
-}))
+}));
 
-const StaffList = ({ avatar, name, description }) => {
-  const {card, media, heading} = useStyles()
+const StaffList = ({avatar, name, description}) => {
+  const {media, heading, cardWrap} = useStyles();
   return (
-    <Grid item xs={12} sm={6} md={3}>
-      <Card className={card} title={name}>
+    <div className={cardWrap}>
+      <Card title={name}>
         <CardActionArea>
           <CardMedia
             title={name}
             image={avatar}
-            className={media} />
+            className={media}
+          />
           <CardContent>
             <Typography variant="h5" className={heading}>{name}</Typography>
             <Typography variant="body2" component="p">{description}</Typography>
           </CardContent>
         </CardActionArea>
       </Card>
-    </Grid>
+    </div>
   );
 };
 
