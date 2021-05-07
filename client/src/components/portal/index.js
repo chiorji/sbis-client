@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
-import React, {useRef} from 'react';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
@@ -23,9 +23,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Portal = () => {
+const Portal = ({isValidPin, isValidName, isResultReady}) => {
   const {root, grid} = useStyles();
-  const step = useRef(1);
+
+  /* eslint-disable no-console */
+  useEffect(() => {
+    console.log({isValidPin, isValidName, isResultReady});
+  }, [isValidName, isValidPin, isResultReady]);
+
+  // check if pin/name validation was success
+  // pin/name must be validated to render the next form
+  const validated = () => isValidPin && isValidName;
+
   return (
     <>
       <Container className={root}>
@@ -33,13 +42,23 @@ const Portal = () => {
       </Container>
       <Container>
         <Grid container className={grid} spacing={4}>
-          {step.current === 0 ?
-            <PinAndIdForm />
-            : step.current === 1 ? <DataForm /> : <div />}
+          {!validated() && !isResultReady
+            ? <PinAndIdForm />
+            : validated() && !isResultReady
+              ? <DataForm />
+              : isResultReady
+                ? <Typography variant="h6">Loading result...</Typography>
+                : <Typography variant="div" />}
         </Grid>
       </Container>
     </>
   );
 };
 
-export default Portal;
+const mapState = ({checker}) => ({
+  isValidPin:    checker.pinValidated,
+  isValidName:   checker.nameValidated,
+  isResultReady: checker.resultReady
+});
+
+export default connect(mapState, null)(Portal);

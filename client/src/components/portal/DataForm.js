@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars, no-console */
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import Button from '@material-ui/core/Button';
 import makeStyles from '@material-ui/styles/makeStyles';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import FormGroup from '@material-ui/core/FormGroup';
+import {getResult} from '../../store/checker/checkThunks';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -27,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const DataForm = () => {
+const DataForm = ({getResult}) => {
   const {formControl, btn} = useStyles();
   const [formValues, setFormValues] = useState({
     examYear:       '',
@@ -82,8 +84,9 @@ const DataForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const {examYear, examTerm, examClass} = formValues;
     if (validateFormValues()) {
-      console.log('Submitted');
+      getResult({examYear, examTerm, examClass});
     } else {
       console.log('validation failed');
     }
@@ -188,4 +191,13 @@ const DataForm = () => {
   );
 };
 
-export default DataForm;
+const mapState = ({checker}) => ({
+  regno:      checker.regno,
+  scratchPin: checker.scratchPin
+});
+
+const mapDispatch = (dispatch) => ({
+  getResult: (payload) => dispatch(getResult(payload))
+});
+
+export default connect(mapState, mapDispatch)(DataForm);

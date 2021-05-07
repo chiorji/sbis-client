@@ -1,8 +1,12 @@
+/* eslint-disable no-unused-vars, no-console */
 import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import validator from 'validator';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import makeStyles from '@material-ui/styles/makeStyles';
 import Grid from '@material-ui/core/Grid';
+import {validatePin} from '../../store/checker/checkThunks';
 
 const useStyles = makeStyles(theme => ({
   textFields: {
@@ -13,45 +17,50 @@ const useStyles = makeStyles(theme => ({
 
 
 const PinAndId = () => {
-  /* eslint-disable no-console */
   const {textFields} = useStyles();
   const [formValues, setFormValues] = useState({
     pin:        '',
     pinError:   false,
-    schId:      '',
-    schIdError: false
+    regno:      '',
+    regnoError: false
   });
 
+  // dispatch hook
+  const dispatch = useDispatch();
 
+  // pin validation thunk
+  const handlePinValidation = (payload) => dispatch(validatePin(payload));
+
+  // handle input changes
   const handleChange = (e) => {
     const {name, value} = e.target;
     setFormValues(prevState => ({...prevState, [name]: value}));
   };
 
   const validateInputs = () => {
-    const {pin, schId} = formValues;
+    const {pin, regno} = formValues;
     setFormValues(prevState => ({
       ...prevState,
       pinError:   false,
-      schIdError: false
+      regnoError: false
     }));
 
-    if (!pin && !schId) {
+    if (!pin && !regno) {
       setFormValues(prevState => ({
         ...prevState,
         pinError:   true,
-        schIdError: true
+        regnoError: true
       }));
       return false;
     }
 
-    if (!pin) {
+    if (!pin || !validator.isLength(pin, {min: 12, max: 12})) {
       setFormValues(prevState => ({...prevState, pinError: true}));
       return false;
     }
 
-    if (!schId) {
-      setFormValues(prevState => ({...prevState, schIdError: true}));
+    if (!regno) {
+      setFormValues(prevState => ({...prevState, regnoError: true}));
       return false;
     }
 
@@ -60,15 +69,15 @@ const PinAndId = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const {pin, schId} = formValues;
+    const {pin, regno} = formValues;
     if (validateInputs()) {
-      console.log('validated', {pin, schId});
+      handlePinValidation({pin, regno});
     } else {
-      console.log('validation error', {pin, schId});
+      console.log('validation error', {pin, regno});
     }
   };
 
-  const {pin, pinError, schId, schIdError} = formValues;
+  const {pin, pinError, regno, regnoError} = formValues;
   return (
     <Grid item xs={12} sm={6}>
       <form noValidate onSubmit={handleSubmit}>
@@ -79,7 +88,7 @@ const PinAndId = () => {
           name="pin"
           label="Scratch card pin"
           variant="outlined"
-          helperText="12 character length"
+          helperText={`Must be 12 characters; ${pin.length}/12`}
           autoComplete="off"
           className={textFields}
           value={pin}
@@ -88,15 +97,15 @@ const PinAndId = () => {
 
         <TextField
           type="text"
-          error={schIdError}
-          id="sch_id"
-          name="schId"
-          label="School issued ID"
+          error={regnoError}
+          id="regno"
+          name="regno"
+          label="Reg. number"
           variant="outlined"
-          helperText="This could be your registration number"
+          helperText="Your registration number"
           autoComplete="off"
           className={textFields}
-          value={schId}
+          value={regno}
           onChange={handleChange}
         />
         <Button {...{
