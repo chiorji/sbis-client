@@ -18,7 +18,7 @@ const CopyRight = () => {
   const {box} = useStyles();
   return(
     <Box className={box}>
-      <Typography component="body2">
+      <Typography variant="body2" component="div">
        &copy; {new Date().getFullYear()} all right reserved,
       success builders int&#39;l schools
       | <Link href="https://chigboguorji.netlify.app" target="_blank" rel="noopener noreferrer"><em>Site developed by Bright</em></Link>
