@@ -4,16 +4,16 @@ import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import {Carousel} from 'react-responsive-carousel';
-import first from '../assets/img/1.jpg';
-import second from '../assets/img/2.jpg';
-import third from '../assets/img/3.jpg';
+import first from '../assets/img/8.jpg';
+import second from '../assets/img/7.jpg';
+import third from '../assets/img/6.jpg';
 
 const useStyles = makeStyles(theme => ({
   banner: {
-    minHeight: '70vh'
+    minHeight: '75vh'
   },
   carouselBox: {
-    height: '70vh'
+    height: '75vh'
   },
   carouselImg: {
     height: '100%',
@@ -34,15 +34,15 @@ const Banner = () => {
         showThumbs={false}
       >
         <Typography component="div" className={carouselBox}>
-          <img alt="first slide" src={first} className={carouselImg}/>
+          <img alt="first slide" src={second} className={carouselImg}/>
           <p>First carousel slide</p>
         </Typography>
         <Typography component="div" className={carouselBox}>
-          <img alt="second slide" src={second} className={carouselImg}/>
+          <img alt="second slide" src={third} className={carouselImg}/>
           <p>Second carousel slide</p>
         </Typography>
         <Typography component="div" className={carouselBox}>
-          <img alt="third slide" src={third} className={carouselImg}/>
+          <img alt="third slide" src={first} className={carouselImg}/>
           <p>Third carousel slide</p>
         </Typography>
       </Carousel>
