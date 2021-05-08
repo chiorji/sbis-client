@@ -6,7 +6,6 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import {Carousel} from 'react-responsive-carousel';
 import first from '../assets/img/8.jpg';
 import second from '../assets/img/7.jpg';
-import third from '../assets/img/6.jpg';
 
 const useStyles = makeStyles(theme => ({
   banner: {
@@ -38,11 +37,11 @@ const Banner = () => {
           <p>First carousel slide</p>
         </Typography>
         <Typography component="div" className={carouselBox}>
-          <img alt="second slide" src={third} className={carouselImg}/>
+          <img alt="second slide" src={first} className={carouselImg}/>
           <p>Second carousel slide</p>
         </Typography>
         <Typography component="div" className={carouselBox}>
-          <img alt="third slide" src={first} className={carouselImg}/>
+          <img alt="third slide" src={second} className={carouselImg}/>
           <p>Third carousel slide</p>
         </Typography>
       </Carousel>
