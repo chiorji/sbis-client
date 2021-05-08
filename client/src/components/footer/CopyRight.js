@@ -9,8 +9,11 @@ const useStyles = makeStyles(theme => ({
     textAlign:       'center',
     fontSize:        'small',
     color:           theme.palette.grey[500],
-    backgroundColor: theme.palette.dark.main,
-    padding:         theme.spacing(2)
+    backgroundColor: theme.palette.primary.dark,
+    padding:         theme.spacing(2),
+    '& a':           {
+      color: theme.palette.grey[500]
+    }
   }
 }));
 
@@ -19,9 +22,9 @@ const CopyRight = () => {
   return(
     <Box className={box}>
       <Typography variant="body2" component="div">
-       &copy; {new Date().getFullYear()} all right reserved,
-      success builders int&#39;l schools
-      | <Link href="https://chigboguorji.netlify.app" target="_blank" rel="noopener noreferrer"><em>Site developed by Bright</em></Link>
+        all right reserved &copy; {new Date().getFullYear()} success
+       builders int&#39;l schools
+      | <Link href="https://chigboguorji.netlify.app" target="_blank" rel="noopener noreferrer"><strong>Site developed by Bright</strong></Link>
       </Typography>
     </Box>
   );

@@ -18,15 +18,14 @@ import {links} from '../../request/links';
 
 const useStyles = makeStyles(theme => ({
   container: {
-    backgroundColor: theme.palette.dark.main,
-    paddingTop:      theme.spacing(2),
-    minHeight:       '300px'
+    backgroundColor: theme.palette.primary.light,
+    paddingTop:      theme.spacing(2)
   },
   paper: {
     backgroundColor:                'transparent',
-    color:                          theme.palette.grey[300],
+    color:                          theme.palette.common.dark,
     [theme.breakpoints.down('sm')]: {
-      marginTop: theme.spacing(8)
+      marginTop: theme.spacing(2)
     }
   },
   grid: {
@@ -43,22 +42,28 @@ const useStyles = makeStyles(theme => ({
     color:           theme.palette.primary.main,
     backgroundColor: theme.palette.grey[200]
   },
+  linksWrapper: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
+  },
   link: {
     display:   'block',
     marginTop: theme.spacing(3),
-    color:     theme.palette.grey[400]
+    color:     theme.palette.common.dark
   },
   footerText: {
-    color: theme.palette.grey[400]
+    color: theme.palette.common.dark
   }
 }));
 
 const Footer = () => {
-  const {container, paper, grid, icons, link, footerText} = useStyles();
+  const {container, paper, grid, icons, link, footerText,
+    linksWrapper} = useStyles();
   return (
     <Box component="footer" className={container} width={1} id="contact">
       <Grid container className={grid}>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} sm={6} md={4}>
           <Paper square elevation={0} className={paper}>
             <Typography variant="h3" component="h5" gutterBottom>S.B.I.S</Typography>
             <Typography component="div">
@@ -80,7 +85,7 @@ const Footer = () => {
             </Typography>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={3} className={linksWrapper}>
           <Paper square elevation={0} className={paper}>
             <Typography variant="h5">Important Links</Typography>
             {links.map(({id, label, to}) => (
@@ -96,7 +101,7 @@ const Footer = () => {
             ))}
           </Paper>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <Paper square elevation={0} className={paper}>
             <Typography variant="body1" component="div" gutterBottom style={{display: 'flex',  alignItems: 'center'}}>
               <RoomIcon fill="currentColor"/>
