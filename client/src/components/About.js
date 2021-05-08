@@ -46,7 +46,7 @@ const About = () => {
         </Grid>
         <Grid item xs={12} md={7}>
           <Paper className={paper} elevation={0}>
-            <Typography component="h2" variant="h4" className={heading}>About SBIS</Typography>
+            <Typography component="h2" variant="h3" className={heading}>About SBIS</Typography>
             <Typography>Lorem ipsum dolor sit amet consectetur
             adipisicing elit. Ipsa rem, molestias dolorem ab
             repudiandae qui nulla maxime amet porro temporibus
