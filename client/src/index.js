@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {BrowserRouter} from 'react-router-dom';
+import {ConnectedRouter} from 'connected-react-router';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,8 +9,9 @@ import Themes from './components/Themes';
 import  ScrollToTop from './components/ScrollToTop';
 import 'fontsource-roboto';
 import './index.css';
-import store from './store';
+import configureStore, {history} from './store';
 
+const store = configureStore({});
 require('dotenv').config();
 
 ReactDOM.render(
@@ -18,10 +19,10 @@ ReactDOM.render(
     <Provider store={store}>
       <CssBaseline />
       <Themes>
-        <BrowserRouter>
+        <ConnectedRouter history={history}>
           <ScrollToTop />
           <App />
-        </BrowserRouter>
+        </ConnectedRouter>
       </Themes>
     </Provider>
   </React.StrictMode>,

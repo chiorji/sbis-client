@@ -1,27 +1,48 @@
 import {createStore, applyMiddleware} from 'redux';
+import {createBrowserHistory} from 'history';
+import {routerMiddleware} from 'connected-react-router';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {loadingBarMiddleware} from 'react-redux-loading-bar';
 import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
-import logger from 'redux-logger';
-import rootReducer from './root';
+import {createLogger} from 'redux-logger';
+import createRootReducer from './root';
 
-const persistedState = {};
+export const history = createBrowserHistory();
+
 const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = composeWithDevTools({
   trace:      true,
   traceLimit: 25
 });
 
-const store = createStore(
-  rootReducer,
-  persistedState,
-  composeEnhancers(applyMiddleware(
-    loadingBarMiddleware(),
-    sagaMiddleware,
-    thunk,
-    logger
-  ))
-);
+const getMiddleware = () => {
+  if (process.env.NODE_ENV === 'production') {
+    return applyMiddleware(
+      loadingBarMiddleware(),
+      routerMiddleware(history),
+      sagaMiddleware,
+      thunk
+    );
+  } else {
+    return applyMiddleware(
+      loadingBarMiddleware(),
+      routerMiddleware(history),
+      sagaMiddleware,
+      thunk,
+      createLogger()
+    );
+  }
+};
 
-export default store;
+const configureStore = (preloadedState={}) => {
+  const store = createStore(
+    createRootReducer(history),
+    preloadedState,
+    composeEnhancers(getMiddleware())
+  );
+
+  return store;
+};
+
+export default configureStore;

@@ -1,12 +1,14 @@
 import {combineReducers} from 'redux';
+import {connectRouter} from 'connected-react-router';
 import {loadingBarReducer} from 'react-redux-loading-bar';
 import checker from '../checker';
 import users from '../users';
 
-const appReducer =  combineReducers({
+const createRootReducer = (history) => combineReducers({
   checker,
   users,
+  router:     connectRouter(history),
   loadingBar: loadingBarReducer
 });
 
-export default appReducer;
+export default createRootReducer;
