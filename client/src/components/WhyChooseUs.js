@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import makeStyles from '@material-ui/styles/makeStyles';
-import WhyChooseUsGrid from '../helpers/WhyChoseUsGrid';
+import WhyChooseUsGrid from '../utils/WhyChoseUsGrid';
 
 const useStyles = makeStyles(theme => ({
   container: {
