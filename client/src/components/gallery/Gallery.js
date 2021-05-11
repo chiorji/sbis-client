@@ -11,26 +11,32 @@ import {items} from './items';
 const useStyles = makeStyles(theme => ({
   header: {
     marginTop:    theme.spacing(5),
-    marginBottom: theme.spacing(5)
+    marginBottom: theme.spacing(5),
+    textAlign:    'center',
+    '& section':  {
+      margin: '0 auto'
+    }
   },
-  gridContainer: {
-    display:         'flex',
-    flexWrap:        'wrap',
-    justifyContent:  'space-around',
-    overflow:        'hidden',
+  gridWrap: {
     backgroundColor: theme.palette.background.paper,
     marginTop:       theme.spacing(5),
     marginBottom:    theme.spacing(5)
+  },
+  gridContainer: {
+    display:        'flex',
+    flexWrap:       'wrap',
+    justifyContent: 'center',
+    overflow:       'hidden'
   }
 }));
 
 const Gallery = () => {
-  const {header, gridContainer} = useStyles();
+  const {header, gridWrap, gridContainer} = useStyles();
   return (
     <>
       <Container component="section">
         <Grid container component="header" className={header}>
-          <Grid item sm={6}>
+          <Grid item sm={6} component="section">
             <Paper elevation={0}>
               <Typography variant="h4">Gallery</Typography>
               <Typography variant="subtitle1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt totam, ipsam officiis fugit tempore aliquid esse corporis eligendi maxime! Repellat nemo inventore delectus illum magnam. Vel harum hic eius ex.</Typography>
@@ -39,8 +45,8 @@ const Gallery = () => {
         </Grid>
       </Container>
 
-      <Container component="section" className={gridContainer}>
-        <GridList cellHeight="auto" spacing={12}>
+      <Container component="section" className={gridWrap}>
+        <GridList cellHeight="auto" spacing={12} className={gridContainer}>
           {items.map((item, index) => (
             <GalleryList {...item} key={index} />
           ))}
