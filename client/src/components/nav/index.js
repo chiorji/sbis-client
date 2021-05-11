@@ -1,4 +1,5 @@
 import React, {useState, useLayoutEffect, useCallback} from 'react';
+import LoadingBar from 'react-redux-loading-bar';
 import AppBar from '@material-ui/core/AppBar';
 import DesktopMenu from './DesktopMenu';
 import MobileMenu from './MobileMenu';
@@ -32,7 +33,10 @@ const NavBar = () => {
   }, [mobileView]);
 
   return (
-    <AppBar position="sticky">
+    <AppBar position="static">
+      <header>
+        <LoadingBar />
+      </header>
       {mobileView ? <MobileMenu
         name="S.B.I.S"
         drawerOpen={drawerOpen}
