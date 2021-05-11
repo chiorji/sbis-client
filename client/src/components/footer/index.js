@@ -61,7 +61,7 @@ const Footer = () => {
   const {container, paper, grid, icons, link, footerText,
     linksWrapper} = useStyles();
   return (
-    <Box component="footer" className={container} width={1} id="contact">
+    <Box component="footer" className={container} width={1} id="contacts">
       <Grid container className={grid}>
         <Grid item xs={12} sm={6} md={4}>
           <Paper square elevation={0} className={paper}>
