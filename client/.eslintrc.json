@@ -1,4 +1,5 @@
 {
+  "ignorePatterns": ["/cypress/", "/node_modules/"],
   "extends": ["react-app"],
   "rules": {
     "indent": ["error", 2],
