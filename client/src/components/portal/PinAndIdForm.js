@@ -18,9 +18,9 @@ const useStyles = makeStyles(theme => ({
 const PinAndId = ({handlePinValidation=f => f}) => {
   const {textFields} = useStyles();
   const [formValues, setFormValues] = useState({
-    pin:        '1234567890fe',
+    pin:        '',
     pinError:   false,
-    regno:      'SBIS00001',
+    regno:      '',
     regnoError: false
   });
 
