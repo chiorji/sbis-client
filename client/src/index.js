@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
+import {BrowserRouter} from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Themes from './components/Themes';
+import  ScrollToTop from './components/ScrollToTop';
 import 'fontsource-roboto';
 import './index.css';
 import store from './store';
@@ -16,7 +18,10 @@ ReactDOM.render(
     <Provider store={store}>
       <CssBaseline />
       <Themes>
-        <App />
+        <BrowserRouter>
+          <ScrollToTop />
+          <App />
+        </BrowserRouter>
       </Themes>
     </Provider>
   </React.StrictMode>,
