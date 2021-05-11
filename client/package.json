@@ -10,8 +10,11 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
+    "connected-react-router": "^6.9.1",
+    "cypress": "^7.2.0",
     "dotenv": "^9.0.0",
     "fontsource-roboto": "^4.0.0",
+    "history": "^5.0.0",
     "key-mirror": "^1.0.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -36,7 +39,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "npx eslint . --fix"
+    "lint": "npx eslint . --fix",
+    "cypress:open": "npx cypress open"
   },
   "browserslist": {
     "production": [
