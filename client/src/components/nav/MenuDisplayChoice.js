@@ -12,7 +12,8 @@ const MenuDisplayChoice = ({links, largeScreen, menuStyle}) => {
       to:        to,
       color:     'inherit',
       style:     {textDecoration: 'none', width: '250px'},
-      key:       id
+      key:       id,
+      id:        label.toLowerCase()
     }}
     >
       <MenuItem>{label}</MenuItem>
@@ -24,7 +25,8 @@ const MenuDisplayChoice = ({links, largeScreen, menuStyle}) => {
         to:        to,
         color:     'inherit',
         key:       id,
-        className: menuStyle
+        className: menuStyle,
+        id:        label.toLowerCase()
       }}
     >
       {label}

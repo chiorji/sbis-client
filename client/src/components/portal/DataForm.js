@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars, no-console */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
+import {useHistory} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import makeStyles from '@material-ui/styles/makeStyles';
 import Grid from '@material-ui/core/Grid';
@@ -10,6 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import FormGroup from '@material-ui/core/FormGroup';
 import {getResult} from '../../store/checker/checkThunks';
+import {clearPinRegno} from '../../store/checker/actions';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -30,6 +32,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DataForm = ({getResult}) => {
+  const history = useHistory();
   const {formControl, btn} = useStyles();
   const [formValues, setFormValues] = useState({
     examYear:       '',
@@ -120,6 +123,7 @@ const DataForm = ({getResult}) => {
     examTermError,
     examClassError
   } = formValues;
+
   return (
     <Grid item xs={12} sm={6}>
       <form noValidate onSubmit={handleSubmit}>
@@ -192,12 +196,13 @@ const DataForm = ({getResult}) => {
 };
 
 const mapState = ({checker}) => ({
-  regno:      checker.regno,
-  scratchPin: checker.scratchPin
+  regno: checker.regno,
+  pin:   checker.scratchPin
 });
 
 const mapDispatch = (dispatch) => ({
-  getResult: (payload) => dispatch(getResult(payload))
+  getResult:     (payload) => dispatch(getResult(payload)),
+  clearPinRegno: () => dispatch(clearPinRegno())
 });
 
 export default connect(mapState, mapDispatch)(DataForm);

@@ -16,7 +16,8 @@ const MobileMenu = ({name, drawerOpen, closeDrawer, links}) => {
         color:           'inherit',
         'aria-label':    'menu',
         'aria-haspopup': 'true',
-        onClick:         closeDrawer
+        onClick:         closeDrawer,
+        id:              'homeBtn'
       }}
       >
         <Menu/>

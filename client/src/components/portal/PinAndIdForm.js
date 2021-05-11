@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars, no-console */
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useHistory} from 'react-router-dom';
+import {useDispatch, connect} from 'react-redux';
 import validator from 'validator';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -16,20 +17,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const PinAndId = () => {
+const PinAndId = ({handlePinValidation=f => f}) => {
   const {textFields} = useStyles();
   const [formValues, setFormValues] = useState({
-    pin:        '',
+    pin:        '1234567890fe',
     pinError:   false,
-    regno:      '',
+    regno:      'SBIS00001',
     regnoError: false
   });
-
-  // dispatch hook
-  const dispatch = useDispatch();
-
-  // pin validation thunk
-  const handlePinValidation = (payload) => dispatch(validatePin(payload));
 
   // handle input changes
   const handleChange = (e) => {
@@ -111,7 +106,8 @@ const PinAndId = () => {
         <Button {...{
           variant: 'outlined',
           type:    'submit',
-          color:   'primary'
+          color:   'primary',
+          id:      'validatePinReg'
         }}
         >
           Validate and continue
@@ -121,4 +117,8 @@ const PinAndId = () => {
   );
 };
 
-export default PinAndId;
+const mapDispatch = (dispatch) => ({
+  handlePinValidation: (payload) => dispatch(validatePin(payload))
+});
+
+export default connect(null, mapDispatch)(PinAndId);

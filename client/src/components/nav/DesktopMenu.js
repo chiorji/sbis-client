@@ -43,7 +43,8 @@ const DesktopMenu = ({name, links}) => {
           to:        '/',
           color:     'inherit',
           className: linkButton,
-          startIcon: <Logo alt="Logo" className={logo} fill="currentColor"/>
+          startIcon: <Logo alt="Logo" className={logo} fill="currentColor" />,
+          id:        'homeBtn'
         }}
         >{name}</Button>
       </Typography>
