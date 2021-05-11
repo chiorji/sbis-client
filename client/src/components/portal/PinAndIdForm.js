@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars, no-console */
 import React, {useState} from 'react';
-import {useHistory} from 'react-router-dom';
-import {useDispatch, connect} from 'react-redux';
+import {connect} from 'react-redux';
 import validator from 'validator';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -68,7 +66,7 @@ const PinAndId = ({handlePinValidation=f => f}) => {
     if (validateInputs()) {
       handlePinValidation({pin, regno});
     } else {
-      console.log('validation error', {pin, regno});
+
     }
   };
 

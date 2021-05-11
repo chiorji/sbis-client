@@ -11,7 +11,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import FormGroup from '@material-ui/core/FormGroup';
 import {getResult} from '../../store/checker/checkThunks';
-import {clearPinRegno} from '../../store/checker/actions';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -201,8 +200,7 @@ const mapState = ({checker}) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  getResult:     (payload) => dispatch(getResult(payload)),
-  clearPinRegno: () => dispatch(clearPinRegno())
+  getResult: (payload) => dispatch(getResult(payload))
 });
 
 export default connect(mapState, mapDispatch)(DataForm);

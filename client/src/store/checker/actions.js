@@ -22,19 +22,19 @@ export const validatePinError = (payload) => {
   };
 };
 
-export const validateNameSuccess = (payload) => {
+export const validateRegnoSuccess = (payload) => {
   return dispatch => {
     dispatch({
-      type: types.VALIDATE_NAME_SUCCESS,
+      type: types.VALIDATE_REGNO_SUCCESS,
       payload
     });
   };
 };
 
-export const validateNameFailure = (payload) => {
+export const validateRegnoFailure = (payload) => {
   return dispatch => {
     dispatch({
-      type: types.VALIDATE_NAME_FAILURE,
+      type: types.VALIDATE_REGNO_FAILURE,
       payload
     });
   };

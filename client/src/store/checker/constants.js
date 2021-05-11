@@ -6,10 +6,10 @@ export default keyMirror({
   VALIDATE_PIN_SUCCESS: null,
   VALIDATE_PIN_FAILURE: null,
 
-  // Name validation checks(candidate name)
-  VALIDATE_NAME_REQUEST: null,
-  VALIDATE_NAME_SUCCESS: null,
-  VALIDATE_NAME_FAILURE: null,
+  // Validates regno
+  VALIDATE_REGNO_REQUEST: null,
+  VALIDATE_REGNO_SUCCESS: null,
+  VALIDATE_REGNO_FAILURE: null,
 
   // Second step of result checking validation
   GET_RESULT_REQUEST: null,

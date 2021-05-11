@@ -1,12 +1,8 @@
 import types from './constants';
 
 const initialState = {
-  regno:         '',
-  username:      '',
-  scratchPin:    '',
-  pinValidated:  false,
-  nameValidated: false,
-  resultReady:   false
+  regno: '',
+  pin:   ''
 };
 
 const checker = (state = initialState, action) => {
@@ -15,27 +11,13 @@ const checker = (state = initialState, action) => {
   case types.VALIDATE_PIN_SUCCESS:
     return {
       ...state,
-      scratchPin:   action.payload,
-      pinValidated: true
+      pin: action.payload
     };
 
-  case types.VALIDATE_PIN_FAILURE:
+  case types.VALIDATE_REGNO_SUCCESS:
     return {
       ...state,
-      pinValidated: false
-    };
-
-  case types.VALIDATE_NAME_SUCCESS:
-    return {
-      ...state,
-      username:      action.payload,
-      nameValidated: true
-    };
-
-  case types.VALIDATE_NAME_FAILURE:
-    return {
-      ...state,
-      nameValidated: false
+      regno: action.payload
     };
 
   case types.GET_RESULT_SUCCESS:
