@@ -1,11 +1,14 @@
-import React, {useEffect} from 'react';
+import React from 'react';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import PinAndIdForm from './PinAndIdForm';
 import DataForm from './DataForm';
+import {useQuery} from '../../utils';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,20 +23,15 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('sm')]: {
       marginBottom: theme.spacing(3)
     }
+  },
+  errorBox: {
+    textAlign: 'center'
   }
 }));
 
-const Portal = ({isValidPin, isValidName, isResultReady}) => {
-  const {root, grid} = useStyles();
-
-  /* eslint-disable no-console */
-  useEffect(() => {
-    console.log({isValidPin, isValidName, isResultReady});
-  }, [isValidName, isValidPin, isResultReady]);
-
-  // check if pin/name validation was success
-  // pin/name must be validated to render the next form
-  const validated = () => isValidPin && isValidName;
+const Portal = () => {
+  const {root, grid, errorBox} = useStyles();
+  const query = useQuery();
 
   return (
     <>
@@ -42,23 +40,26 @@ const Portal = ({isValidPin, isValidName, isResultReady}) => {
       </Container>
       <Container>
         <Grid container className={grid} spacing={4}>
-          {!validated() && !isResultReady
-            ? <PinAndIdForm />
-            : validated() && !isResultReady
-              ? <DataForm />
-              : isResultReady
-                ? <Typography variant="h6">Loading result...</Typography>
-                : <Typography variant="div" />}
+          {query.get('page') === 'validated' && (query.get('pin') && query.get('regno'))
+            ? <DataForm />
+            : query.get('page') === 'display'
+              ? <Typography variant="h6">Loading result...</Typography>
+              : query.get('page') === 'validate'
+                ? <PinAndIdForm />
+                : <Box width={1/3} className={errorBox}>
+                  <Typography variant="h1">Oops!</Typography>
+                  <Typography variant="body2">
+                     You just hit the page because you screwed up
+                  something. But dont worry we gat you, <Link to="/portal?page=validate">click here to start afresh.</Link>
+                  </Typography>
+                </Box>
+          }
         </Grid>
       </Container>
     </>
   );
 };
 
-const mapState = ({checker}) => ({
-  isValidPin:    checker.pinValidated,
-  isValidName:   checker.nameValidated,
-  isResultReady: checker.resultReady
-});
 
-export default connect(mapState, null)(Portal);
+
+export default connect()(Portal);
