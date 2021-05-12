@@ -1,11 +1,11 @@
 import {combineReducers} from 'redux';
 import {connectRouter} from 'connected-react-router';
 import {loadingBarReducer} from 'react-redux-loading-bar';
-import checker from '../checker';
+import result from '../result';
 import staff from '../staff';
 
 const createRootReducer = (history) => combineReducers({
-  checker,
+  result,
   staff,
   router:     connectRouter(history),
   loadingBar: loadingBarReducer

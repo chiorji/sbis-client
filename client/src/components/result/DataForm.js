@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import FormGroup from '@material-ui/core/FormGroup';
-import {getResult} from '../../store/checker/checkThunks';
+import {getResult} from '../../store/result/resultThunk';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -194,9 +194,9 @@ const DataForm = ({getResult}) => {
   );
 };
 
-const mapState = ({checker}) => ({
-  regno: checker.regno,
-  pin:   checker.scratchPin
+const mapState = ({result}) => ({
+  regno: result.regno,
+  pin:   result.scratchPin
 });
 
 const mapDispatch = (dispatch) => ({

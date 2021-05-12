@@ -9,11 +9,13 @@ export const validatePin = (payload) => {
     dispatch(showLoading());
     setTimeout(() => {
       try {
-        dispatch(push(`/portal?page=validated&pin=${pin}&regno=${regno}`));
+        dispatch(push(`/result?page=validated&pin=${pin}&regno=${regno}`));
         dispatch(hideLoading());
       } catch (error) {
         dispatch(actions.validateRegnoFailure(error));
         dispatch(actions.validatePinError(error));
+      } finally {
+        dispatch(hideLoading());
       }
     }, 3000);
   };
@@ -26,10 +28,12 @@ export const getResult = (payload) => {
     setTimeout(() => {
       try {
         dispatch(actions.getResultSuccess());
-        dispatch(push('/portal?page=display'));
+        dispatch(push('/result?page=display'));
         dispatch(hideLoading());
       } catch (error) {
         dispatch(actions.getResultFailure(error));
+      } finally {
+        dispatch(hideLoading());
       }
     }, 3000);
   };
