@@ -38,7 +38,7 @@ const NavBar = ({links, topName, isLoggedIn}) => {
         <LoadingBar />
       </header>
       {mobileView ? <MobileMenu
-        name='S.B.I.S'
+        name='Success Builders'
         drawerOpen={drawerOpen}
         closeDrawer={toggleDrawer}
         links={links}

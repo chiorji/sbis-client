@@ -6,9 +6,16 @@ import ToolBar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import MenuDisplayChoice from './MenuDisplayChoice';
 
+const useStyles = makeStyles((theme) => ({
+  // necessary for content to be below app bar
+  toolbar: theme.mixins.toolbar
+}));
+
 const MobileMenu = ({name, drawerOpen, closeDrawer, links}) => {
+  const {toolbar} = useStyles();
   return (
     <ToolBar>
       <IconButton {...{
@@ -28,6 +35,7 @@ const MobileMenu = ({name, drawerOpen, closeDrawer, links}) => {
         onClose: closeDrawer
       }}
       >
+        <div className={toolbar} />
         <MenuDisplayChoice links={links} largeScreen={false} menuStyle={''} />
       </Drawer>
       <Button
