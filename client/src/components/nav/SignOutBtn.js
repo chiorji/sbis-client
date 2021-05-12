@@ -6,23 +6,23 @@ import {signout} from '../../store/staff/staffThunk';
 
 const useStyles = makeStyles(theme => ({
   btn: {
-    backgroundColor:                theme.palette.primary.dark,
-    [theme.breakpoints.down('sm')]: {
-      width:     '90%',
-      margin:    '0 auto',
-      marginTop: theme.spacing(3),
-      color:     theme.palette.grey[300]
-    },
-    [theme.breakpoints.up('md')]: {
-      marginLeft: theme.spacing(4)
+    backgroundColor: theme.palette.primary.dark,
+    color:           theme.palette.grey[300],
+    width:           '90%',
+    borderRadius:    'unset',
+    marginLeft:      theme.spacing(1.5),
+    marginTop:       theme.spacing(3),
+    '&:hover':       {
+      color:  theme.palette.primary.dark,
+      border: `1px solid ${theme.palette.primary.dark}`
     }
   }
 }));
 
-const SignOutBtn = ({label, signout, isLoggedIn}) => {
+const SignOutBtn = ({label, signout}) => {
   const {btn} = useStyles();
   return(
-    isLoggedIn ? <Button
+    <Button
       {...{
         onClick:   signout,
         color:     'inherit',
@@ -31,7 +31,7 @@ const SignOutBtn = ({label, signout, isLoggedIn}) => {
       }}
     >
       {label}
-    </Button> : null
+    </Button>
   );
 };
 
@@ -39,8 +39,4 @@ const mapDispatch = dispatch => ({
   signout: () => dispatch(signout())
 });
 
-const mapState = ({staff}) => ({
-  isLoggedIn: staff.isLoggedIn
-});
-
-export default connect(mapState, mapDispatch)(SignOutBtn);
+export default connect(null, mapDispatch)(SignOutBtn);

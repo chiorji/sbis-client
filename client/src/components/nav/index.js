@@ -1,4 +1,4 @@
-import React, {useState, useLayoutEffect, useEffect, useCallback} from 'react';
+import React, {useState, useLayoutEffect, useCallback} from 'react';
 import {connect} from 'react-redux';
 import LoadingBar from 'react-redux-loading-bar';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,11 +8,10 @@ import MobileMenu from './MobileMenu';
 const NavBar = ({links, topName, isLoggedIn}) => {
   const [view, setView] = useState({
     mobileView: false,
-    drawerOpen: false,
-    name:       'S.B.I.S'
+    drawerOpen: false
   });
 
-  const {mobileView, drawerOpen, name} = view;
+  const {mobileView, drawerOpen} = view;
 
   const toggleDrawer = useCallback(() => {
     setView(prevView => ({
@@ -33,21 +32,13 @@ const NavBar = ({links, topName, isLoggedIn}) => {
     return () => window.removeEventListener('resize', setResponsiveness);
   }, [mobileView]);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      setView(prevView => ({...prevView, name: 'Admin'}));
-    } else {
-      setView(prevView => ({...prevView, name: 'S.B.I.S'}));
-    }
-  }, [isLoggedIn]);
-
   return (
     <AppBar position="static">
       <header>
         <LoadingBar />
       </header>
       {mobileView ? <MobileMenu
-        name={name}
+        name='S.B.I.S'
         drawerOpen={drawerOpen}
         closeDrawer={toggleDrawer}
         links={links}

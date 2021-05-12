@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import makeStyles from '@material-ui/styles/makeStyles';
 import MenuDisplayChoice from './MenuDisplayChoice';
-import SignOutBtn from './SignOutBtn';
 import {ReactComponent as Logo} from '../../logo.svg';
 
 const useStyles = makeStyles(() => ({
@@ -53,7 +52,6 @@ const DesktopMenu = ({home, name, links}) => {
         <MenuDisplayChoice links={links} largeScreen={true}
           menuStyle={menuButton}
         />
-        <SignOutBtn label="Sign Out"/>
       </Typography>
     </ToolBar>
   );
