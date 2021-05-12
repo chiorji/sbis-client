@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Switch} from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import Layout from './layout';
-import Home from './pages/Home';
+import Home from './pages/home';
 import Academics from './pages/academics';
 import Gallery from './pages/gallery';
 import Result from './pages/result';
