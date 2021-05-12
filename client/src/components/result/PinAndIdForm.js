@@ -105,7 +105,8 @@ const PinAndId = ({handlePinValidation=f => f}) => {
           variant: 'outlined',
           type:    'submit',
           color:   'primary',
-          id:      'validatePinReg'
+          id:      'validatePinReg',
+          size:    'large'
         }}
         >
           Validate and continue

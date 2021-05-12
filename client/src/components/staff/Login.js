@@ -201,7 +201,8 @@ const Login = ({login}) => {
               variant: 'outlined',
               type:    'submit',
               color:   'primary',
-              id:      'submit'
+              id:      'submit',
+              size:    'large'
             }}
             >
             continue
