@@ -1,2 +1,4 @@
-import Login from '../../components/staff/Login';
-export default Login;
+import Overview from './Overview';
+export {
+  Overview
+};

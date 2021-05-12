@@ -11,7 +11,7 @@ import 'fontsource-roboto';
 import './index.css';
 import configureStore, {history} from './store';
 
-const store = configureStore({});
+const store = configureStore();
 require('dotenv').config();
 
 ReactDOM.render(

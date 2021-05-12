@@ -137,7 +137,7 @@ const Login = ({login}) => {
     <Container component="section" className={container}>
       <Grid container spacing={3} className={gridContainer}>
         <Grid item xs={12} sm={6} md={4}>
-          <Typography variant="h3" className={heading}>Login</Typography>
+          <Typography variant="h4" className={heading}>Administrator Portal</Typography>
           <Typography variant="body1">
             Access to this page is restricted. It&#39;s only meant to be used
             by <strong>staff</strong> of <strong>Success Builders

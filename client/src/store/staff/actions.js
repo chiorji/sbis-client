@@ -13,3 +13,7 @@ export const loginFailure = (payload) => ({
   type: types.LOGIN_FAILURE,
   payload
 });
+
+export const signout = () => ({
+  type: types.SIGN_OUT
+});

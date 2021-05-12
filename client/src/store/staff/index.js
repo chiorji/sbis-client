@@ -2,9 +2,13 @@ import types from './constants';
 
 const initialState = {
   isLoggedIn: false,
-  username:   '',
-  role:       'USER',
-  id:         ''
+  userData:   {
+    role:            'USER',
+    id:              '',
+    username:        '',
+    email:           '',
+    sessionInterval: 0 // Todo: will be set using session data
+  }
 };
 
 const staff = (state = initialState, action) => {
@@ -17,8 +21,13 @@ const staff = (state = initialState, action) => {
   case types.LOGIN_SUCCESS:
     return {
       ...state,
-      ...action.payload,
-      isLoggedIn: true
+      isLoggedIn: true,
+      userData:   {
+        role:            action.payload.role,
+        username:        action.payload.username,
+        email:           action.payload.email,
+        sessionInterval: ''
+      }
     };
 
   case types.LOGIN_FAILURE:
@@ -27,6 +36,18 @@ const staff = (state = initialState, action) => {
       isLoggedIn: false,
       username:   '',
       id:         ''
+    };
+
+  case types.SIGN_OUT:
+    return {
+      ...state,
+      isLoggedIn: false,
+      userData:   {
+        role:            '',
+        username:        '',
+        email:           '',
+        sessionInterval: ''
+      }
     };
 
   default:

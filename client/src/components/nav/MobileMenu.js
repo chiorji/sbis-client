@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import MenuDisplayChoice from './MenuDisplayChoice';
+import SignOutBtn from './SignOutBtn';
 
 const MobileMenu = ({name, drawerOpen, closeDrawer, links}) => {
   return (
@@ -28,7 +29,8 @@ const MobileMenu = ({name, drawerOpen, closeDrawer, links}) => {
         onClose: closeDrawer
       }}
       >
-        <MenuDisplayChoice links={links} largeScreen={false} menuStyle={''}/>
+        <MenuDisplayChoice links={links} largeScreen={false} menuStyle={''} />
+        <SignOutBtn label="Sign out" />
       </Drawer>
       <Button
         {...{

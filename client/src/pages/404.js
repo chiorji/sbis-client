@@ -7,7 +7,7 @@ const NotFound = () => {
   return (
     <Container>
       <Typography component="h2">
-          Seems you have hit an unexisted route <Link to="/">Go back to home page</Link>
+          Seems you have hit an unexisted route <Link to="/">Go back</Link>
       </Typography>
     </Container>
   );
