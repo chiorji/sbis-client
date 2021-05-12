@@ -87,11 +87,7 @@ function ResponsiveDrawer(props) {
           </ListItem>
         ))}
         <Divider />
-        <ListItem {...{
-          component: SignOutBtn,
-          label:     'Sign Out'
-        }}
-        />
+        <SignOutBtn label="Sign Out" />
       </List>
     </div>
   );
