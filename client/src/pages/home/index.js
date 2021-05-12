@@ -7,7 +7,7 @@ import WhyChooseUs from '../../components/WhyChooseUs';
 import {whyChooseUs} from '../../request/whyChooseUs';
 import Staff from '../../components/staff';
 
-const Landing = () => {
+const Home = () => {
   return (
     <>
       <Hero>
@@ -21,5 +21,5 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default Home;
 
