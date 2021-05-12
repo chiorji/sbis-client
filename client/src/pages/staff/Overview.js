@@ -1,12 +1,11 @@
 import React from 'react';
-import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
 const Overview = () => {
   return (
-    <Container>
+    <section>
       <Typography variant="h4">Overview</Typography>
-    </Container>
+    </section>
   );
 };
 
