@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
 import StaffList from './StaffList';
-import {listing} from './listing';
+import {listing} from '../../utils';
 
 const useStyles = makeStyles(theme => ({
   root: {
