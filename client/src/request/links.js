@@ -8,6 +8,7 @@ export const links = [
 
 export const adminLinks = [
   {id: 'overview', label: 'Overview', to: '/dashboard'},
-  {id: 'students', label: 'Students', to: '/dashboard/student-listing'},
-  {id: 'check', label: 'Entry', to: '/dashboard/new-entry'}
+  {id: 'students', label: 'Student List', to: '/dashboard/student-listing'},
+  {id: 'register', label: 'Register Student', to: '/dashboard/register'},
+  {id: 'check', label: 'New Result Entry', to: '/dashboard/new-entry'}
 ];
