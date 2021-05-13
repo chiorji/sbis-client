@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {ConnectedRouter} from 'connected-react-router';
+import {MuiPickersUtilsProvider} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -20,8 +22,10 @@ ReactDOM.render(
       <CssBaseline />
       <Themes>
         <ConnectedRouter history={history}>
-          <ScrollToTop />
-          <App />
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <ScrollToTop />
+            <App />
+          </MuiPickersUtilsProvider>
         </ConnectedRouter>
       </Themes>
     </Provider>
