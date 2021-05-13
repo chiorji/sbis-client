@@ -17,3 +17,23 @@ export const loginFailure = (payload) => ({
 export const signout = () => ({
   type: types.SIGN_OUT
 });
+
+export const fetchStatesSuccess = (payload) => ({
+  type: types.FETCH_STATES_SUCCESS,
+  payload
+});
+
+export const fetchStatesFailure = (payload) => ({
+  type: types.FETCH_STATES_FAILURE,
+  payload
+});
+
+export const fetchLgaSuccess = (payload) => ({
+  type: types.FETCH_LGA_SUCCESS,
+  payload
+});
+
+export const fetchLgaFailure = (payload) => ({
+  type: types.FETCH_LGAS_SUCCESS,
+  payload
+});

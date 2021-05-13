@@ -9,6 +9,7 @@ import thunk from 'redux-thunk';
 import {createLogger} from 'redux-logger';
 import createRootReducer from './root';
 import {loadState, saveState} from './sessionStorage';
+import sagas from './sagas';
 // TODO: Add session timing via cookie
 export const history = createBrowserHistory();
 
@@ -59,7 +60,7 @@ const configureStore = () => {
       }
     });
   }));
-
+  sagaMiddleware.run(sagas);
   return store;
 };
 
