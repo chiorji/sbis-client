@@ -1,22 +1,34 @@
 import React from 'react';
-import {Route, Switch, useRouteMatch} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Route, Switch} from 'react-router-dom';
 import Wrapper from '../../components/container';
-import Overview from '../staff/Overview';
+import {
+  Overview,
+  Registration,
+  ResultEntry,
+  Students
+} from '../staff';
 import NotFound from '../404';
 import {adminLinks} from '../../request/links';
 
 const Container = () => {
-  const match = useRouteMatch();
-  console.log({match}); // eslint-disable-line
   return (
     <Wrapper links={adminLinks}>
       <Switch>
-        <Route path={`${match.path}/student-listing`} component={() => <p>{match.url}</p>} />
-        <Route path={`${match.path}`} component={Overview} />
-        <Route path={`${match.path}/*`} component={NotFound} />
+        <Route path={'/dashboard'} exact component={Overview} />
+        <Route path='/dashboard/register' component={Registration} />
+        <Route path='/dashboard/result-entry' component={ResultEntry} />
+        <Route path='/dashboard/students' component={Students} />
+        <Route component={NotFound} />
       </Switch>
     </Wrapper>
   );
 };
 
-export default Container;
+const mapState = ({router}) => ({
+  pathname: router.location.pathname,
+  search:   router.location.search,
+  hash:     router.location.hash
+});
+
+export default connect(mapState)(Container);
