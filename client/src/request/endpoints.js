@@ -1,5 +1,5 @@
 /* eslint-disable */
-const STATES_API_BASE = process.env.REACT_APP_STATES_API_BASE;
+const STATES_API_BASE = process.env.REACT_APP_STATE_API_BASE;
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export default {

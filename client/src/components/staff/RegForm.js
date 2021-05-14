@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -13,7 +13,7 @@ import Select from '@material-ui/core/Select';
 import makeStyles from '@material-ui/styles/makeStyles';
 import {KeyboardDatePicker} from '@material-ui/pickers';
 import Alert from '../Alert';
-import {registerStudent} from '../../store/staff/actions';
+import {registerStudent, fetchStates} from '../../store/staff/actions';
 
 const useStyles = makeStyles(theme => ({
   gridContainer: {
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
 
 /* eslint-disable no-console */
 const RegForm = ({registerStudent, isLoading,
-  hideAlert, openAlert, alertMsg, severity}) => {
+  hideAlert, openAlert, alertMsg, severity, fetchStates, states}) => {
   const {gridContainer, textFields} = useStyles();
 
   const [formValues, setFormValues] = useState({
@@ -58,7 +58,7 @@ const RegForm = ({registerStudent, isLoading,
     registered_class:      '',
     blood_group:           '',
     religious_belief:      '',
-    state_of_origin:       'ENUGU',
+    state_of_origin:       'Anambra',
     local_govt_of_origin:  'NKANU EAST',
     bio:                   '',
     guardian_name:         'AKINSOLA',
@@ -196,7 +196,6 @@ const RegForm = ({registerStudent, isLoading,
   };
 
   const handleChange = (prop) => (e) => {
-    console.log(prop, e.target.value);
     setFormValues(prevState => ({...prevState, [prop]: e.target.value}));
   };
 
@@ -213,6 +212,11 @@ const RegForm = ({registerStudent, isLoading,
       return false;
     }
   };
+
+  // Fetch states on mount
+  useEffect(() => {
+    fetchStates();
+  }, [fetchStates]);
 
   return (
     <Box width={1} component="section">
@@ -351,8 +355,8 @@ const RegForm = ({registerStudent, isLoading,
                   onChange={handleChange('state_of_origin')}
                   label="state_of_origin"
                 >
-                  {['Enugu', 'Anambra', 'Imo' ,'Abia'].map(value => (
-                    <MenuItem key={value} value={value}>{value}</MenuItem>
+                  {states.map(({name, capital}) => (
+                    <MenuItem key={capital} value={name}>{name}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -495,15 +499,17 @@ const RegForm = ({registerStudent, isLoading,
 
 const mapDispatch = (dispatch) => ({
   registerStudent: (payload) => dispatch(registerStudent(payload)),
-  hideAlert:       () => dispatch({type: 'HIDE_ALERT'})
+  hideAlert:       () => dispatch({type: 'HIDE_ALERT'}),
+  fetchStates:     () => dispatch(fetchStates())
 });
 
 const mapState = ({staff}) => ({
   isLoading: staff.isLoading,
   openAlert: staff.alert.shouldOpen,
   alertMsg:  staff.alert.message,
-  severity:  staff.alert.severity
+  severity:  staff.alert.severity,
+  states:    staff.states
 });
 
-export default connect(mapState, mapDispatch)(RegForm);
+export default connect(mapState, mapDispatch)(React.memo(RegForm));
 

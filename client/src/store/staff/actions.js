@@ -18,6 +18,10 @@ export const signout = () => ({
   type: types.SIGN_OUT
 });
 
+export const fetchStates = () => {
+  return dispatch => dispatch({type: types.FETCH_STATES});
+};
+
 export const fetchStatesSuccess = (payload) => ({
   type: types.FETCH_STATES_SUCCESS,
   payload
@@ -28,13 +32,18 @@ export const fetchStatesFailure = (payload) => ({
   payload
 });
 
+export const fetchLgas = (payload) => ({
+  type: types.FETCH_LGAS,
+  payload
+});
+
 export const fetchLgaSuccess = (payload) => ({
   type: types.FETCH_LGA_SUCCESS,
   payload
 });
 
 export const fetchLgaFailure = (payload) => ({
-  type: types.FETCH_LGAS_SUCCESS,
+  type: types.FETCH_LGAS_FAILURE,
   payload
 });
 
