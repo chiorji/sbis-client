@@ -4,9 +4,10 @@ import endpoints from '../../request/endpoints';
 import * as actions from './actions';
 import types from './constants';
 
-function* fetchStateLgas(state) {
+function* fetchStateLgas(payload) {
+  console.log({payload}) // eslint-disable-line
   try {
-    const lgas = yield call(axios, ...endpoints.fetchStateLgas(state));
+    const lgas = yield call(axios, endpoints.fetchStateLgas(payload));
     yield put(actions.fetchLgaSuccess(lgas.data));
   } catch (error) {
     yield(cancel());
