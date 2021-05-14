@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import LoadingBar from 'react-redux-loading-bar';
 import AppBar from '@material-ui/core/AppBar';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -110,6 +111,9 @@ function ResponsiveDrawer(props) {
   return (
     <>
       <AppBar position="fixed" className={classes.appBar}>
+        <header>
+          <LoadingBar />
+        </header>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -166,8 +170,8 @@ ResponsiveDrawer.propTypes = {
   window: PropTypes.func
 };
 
-const mapState = ({staff}) => ({
-  role: staff.userData.role
+const mapState = ({account}) => ({
+  role: account.role
 });
 
 export default connect(mapState)(ResponsiveDrawer);
