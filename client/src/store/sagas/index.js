@@ -1,7 +1,7 @@
 /* eslint-disable */
 import {all, call, spawn} from 'redux-saga/effects';
 import states from '../staff/fetchStatesSaga';
-import lgas from '../staff/fetchStatesSaga';
+import lgas from '../staff/fetchLgasSaga';
 import regStudent from '../staff/RegStudentSaga';
 
 export default function* () {

@@ -3,6 +3,7 @@ import types from './constants';
 const initialState = {
   isLoading: false,
   states:    [],
+  lgas:      [],
   alert:     {
     shouldOpen: false,
     severity:   '',
@@ -57,6 +58,22 @@ const staff = (state = initialState, action) => {
       states: action.payload
     };
 
+  case types.FETCH_LGAS_SUCCESS:
+    return {
+      ...state,
+      lgas: action.payload
+    };
+
+  case types.FETCH_LGAS_FAILURE:
+  case types.FETCH_STATES_FAILURE:
+    return {
+      ...state,
+      alert: {
+        shouldOpen: true,
+        severity:   'error',
+        message:    action.payload
+      }
+    };
   default:
     return state;
   }

@@ -13,7 +13,7 @@ import Select from '@material-ui/core/Select';
 import makeStyles from '@material-ui/styles/makeStyles';
 import {KeyboardDatePicker} from '@material-ui/pickers';
 import Alert from '../Alert';
-import {registerStudent, fetchStates} from '../../store/staff/actions';
+import {registerStudent, fetchStates, fetchLgas} from '../../store/staff/actions';
 
 const useStyles = makeStyles(theme => ({
   gridContainer: {
@@ -46,7 +46,8 @@ const useStyles = makeStyles(theme => ({
 
 /* eslint-disable no-console */
 const RegForm = ({registerStudent, isLoading,
-  hideAlert, openAlert, alertMsg, severity, fetchStates, states}) => {
+  hideAlert, openAlert, alertMsg, severity, fetchStates, states,
+  fetchLgas = f => f, lgas}) => {
   const {gridContainer, textFields} = useStyles();
 
   const [formValues, setFormValues] = useState({
@@ -218,6 +219,10 @@ const RegForm = ({registerStudent, isLoading,
     fetchStates();
   }, [fetchStates]);
 
+  useEffect(() => {
+    fetchLgas(state_of_origin);
+  }, [state_of_origin, fetchLgas]);
+
   return (
     <Box width={1} component="section">
       <Typography variant="body1">Student Registration Form,
@@ -371,7 +376,7 @@ const RegForm = ({registerStudent, isLoading,
                   onChange={handleChange('local_govt_of_origin')}
                   label="local_govt_of_origin"
                 >
-                  {['Enugu', 'Anambra', 'Imo' ,'Abia'].map(value => (
+                  {lgas.map(value => (
                     <MenuItem key={value} value={value}>{value}</MenuItem>
                   ))}
                 </Select>
@@ -500,7 +505,8 @@ const RegForm = ({registerStudent, isLoading,
 const mapDispatch = (dispatch) => ({
   registerStudent: (payload) => dispatch(registerStudent(payload)),
   hideAlert:       () => dispatch({type: 'HIDE_ALERT'}),
-  fetchStates:     () => dispatch(fetchStates())
+  fetchStates:     () => dispatch(fetchStates()),
+  fetchLgas:       (payload) => dispatch(fetchLgas(payload))
 });
 
 const mapState = ({staff}) => ({
@@ -508,8 +514,9 @@ const mapState = ({staff}) => ({
   openAlert: staff.alert.shouldOpen,
   alertMsg:  staff.alert.message,
   severity:  staff.alert.severity,
-  states:    staff.states
+  states:    staff.states,
+  lgas:      staff.lgas
 });
 
-export default connect(mapState, mapDispatch)(React.memo(RegForm));
+export default connect(mapState, mapDispatch)(RegForm);
 

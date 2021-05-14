@@ -38,7 +38,7 @@ export const fetchLgas = (payload) => ({
 });
 
 export const fetchLgaSuccess = (payload) => ({
-  type: types.FETCH_LGA_SUCCESS,
+  type: types.FETCH_LGAS_SUCCESS,
   payload
 });
 

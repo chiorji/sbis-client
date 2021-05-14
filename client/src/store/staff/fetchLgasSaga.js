@@ -1,23 +1,20 @@
-import axios from 'axios';
-import {takeLatest, call, put, cancel} from 'redux-saga/effects';
-import endpoints from '../../request/endpoints';
+import {takeLatest, put, cancel} from 'redux-saga/effects';
 import * as actions from './actions';
 import types from './constants';
+import _lg from '../../utils/lgas.json';
 
-function* fetchStateLgas(payload) {
-  console.log({payload}) // eslint-disable-line
+function* fetchLgas({payload}) {
   try {
-    const lgas = yield call(axios, endpoints.fetchStateLgas(payload));
-    yield put(actions.fetchLgaSuccess(lgas.data));
+    let lg = yield _lg.filter(lga => lga.state === payload).map(l => l.lgas)[0];
+    yield put(actions.fetchLgaSuccess(lg));
   } catch (error) {
     yield(cancel());
-    yield put(actions.fetchLgaFailure(error));
+    yield put(actions.fetchLgaFailure('Error getting LGAs'));
   }
 }
 
 function* watcher() {
-  yield takeLatest(types.FETCH_LGAS, fetchStateLgas);
-
+  yield takeLatest(types.FETCH_LGAS, fetchLgas);
 }
 
 export default watcher;
