@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 /* eslint-disable no-console */
-const RegForm = ({registerStudent, isLoading,
+const AdmissionForm = ({registerStudent, isLoading,
   hideAlert, openAlert, alertMsg, severity, fetchStates, states,
   fetchLgas = f => f, lgas}) => {
   const {gridContainer, textFields} = useStyles();
@@ -518,5 +518,5 @@ const mapState = ({staff}) => ({
   lgas:      staff.lgas
 });
 
-export default connect(mapState, mapDispatch)(RegForm);
+export default connect(mapState, mapDispatch)(AdmissionForm);
 

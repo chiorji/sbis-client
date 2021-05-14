@@ -4,7 +4,7 @@ import {Route, Switch} from 'react-router-dom';
 import Wrapper from '../../components/container';
 import {
   Overview,
-  Registration,
+  Admission,
   ResultEntry,
   Students
 } from '../staff';
@@ -16,7 +16,7 @@ const Container = () => {
     <Wrapper links={adminLinks}>
       <Switch>
         <Route path={'/dashboard'} exact component={Overview} />
-        <Route path='/dashboard/register' component={Registration} />
+        <Route path='/dashboard/register' component={Admission} />
         <Route path='/dashboard/result-entry' component={ResultEntry} />
         <Route path='/dashboard/students' component={Students} />
         <Route component={NotFound} />

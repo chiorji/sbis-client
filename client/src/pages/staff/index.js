@@ -1,11 +1,11 @@
 import Overview from './Overview';
-import Registration from './Registration';
+import Admission from './Admission';
 import ResultEntry from './ResultEntry';
 import Students from './Students';
 
 export {
   Overview,
-  Registration,
+  Admission,
   ResultEntry,
   Students
 };
