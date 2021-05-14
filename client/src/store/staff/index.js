@@ -8,6 +8,13 @@ const initialState = {
     shouldOpen: false,
     severity:   '',
     message:    ''
+  },
+  stats: {
+    totalRegStudents:     0,
+    totalSubjects:        0,
+    totalClassListed:     0,
+    totalResultsDeclared: 0,
+    activeStaff:          0
   }
 };
 
