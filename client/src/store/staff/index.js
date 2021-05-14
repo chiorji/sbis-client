@@ -1,52 +1,52 @@
 import types from './constants';
 
 const initialState = {
-  isLoggedIn: false,
-  userData:   {
-    role:            'USER',
-    id:              '',
-    username:        '',
-    email:           '',
-    sessionInterval: 0 // Todo: will be set using session data
+  isLoading: false,
+  alert:     {
+    shouldOpen: false,
+    severity:   'success',
+    message:    'Congratulations!'
   }
 };
 
 const staff = (state = initialState, action) => {
   switch (action.type) {
-  case types.LOGIN_REQUEST:
-    return {
-      ...state
-    };
-
-  case types.LOGIN_SUCCESS:
+  case types.REGISTER_STUDENT:
     return {
       ...state,
-      isLoggedIn: true,
-      userData:   {
-        role:            action.payload.role,
-        username:        action.payload.username,
-        email:           action.payload.email,
-        sessionInterval: ''
+      isLoading: true
+    };
+
+  case types.REGISTER_STUDENT_SUCCESS:
+    return {
+      ...state,
+      isLoading: false
+    };
+
+  case types.REGISTER_STUDENT_FAILURE:
+    return {
+      ...state,
+      isLoading:    false,
+      errorMessage: action.payload
+    };
+
+  case types.SHOW_ALERT:
+    return {
+      ...state,
+      alert: {
+        shouldOpen: true,
+        severity:   action.payload.severity,
+        message:    action.payload.message
       }
     };
 
-  case types.LOGIN_FAILURE:
+  case types.HIDE_ALERT:
     return {
       ...state,
-      isLoggedIn: false,
-      username:   '',
-      id:         ''
-    };
-
-  case types.SIGN_OUT:
-    return {
-      ...state,
-      isLoggedIn: false,
-      userData:   {
-        role:            '',
-        username:        '',
-        email:           '',
-        sessionInterval: ''
+      alert: {
+        shouldOpen: false,
+        severity:   '',
+        message:    '!'
       }
     };
 

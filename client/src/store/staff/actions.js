@@ -37,3 +37,23 @@ export const fetchLgaFailure = (payload) => ({
   type: types.FETCH_LGAS_SUCCESS,
   payload
 });
+
+export const registerStudent = (payload) => ({
+  type: types.REGISTER_STUDENT,
+  payload
+});
+
+export const registerStudentSuccess = (payload) => ({
+  type: types.REGISTER_STUDENT_SUCCESS,
+  payload
+});
+
+export const registerStudentFailure = (payload) => ({
+  type: types.REGISTER_STUDENT_FAILURE,
+  payload
+});
+
+export const showAlert = (payload) => ({
+  type: types.SHOW_ALERT,
+  payload
+});

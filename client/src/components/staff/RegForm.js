@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
-/* eslint-disable no-unused-vars, no-console */
+import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -12,7 +11,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import makeStyles from '@material-ui/styles/makeStyles';
-import {DatePicker, KeyboardDatePicker} from '@material-ui/pickers';
+import {KeyboardDatePicker} from '@material-ui/pickers';
+import Alert from '../Alert';
+import {registerStudent} from '../../store/staff/actions';
 
 const useStyles = makeStyles(theme => ({
   gridContainer: {
@@ -43,49 +44,156 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const RegForm = () => {
-  const {gridContainer, textFields, form} = useStyles();
+/* eslint-disable no-console */
+const RegForm = ({registerStudent, isLoading,
+  hideAlert, openAlert, alertMsg, severity}) => {
+  const {gridContainer, textFields} = useStyles();
 
   const [formValues, setFormValues] = useState({
-    first_name:            '',
-    last_name:             '',
+    first_name:            'ORJI',
     middle_name:           '',
-    gender:                '',
-    nationality:           '',
+    last_name:             'BRIGHT',
+    gender:                'Rather not say',
+    nationality:           'Nigerian',
     registered_class:      '',
     blood_group:           '',
     religious_belief:      '',
-    state_of_origin:       '',
-    local_govt_of_origin:  '',
+    state_of_origin:       'ENUGU',
+    local_govt_of_origin:  'NKANU EAST',
     bio:                   '',
-    guardian_name:         '',
-    guardian_home_address: '',
-    guradian_phone_number: '',
-    guradian_email:        '',
-    guradian_gender:       '',
-    guardian_nationality:  '',
+    guardian_name:         'AKINSOLA',
+    guardian_home_address: 'NYC',
+    guardian_phone_number: '+2348071347475',
+    guardian_email:        '',
+    guardian_gender:       'Rather not say',
+    guardian_nationality:  'Nigerian',
     dob:                   new Date()
   });
 
   const {
-    first_name,
+    first_name, // required
     bio,
-    last_name,
+    last_name, // required
     middle_name,
-    gender,
-    nationality,
+    gender, // required
+    nationality, // required
     registered_class,
     blood_group,
     religious_belief,
-    dob,
-    state_of_origin,
-    local_govt_of_origin,
-    guardian_name,
-    guardian_home_address,
-    guradian_phone_number,
-    guradian_email,
-    guradian_gender,
-    guardian_nationality} = formValues;
+    dob, // required
+    state_of_origin, // required
+    local_govt_of_origin, // required
+    guardian_name, // required
+    guardian_home_address, // required
+    guardian_phone_number, // required
+    guardian_email,
+    guardian_gender, // required
+    guardian_nationality // required
+  } = formValues;
+
+  const [validState, setValidState] = useState({
+    firstNameError:           false,
+    lastNameError:            false,
+    genderError:              false,
+    stateOfOriginError:       false,
+    dobError:                 false,
+    nationalityError:         false,
+    lgaOfOriginError:         false,
+    guardianNameError:        false,
+    guardianHomeAddressError: false,
+    guardianPhoneNumberError: false,
+    guardianNationalityError: false
+  });
+
+  const {firstNameError,
+    lastNameError,
+    genderError,
+    stateOfOriginError,
+    dobError,
+    nationalityError,
+    lgaOfOriginError,
+    guardianNameError,
+    guardianHomeAddressError,
+    guardianPhoneNumberError,
+    guardianNationalityError} = validState;
+
+  const validateRequiredField = () => {
+    // reset prev values
+    setValidState(prevState => ({
+      ...prevState,
+      firstNameError:           false,
+      lastNameError:            false,
+      genderError:              false,
+      stateOfOriginError:       false,
+      dobError:                 false,
+      nationalityError:         false,
+      lgaOfOriginError:         false,
+      guardianNameError:        false,
+      guardianHomeAddressError: false,
+      guardianPhoneNumberError: false,
+      guardianEmailError:       false,
+      guardianGenderError:      false,
+      guardianNationalityError: false
+    }));
+
+    if (!first_name) {
+      setValidState(prevState => ({...prevState, firstNameError: true}));
+      return false;
+    }
+
+    if (!last_name) {
+      setValidState(prevState => ({...prevState, lastNameError: true}));
+      return false;
+    }
+
+    if (!dob) {
+      setValidState(prevState => ({...prevState, dobError: true}));
+      return false;
+    }
+
+    if (!nationality) {
+      setValidState(prevState => ({...prevState, nationalityError: true}));
+      return false;
+    }
+
+    if (!state_of_origin) {
+      setValidState(prevState => ({...prevState, stateOfOriginError: true}));
+      return false;
+    }
+
+    if (!local_govt_of_origin) {
+      setValidState(prevState => ({...prevState, lgaOfOriginError: true}));
+      return false;
+    }
+
+    if (!guardian_name) {
+      setValidState(prevState => ({...prevState, guardianNameError: true}));
+      return false;
+    }
+
+    if (!guardian_name) {
+      setValidState(prevState => ({...prevState, guardianNameError: true}));
+      return false;
+    }
+
+    if (!guardian_home_address) {
+      setValidState(prevState => ({
+        ...prevState,
+        guardianHomeAddressError: true
+      }));
+      return false;
+    }
+
+    if (!guardian_phone_number) {
+      setValidState(prevState => ({
+        ...prevState,
+        guardianPhoneNumberError: true
+      }));
+      return false;
+    }
+
+    return true;
+  };
 
   const handleChange = (prop) => (e) => {
     console.log(prop, e.target.value);
@@ -98,12 +206,30 @@ const RegForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submitted...');
+    if (validateRequiredField()) {
+      registerStudent(formValues);
+    } else {
+      console.log('Error validating, aborted');
+      return false;
+    }
   };
+
+  // TODO: rmove console statement
+  useEffect(() => {
+    console.log({isLoading, openAlert, alertMsg, severity});
+  }, [isLoading, openAlert, alertMsg, severity]);
 
   return (
     <Box width={1} component="section">
-      <Typography variant="body1">Student Registration Form</Typography>
+      <Typography variant="body1">Student Registration Form,
+      the form will not be submitted until required fields are filled out.
+      </Typography>
+      <Alert
+        openAlert={openAlert}
+        handleClose={hideAlert}
+        msg={alertMsg}
+        severity={severity}
+      />
       <Grid container spacing={3} className={gridContainer}>
         <Grid item xs={12} md={12}>
           <form noValidate onSubmit={handleSubmit}>
@@ -111,7 +237,7 @@ const RegForm = () => {
               <Typography variant="h6">Student Information</Typography>
               <TextField
                 type="text"
-                error={false}
+                error={firstNameError}
                 id="first_name"
                 name="first_name"
                 label="First Name"
@@ -137,7 +263,7 @@ const RegForm = () => {
 
               <TextField
                 type="text"
-                error={false}
+                error={lastNameError}
                 id="last_name"
                 name="last_name"
                 label="Last Name"
@@ -164,7 +290,7 @@ const RegForm = () => {
 
               <TextField
                 type="text"
-                error={false}
+                error={nationalityError}
                 id="nationality"
                 name="nationality"
                 label="Nationality"
@@ -190,22 +316,21 @@ const RegForm = () => {
                 </Select>
               </FormControl>
 
-              <FormControl variant="outlined" className={textFields} error={false}>
-                <KeyboardDatePicker
-                  autoOk
-                  variant="inline"
-                  name="dob"
-                  id="dob"
-                  inputVariant="outlined"
-                  label="Date of birth"
-                  format="MM/dd/yyyy"
-                  value={dob}
-                  InputAdornmentProps={{position: 'end'}}
-                  onChange={date => handleDateChange(date)}
-                />
-              </FormControl>
+              <KeyboardDatePicker
+                autoOk
+                variant="inline"
+                name="dob"
+                id="dob"
+                error={dobError}
+                inputVariant="outlined"
+                label="Date of birth"
+                format="MM/dd/yyyy"
+                value={dob}
+                InputAdornmentProps={{position: 'end'}}
+                onChange={date => handleDateChange(date)}
+              />
 
-              <FormControl variant="outlined" className={textFields} error={false}>
+              <FormControl variant="outlined" className={textFields} error={genderError}>
                 <InputLabel id="gender">Gender</InputLabel>
                 <Select
                   labelId="gender"
@@ -221,7 +346,7 @@ const RegForm = () => {
                 </Select>
               </FormControl>
 
-              <FormControl variant="outlined" className={textFields} error={false}>
+              <FormControl variant="outlined" className={textFields} error={stateOfOriginError}>
                 <InputLabel id="state_of_origin">State of Origin</InputLabel>
                 <Select
                   labelId="state_of_origin"
@@ -237,7 +362,7 @@ const RegForm = () => {
                 </Select>
               </FormControl>
 
-              <FormControl variant="outlined" className={textFields} error={false}>
+              <FormControl variant="outlined" className={textFields} error={lgaOfOriginError}>
                 <InputLabel id="local_govt_of_origin">LGA of Origin</InputLabel>
                 <Select
                   labelId="local_govt_of_origin"
@@ -271,22 +396,10 @@ const RegForm = () => {
             <Divider />
             <div>
               <Typography variant="h6">Guardian Information</Typography>
-              <TextField
-                type="text"
-                error={false}
-                id="religious_belief"
-                name="religious_belief"
-                label="Religious Belief"
-                variant="outlined"
-                autoComplete="off"
-                className={textFields}
-                value={religious_belief}
-                onChange={handleChange('religious_belief')}
-              />
 
               <TextField
                 type="text"
-                error={false}
+                error={guardianNameError}
                 id="guardian_name"
                 name="guardian_name"
                 label="Full Name"
@@ -299,7 +412,18 @@ const RegForm = () => {
 
               <TextField
                 type="text"
-                error={false}
+                id="religious_belief"
+                name="religious_belief"
+                label="Religious Belief"
+                variant="outlined"
+                autoComplete="off"
+                className={textFields}
+                value={religious_belief}
+                onChange={handleChange('religious_belief')}
+              />
+              <TextField
+                type="text"
+                error={guardianHomeAddressError}
                 id="guardian_home_address"
                 name="guardian_home_address"
                 label="Home Address"
@@ -311,31 +435,30 @@ const RegForm = () => {
               />
               <TextField
                 type="text"
-                error={false}
-                id="guradian_phone_number"
-                name="guradian_phone_number"
+                error={guardianPhoneNumberError}
+                id="guardian_phone_number"
+                name="guardian_phone_number"
                 label="Phone Number"
                 variant="outlined"
                 autoComplete="off"
                 className={textFields}
-                value={guradian_phone_number}
-                onChange={handleChange('guradian_phone_number')}
+                value={guardian_phone_number}
+                onChange={handleChange('guardian_phone_number')}
               />
               <TextField
                 type="text"
-                error={false}
-                id="guradian_email"
-                name="guradian_email"
+                id="guardian_email"
+                name="guardian_email"
                 label="Email Address"
                 variant="outlined"
                 autoComplete="off"
                 className={textFields}
-                value={guradian_email}
-                onChange={handleChange('guradian_email')}
+                value={guardian_email}
+                onChange={handleChange('guardian_email')}
               />
               <TextField
                 type="text"
-                error={false}
+                error={guardianNationalityError}
                 id="guardian_nationality"
                 name="guardian_nationality"
                 label="Nationality"
@@ -346,14 +469,14 @@ const RegForm = () => {
                 onChange={handleChange('guardian_nationality')}
               />
               <FormControl variant="outlined" className={textFields} error={false}>
-                <InputLabel id="guradian_gender">Gender</InputLabel>
+                <InputLabel id="guardian_gender">Gender</InputLabel>
                 <Select
-                  labelId="guradian_gender"
-                  id="guradian_gender"
-                  value={guradian_gender}
-                  name="guradian_gender"
-                  onChange={handleChange('guradian_gender')}
-                  label="guradian_gender"
+                  labelId="guardian_gender"
+                  id="guardian_gender"
+                  value={guardian_gender}
+                  name="guardian_gender"
+                  onChange={handleChange('guardian_gender')}
+                  label="guardian_gender"
                 >
                   {['Male', 'Female', 'Rather not say'].map(value => (
                     <MenuItem key={value} value={value}>{value}</MenuItem>
@@ -361,7 +484,13 @@ const RegForm = () => {
                 </Select>
               </FormControl>
             </div>
-            <Button type="submit" variant="contained" size="large" color="primary">Register</Button>
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              color="primary"
+              disabled={isLoading}
+            >Register</Button>
           </form>
         </Grid>
       </Grid>
@@ -369,7 +498,17 @@ const RegForm = () => {
   );
 };
 
+const mapDispatch = (dispatch) => ({
+  registerStudent: (payload) => dispatch(registerStudent(payload)),
+  hideAlert:       () => dispatch({type: 'HIDE_ALERT'})
+});
 
+const mapState = ({staff}) => ({
+  isLoading: staff.isLoading,
+  openAlert: staff.alert.shouldOpen,
+  alertMsg:  staff.alert.message,
+  severity:  staff.alert.severity
+});
 
-export default RegForm;
+export default connect(mapState, mapDispatch)(RegForm);
 
