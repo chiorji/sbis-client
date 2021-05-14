@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
-    padding:  theme.spacing(2)
+    padding:  theme.spacing(4)
   },
   toolbar: theme.mixins.toolbar
 }));
@@ -26,8 +26,8 @@ const Container = ({username, children}) => {
   );
 };
 
-const mapState = ({staff}) => ({
-  username: staff.userData.username
+const mapState = ({account}) => ({
+  username: account.username
 });
 
 export default connect(mapState)(Container);

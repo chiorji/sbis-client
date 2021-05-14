@@ -1,6 +1,8 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import LoadingBar from 'react-redux-loading-bar';
 import AppBar from '@material-ui/core/AppBar';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -17,7 +19,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import SignOutBtn from '../../components/nav/SignOutBtn';
-import {adminLinks} from '../../request/links';
+import {adminLinks, superUserLinks} from '../../request/links';
 
 /* eslint-disable max-len, no-undefined */
 const drawerWidth = 240;
@@ -59,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ResponsiveDrawer(props) {
-  const {window, username} = props;
+  const {window, username, role} = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -87,11 +89,19 @@ function ResponsiveDrawer(props) {
           </ListItem>
         ))}
         <Divider />
-        <ListItem {...{
-          component: SignOutBtn,
-          label:     'Sign Out'
-        }}
-        />
+        {role === 'SUPERUSER' && superUserLinks.map(({id, label, to}, index) => (
+          <ListItem {...{
+            component: Link,
+            button:    true,
+            key:       id,
+            to:        to
+          }}
+          >
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemText primary={label} />
+          </ListItem>
+        ))}
+        <SignOutBtn label="Sign Out" />
       </List>
     </div>
   );
@@ -101,6 +111,9 @@ function ResponsiveDrawer(props) {
   return (
     <>
       <AppBar position="fixed" className={classes.appBar}>
+        <header>
+          <LoadingBar />
+        </header>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -157,4 +170,8 @@ ResponsiveDrawer.propTypes = {
   window: PropTypes.func
 };
 
-export default ResponsiveDrawer;
+const mapState = ({account}) => ({
+  role: account.role
+});
+
+export default connect(mapState)(ResponsiveDrawer);

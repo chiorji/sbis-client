@@ -9,6 +9,7 @@ import thunk from 'redux-thunk';
 import {createLogger} from 'redux-logger';
 import createRootReducer from './root';
 import {loadState, saveState} from './sessionStorage';
+import sagas from './sagas';
 // TODO: Add session timing via cookie
 export const history = createBrowserHistory();
 
@@ -47,19 +48,17 @@ const configureStore = () => {
 
   store.subscribe(throttle(() => {
     saveState({
-      staff: {
-        isLoggedIn: store.getState().staff.isLoggedIn,
-        userData:   {
-          username:        store.getState().staff.userData.username,
-          email:           store.getState().staff.userData.email,
-          id:              store.getState().staff.userData.id,
-          role:            store.getState().staff.userData.role,
-          sessionInterval: 100
-        }
+      account: {
+        isLoggedIn:      store.getState().account.isLoggedIn,
+        username:        store.getState().account.username,
+        email:           store.getState().account.email,
+        id:              store.getState().account.id,
+        role:            store.getState().account.role,
+        sessionInterval: 100
       }
     });
   }));
-
+  sagaMiddleware.run(sagas);
   return store;
 };
 

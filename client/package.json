@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@date-io/date-fns": "1.x",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.58",
+    "@material-ui/pickers": "^3.3.10",
     "@material-ui/styles": "^4.11.4",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -12,7 +15,7 @@
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
     "connected-react-router": "^6.9.1",
-    "cypress": "^7.2.0",
+    "date-fns": "^2.21.3",
     "dotenv": "^9.0.0",
     "fontsource-roboto": "^4.0.0",
     "history": "4.10.1",
@@ -57,6 +60,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^7.2.0",
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "redux-logger": "^3.0.6"

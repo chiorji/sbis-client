@@ -12,8 +12,8 @@ const PrivateRoute = ({component: Component, isLoggedIn, ...rest}) => {
   );
 };
 
-const mapState = ({staff}) => ({
-  isLoggedIn: staff.isLoggedIn
+const mapState = ({account}) => ({
+  isLoggedIn: account.isLoggedIn
 });
 
 export default connect(mapState)(PrivateRoute);

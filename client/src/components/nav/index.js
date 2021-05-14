@@ -33,7 +33,7 @@ const NavBar = ({links, topName, isLoggedIn}) => {
   }, [mobileView]);
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <header>
         <LoadingBar />
       </header>

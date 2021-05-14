@@ -1,55 +1,79 @@
 import types from './constants';
 
 const initialState = {
-  isLoggedIn: false,
-  userData:   {
-    role:            'USER',
-    id:              '',
-    username:        '',
-    email:           '',
-    sessionInterval: 0 // Todo: will be set using session data
+  isLoading: false,
+  states:    [],
+  lgas:      [],
+  alert:     {
+    shouldOpen: false,
+    severity:   '',
+    message:    ''
   }
 };
 
 const staff = (state = initialState, action) => {
   switch (action.type) {
-  case types.LOGIN_REQUEST:
-    return {
-      ...state
-    };
-
-  case types.LOGIN_SUCCESS:
+  case types.REGISTER_STUDENT:
     return {
       ...state,
-      isLoggedIn: true,
-      userData:   {
-        role:            action.payload.role,
-        username:        action.payload.username,
-        email:           action.payload.email,
-        sessionInterval: ''
+      isLoading: true
+    };
+
+  case types.REGISTER_STUDENT_SUCCESS:
+    return {
+      ...state,
+      isLoading: false
+    };
+
+  case types.REGISTER_STUDENT_FAILURE:
+    return {
+      ...state,
+      isLoading:    false,
+      errorMessage: action.payload
+    };
+
+  case types.SHOW_ALERT:
+    return {
+      ...state,
+      alert: {
+        shouldOpen: true,
+        severity:   action.payload.severity,
+        message:    action.payload.message
       }
     };
 
-  case types.LOGIN_FAILURE:
+  case types.HIDE_ALERT:
     return {
       ...state,
-      isLoggedIn: false,
-      username:   '',
-      id:         ''
-    };
-
-  case types.SIGN_OUT:
-    return {
-      ...state,
-      isLoggedIn: false,
-      userData:   {
-        role:            '',
-        username:        '',
-        email:           '',
-        sessionInterval: ''
+      alert: {
+        shouldOpen: false,
+        severity:   '',
+        message:    ''
       }
     };
 
+  case types.FETCH_STATES_SUCCESS:
+    return {
+      ...state,
+      states: action.payload
+    };
+
+  case types.FETCH_LGAS_SUCCESS:
+    return {
+      ...state,
+      lgas: action.payload
+    };
+
+  case types.FETCH_LGAS_FAILURE:
+  case types.FETCH_STATES_FAILURE:
+    return {
+      ...state,
+      alert: {
+        shouldOpen: true,
+        severity:   'error',
+        message:    action.payload
+      }
+    };
   default:
     return state;
   }
