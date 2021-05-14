@@ -10,12 +10,9 @@ export const adminLinks = [
   {id: 'overview', label: 'Overview', to: '/dashboard'},
   {id: 'students', label: 'Student List', to: '/dashboard/students'},
   {id: 'register', label: 'Register Student', to: '/dashboard/register'},
-  {id: 'check', label: 'New Result Entry', to: '/dashboard/result-entry'}
-];
-
-
-export const superUserLinks = [
+  {id: 'check', label: 'New Result Entry', to: '/dashboard/result-entry'},
   {id: 'addstaff', label: 'Add New Staff', to: '/dashboard/add-new-staff'},
   {id: 'stafflist', label: 'Staff List', to: '/dashboard/staff-list'},
-  {id: 'bannedstaff', label: 'Banned Staff', to: '/dashboard/banned-staff'}
+  {id: 'subjects', label: 'Subjects', to: '/dashboard/subjects'},
+  {id: 'subjectcreate', label: 'Create Subject', to: '/dashboard/subjects/create'}
 ];

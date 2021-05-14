@@ -19,7 +19,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import SignOutBtn from '../../components/nav/SignOutBtn';
-import {adminLinks, superUserLinks} from '../../request/links';
+import {adminLinks} from '../../request/links';
 
 /* eslint-disable max-len, no-undefined */
 const drawerWidth = 240;
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ResponsiveDrawer(props) {
-  const {window, username, role} = props;
+  const {window, username} = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -89,7 +89,7 @@ function ResponsiveDrawer(props) {
           </ListItem>
         ))}
         <Divider />
-        {role === 'SUPERUSER' && superUserLinks.map(({id, label, to}, index) => (
+        {/* {role === 'SUPERUSER' && superUserLinks.map(({id, label, to}, index) => (
           <ListItem {...{
             component: Link,
             button:    true,
@@ -100,7 +100,7 @@ function ResponsiveDrawer(props) {
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={label} />
           </ListItem>
-        ))}
+        ))} */}
         <SignOutBtn label="Sign Out" />
       </List>
     </div>
