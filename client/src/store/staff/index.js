@@ -4,8 +4,8 @@ const initialState = {
   isLoading: false,
   alert:     {
     shouldOpen: false,
-    severity:   'success',
-    message:    'Congratulations!'
+    severity:   '',
+    message:    ''
   }
 };
 
@@ -46,7 +46,7 @@ const staff = (state = initialState, action) => {
       alert: {
         shouldOpen: false,
         severity:   '',
-        message:    '!'
+        message:    ''
       }
     };
 

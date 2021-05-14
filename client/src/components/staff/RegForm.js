@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -214,22 +214,17 @@ const RegForm = ({registerStudent, isLoading,
     }
   };
 
-  // TODO: rmove console statement
-  useEffect(() => {
-    console.log({isLoading, openAlert, alertMsg, severity});
-  }, [isLoading, openAlert, alertMsg, severity]);
-
   return (
     <Box width={1} component="section">
       <Typography variant="body1">Student Registration Form,
       the form will not be submitted until required fields are filled out.
       </Typography>
-      <Alert
+      {openAlert && <Alert
         openAlert={openAlert}
         handleClose={hideAlert}
         msg={alertMsg}
         severity={severity}
-      />
+      />}
       <Grid container spacing={3} className={gridContainer}>
         <Grid item xs={12} md={12}>
           <form noValidate onSubmit={handleSubmit}>
