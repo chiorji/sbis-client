@@ -7,7 +7,12 @@ const initialState = {
   id:              '',
   username:        '',
   email:           '',
-  sessionInterval: 0 // Todo: will be set using session data
+  sessionInterval: 0, // Todo: will be set using session data
+  alert:           {
+    shouldOpen: false,
+    severity:   '',
+    message:    ''
+  }
 };
 
 const account = (state = initialState, action) => {
@@ -33,7 +38,12 @@ const account = (state = initialState, action) => {
       ...state,
       isLoggedIn: false,
       username:   '',
-      id:         ''
+      id:         '',
+      alert:      {
+        shouldOpen: true,
+        severity:   'error',
+        message:    action.payload
+      }
     };
 
   case types.SIGN_OUT:
@@ -44,6 +54,16 @@ const account = (state = initialState, action) => {
       username:        '',
       email:           '',
       sessionInterval: ''
+    };
+
+  case types.HIDE_ALERT:
+    return {
+      ...state,
+      alert: {
+        shouldOpen: false,
+        severity:   '',
+        message:    ''
+      }
     };
 
   default:

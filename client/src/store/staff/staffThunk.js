@@ -10,9 +10,16 @@ export const login = (payload) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         try {
-          dispatch(actions.loginSuccess({id, username, email: 'user@domain.com', role: 'USER'}));
-          dispatch(replace('/dashboard'));
-          resolve(payload);
+          if (!/admin@domain.com/.test(username)) {
+            dispatch(
+              actions.loginFailure('Incorrect username, ID or password')
+            );
+            reject();
+          } else {
+            dispatch(actions.loginSuccess({id, username, email: 'user@domain.com', role: 'USER'}));
+            dispatch(replace('/dashboard'));
+            resolve(payload);
+          }
         } catch (error) {
           dispatch(actions.loginFailure(error));
           reject(error);
