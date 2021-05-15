@@ -30,7 +30,12 @@ const account = (state = initialState, action) => {
       role:            action.payload.role,
       username:        action.payload.username,
       email:           action.payload.email,
-      sessionInterval: ''
+      sessionInterval: '',
+      alert:           {
+        shouldOpen: true,
+        severity:   'success',
+        message:    action.payload.message
+      }
     };
 
   case types.LOGIN_FAILURE:

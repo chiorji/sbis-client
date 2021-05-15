@@ -16,7 +16,7 @@ export const login = (payload) => {
             );
             reject();
           } else {
-            dispatch(actions.loginSuccess({id, username, email: 'user@domain.com', role: 'USER'}));
+            dispatch(actions.loginSuccess({id, username, email: 'user@domain.com', role: 'USER', message: 'Login success'}));
             dispatch(replace('/dashboard'));
             resolve(payload);
           }

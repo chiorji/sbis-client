@@ -5,6 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import makeStyles from '@material-ui/styles/makeStyles';
 
+import Alert from '../../components/Alert';
+
 const useStyles = makeStyles(theme => ({
   grid: {
     marginTop:    theme.spacing(3),
@@ -24,7 +26,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Overview = ({users, subjects, classes, results, staff}) => {
+const Overview = ({users, subjects, classes,
+  results, staff, alert, hideAlert}) => {
   const {grid, gridItem, paper} = useStyles();
   return (
     <section>
@@ -37,6 +40,14 @@ const Overview = ({users, subjects, classes, results, staff}) => {
             students</Typography>
           </Paper>
         </Grid>
+        {alert?.shouldOpen &&
+        <Alert
+          openAlert={alert.shouldOpen}
+          msg={alert.message}
+          severity={alert.severity}
+          handleClose={hideAlert}
+        />
+        }
         <Grid item xs={12} sm={6} md={4} className={gridItem}>
           <Paper className={paper} variant="outlined">
             <Typography variant="h1" component="h6">{subjects}</Typography>
@@ -66,12 +77,17 @@ const Overview = ({users, subjects, classes, results, staff}) => {
   );
 };
 
-const mapState = ({staff}) => ({
+const mapState = ({staff, account}) => ({
   users:    staff.stats.totalRegStudents,
   subjects: staff.stats.totalSubjects,
   classes:  staff.stats.totalClassListed,
   results:  staff.stats.totalResultsDeclared,
-  staff:    staff.stats.activeStaff
+  staff:    staff.stats.activeStaff,
+  alert:    account.alert
 });
 
-export default connect(mapState)(Overview);
+const mapDispatch = (dispatch) => ({
+  hideAlert: () => dispatch({type: 'HIDE_ALERT'})
+});
+
+export default connect(mapState, mapDispatch)(Overview);
