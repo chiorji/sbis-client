@@ -66,3 +66,17 @@ export const showAlert = (payload) => ({
   type: types.SHOW_ALERT,
   payload
 });
+
+export const fetchAllStudents = () => ({
+  type: types.FETCH_ALL_STUDENTS
+});
+
+export const fetchAllStudentsSuccess = (payload) => ({
+  type: types.FETCH_ALL_STUDENTS_SUCCESS,
+  payload
+});
+
+export const fetchAllStudentsFailure = (payload) => ({
+  type: types.FETCH_ALL_STUDENTS_FAILURE,
+  payload
+});

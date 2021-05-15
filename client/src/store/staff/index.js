@@ -10,11 +10,12 @@ const initialState = {
     message:    ''
   },
   stats: {
-    totalRegStudents:     0,
-    totalSubjects:        0,
-    totalClassListed:     0,
-    totalResultsDeclared: 0,
-    activeStaff:          0
+    totalRegStudents:     1030,
+    totalSubjects:        15,
+    totalClassListed:     6,
+    totalResultsDeclared: 34,
+    activeStaff:          18,
+    students:             []
   }
 };
 
@@ -81,6 +82,30 @@ const staff = (state = initialState, action) => {
         message:    action.payload
       }
     };
+
+  case types.FETCH_ALL_STUDENTS:
+    return {
+      ...state,
+      isLoading: true
+    };
+
+  case types.FETCH_ALL_STUDENTS_SUCCESS:
+    return {
+      ...state,
+      isLoading: false,
+      stats:     {...state.stats, students: action.payload}
+    };
+
+  case types.FETCH_ALL_STUDENTS_FAILURE:
+    return {
+      ...state,
+      alert: {
+        shouldOpen: true,
+        severity:   'error',
+        message:    action.payload
+      }
+    };
+
   default:
     return state;
   }

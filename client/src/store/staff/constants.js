@@ -18,5 +18,9 @@ export default KeyMirror({
   REGISTER_STUDENT_FAILURE: null,
 
   HIDE_ALERT: null,
-  SHOW_ALERT: null
+  SHOW_ALERT: null,
+
+  FETCH_ALL_STUDENTS:         null,
+  FETCH_ALL_STUDENTS_SUCCESS: null,
+  FETCH_ALL_STUDENTS_FAILURE: null
 });

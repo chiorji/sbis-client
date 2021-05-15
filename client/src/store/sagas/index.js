@@ -3,9 +3,10 @@ import {all, call, spawn} from 'redux-saga/effects';
 import states from '../staff/fetchStatesSaga';
 import lgas from '../staff/fetchLgasSaga';
 import regStudent from '../staff/RegStudentSaga';
+import students from '../staff/studentsSaga';
 
 export default function* () {
-  const sagas = [states, lgas, regStudent];
+  const sagas = [states, lgas, regStudent, students];
 
   yield all(sagas.map(saga =>
     spawn(function* () {
