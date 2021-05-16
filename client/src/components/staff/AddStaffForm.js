@@ -26,10 +26,6 @@ const useStyles = makeStyles(theme => ({
     marginTop:    theme.spacing(2),
     marginBottom: theme.spacing(2)
   },
-  textFields: {
-    width:  '97%',
-    margin: theme.spacing(1)
-  },
   rowText: {
     flexGrow: 1,
     margin:   theme.spacing(1)
@@ -40,12 +36,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AddStaffForm = ({addStaff=f => f}) => {
-  const {gridItem, heading, textFields, rowText, submitBtn} = useStyles();
+  const {gridItem, heading, rowText, submitBtn} = useStyles();
   const [formValues, setFormValues] = useState({
     id:             '',
     email:          'test@doamin.com',
     form_class:     'SS2',
     role:           'USER',
+    first_name:     '',
+    middle_name:    '',
+    last_name:      '',
+    firstNameError: false,
+    lastNameError:  false,
     idError:        false,
     emailError:     false,
     formClassError: false,
@@ -56,6 +57,8 @@ const AddStaffForm = ({addStaff=f => f}) => {
     // reset error fields to default
     setFormValues(prevState => ({
       ...prevState,
+      firstNameError: false,
+      lastNameError:  false,
       idError:        false,
       emailError:     false,
       formClassError: false,
@@ -64,6 +67,14 @@ const AddStaffForm = ({addStaff=f => f}) => {
 
     if (!id || !validator.isLength(id, {min: 6, max: 6})) {
       setFormValues(prevState => ({...prevState, idError: true}));
+      return false;
+    }
+    if (!first_name) {
+      setFormValues(prevState => ({...prevState, firstNameError: true}));
+      return false;
+    }
+    if (!last_name) {
+      setFormValues(prevState => ({...prevState, lastNameError: true}));
       return false;
     }
     if (!email || !validator.isEmail(email)) {
@@ -99,8 +110,9 @@ const AddStaffForm = ({addStaff=f => f}) => {
 
   const clsOpts = ['Select Form Class', 'JS1', 'JS2', 'JS3', 'SS1', 'SS2', 'SS3', 'SS4'];
 
-  const {id, idError, email, emailError, form_class,
-    formClassError, role, roleError} = formValues;
+  const {id, idError, first_name, last_name, middle_name, email,
+    emailError, form_class, formClassError, role, roleError,
+    firstNameError, lastNameError} = formValues;
 
   return (
     <Grid item xs={12} md={6} className={gridItem}>
@@ -129,56 +141,97 @@ const AddStaffForm = ({addStaff=f => f}) => {
             onClick={() => setFormValues(prev => ({...prev, id: makeId()}))}
           >Generate ID</Button>
         </FormGroup>
-        <TextField
-          type="email"
-          error={emailError}
-          id="username"
-          name="email"
-          label="Email Address"
-          variant="outlined"
-          autoComplete="off"
-          className={textFields}
-          value={email}
-          onChange={handleChange('email')}
-        />
-        <FormControl variant="outlined" className={textFields} error={formClassError}>
-          <InputLabel id="examClass">Form Class</InputLabel>
-          <Select
-            labelId="formClass"
-            id="formClass"
-            value={form_class}
-            name="formClass"
-            onChange={handleChange('form_class')}
-            label="Form Class"
-          >
-            {clsOpts.map((value, index) => (
-              <MenuItem
-                key={value}
-                value={value}
-                disabled={index === 0}
-              >
-                {value}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl variant="outlined" className={textFields} error={roleError}>
-          <InputLabel id="role">Role</InputLabel>
-          <Select
-            labelId="role"
-            id="role"
-            value={role}
-            name="role"
-            onChange={handleChange('role')}
-            label="Role"
-          >
-            {['Assign Role', 'USER', 'ADMIN', 'SUPERUSER'].map((value, index) => (
-              <MenuItem key={value} value={value}
-                disabled={index === 0}
-              >{value}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <FormGroup row={true}>
+          <TextField
+            type="text"
+            error={firstNameError}
+            id="first_name"
+            name="first_name"
+            label="First Name"
+            variant="outlined"
+            autoComplete="off"
+            className={rowText}
+            value={first_name}
+            onChange={handleChange('first_name')}
+          />
+          <TextField
+            type="text"
+            id="middle_name"
+            name="middle_name"
+            label="Middle Name"
+            variant="outlined"
+            autoComplete="off"
+            className={rowText}
+            value={middle_name}
+            onChange={handleChange('middle_name')}
+          />
+        </FormGroup>
+        <FormGroup row={true}>
+          <TextField
+            type="text"
+            error={lastNameError}
+            id="last_name"
+            name="last_name"
+            label="Last Name"
+            variant="outlined"
+            autoComplete="off"
+            className={rowText}
+            value={last_name}
+            onChange={handleChange('last_name')}
+          />
+          <TextField
+            type="email"
+            error={emailError}
+            id="username"
+            name="email"
+            label="Email Address"
+            variant="outlined"
+            autoComplete="off"
+            className={rowText}
+            value={email}
+            onChange={handleChange('email')}
+          />
+        </FormGroup>
+        <FormGroup row={true}>
+          <FormControl variant="outlined" className={rowText} error={formClassError}>
+            <InputLabel id="examClass">Form Class</InputLabel>
+            <Select
+              labelId="formClass"
+              id="formClass"
+              value={form_class}
+              name="formClass"
+              onChange={handleChange('form_class')}
+              label="Form Class"
+            >
+              {clsOpts.map((value, index) => (
+                <MenuItem
+                  key={value}
+                  value={value}
+                  disabled={index === 0}
+                >
+                  {value}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl variant="outlined" className={rowText} error={roleError}>
+            <InputLabel id="role">Role</InputLabel>
+            <Select
+              labelId="role"
+              id="role"
+              value={role}
+              name="role"
+              onChange={handleChange('role')}
+              label="Role"
+            >
+              {['Assign Role', 'USER', 'ADMIN', 'SUPERUSER'].map((value, index) => (
+                <MenuItem key={value} value={value}
+                  disabled={index === 0}
+                >{value}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </FormGroup>
         <Button
           type="submit"
           variant="contained"
