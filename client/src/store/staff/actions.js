@@ -95,3 +95,17 @@ export const addStaffFailure = (payload) => ({
   type: types.ADD_STAFF_FAILURE,
   payload
 });
+
+export const fetchStaffList = () => ({
+  type: types.FETCH_STAFF_LIST
+});
+
+export const fetchStaffListSuccess = (payload) => ({
+  type: types.FETCH_STAFF_LIST_SUCCESS,
+  payload
+});
+
+export const fetchStaffListFailure = (payload) => ({
+  type: types.FETCH_STAFF_LIST_FAILURE,
+  payload
+});

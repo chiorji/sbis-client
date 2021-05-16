@@ -26,5 +26,9 @@ export default KeyMirror({
 
   ADD_STAFF:         null,
   ADD_STAFF_SUCCESS: null,
-  ADD_STAFF_FAILURE: null
+  ADD_STAFF_FAILURE: null,
+
+  FETCH_STAFF_LIST:         null,
+  FETCH_STAFF_LIST_SUCCESS: null,
+  FETCH_STAFF_LIST_FAILURE: null
 });

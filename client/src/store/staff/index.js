@@ -15,13 +15,15 @@ const initialState = {
     totalClassListed:     6,
     totalResultsDeclared: 34,
     activeStaff:          18,
-    students:             []
+    students:             [],
+    staff:                []
   }
 };
 
 const staff = (state = initialState, action) => {
   switch (action.type) {
   case types.REGISTER_STUDENT:
+  case types.FETCH_STAFF_LIST:
     return {
       ...state,
       isLoading: true
@@ -85,13 +87,22 @@ const staff = (state = initialState, action) => {
       stats:     {...state.stats, students: action.payload}
     };
 
+  case types.FETCH_STAFF_LIST_SUCCESS:
+    return {
+      ...state,
+      isLoading: false,
+      stats:     {...state.stats, staff: action.payload}
+    };
+
   case types.FETCH_LGAS_FAILURE:
   case types.FETCH_STATES_FAILURE:
   case types.FETCH_ALL_STUDENTS_FAILURE:
   case types.ADD_STAFF_FAILURE:
+  case types.FETCH_STAFF_LIST_FAILURE:
     return {
       ...state,
-      alert: {
+      isLoading: false,
+      alert:     {
         shouldOpen: true,
         severity:   'error',
         message:    action.payload

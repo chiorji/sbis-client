@@ -31,5 +31,12 @@ export default {
       method: 'POST',
       body: JSON.stringify(payload)
     }
+  },
+
+  fetchStaffList: () => {
+    return {
+      url: `${API_BASE_URL}/staff/details`,
+      method: 'GET'
+    }
   }
 };
