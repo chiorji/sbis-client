@@ -1,20 +1,20 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import RegForm from '../../components/staff/RegForm';
+import AdmissionForm from '../../components/staff/AdmissionForm';
 
-const Registration = () => {
+const Admission = () => {
   return (
     <Box width={1} component="section">
       <Typography variant="h4">Register Student</Typography>
-      <RegForm />
+      <AdmissionForm />
     </Box>
   );
 };
 
 
 
-export default Registration;
+export default Admission;
 
 
 

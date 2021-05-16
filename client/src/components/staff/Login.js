@@ -16,6 +16,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import IconButton from '@material-ui/core/IconButton';
 import makeStyles from '@material-ui/styles/makeStyles';
 
+import Alert from '../Alert';
 import {login} from '../../store/staff/staffThunk';
 
 const useStyles = makeStyles(theme => ({
@@ -38,11 +39,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Login = ({login}) => {
+const Login = ({login, alert, hideAlert}) => {
   const {container, textFields, gridContainer, heading} = useStyles();
   const [staffInfo, setStaffInfo] = useState({
     id:            '000001',
-    username:      'BRIGHT',
+    username:      'tester@domain.com',
     password:      '123456',
     idError:       false,
     usernameError: false,
@@ -93,7 +94,7 @@ const Login = ({login}) => {
       return false;
     }
 
-    if (!validator.isLength(username, {min: 5, max: 12})) {
+    if (!validator.isEmail(username)) {
       setStaffInfo(prevState => ({...prevState, usernameError: true}));
       return false;
     }
@@ -135,6 +136,14 @@ const Login = ({login}) => {
 
   return (
     <Container component="section" className={container}>
+      {alert?.shouldOpen &&
+        <Alert
+          openAlert={alert.shouldOpen}
+          msg={alert.message}
+          severity={alert.severity}
+          handleClose={hideAlert}
+        />
+      }
       <Grid container spacing={3} className={gridContainer}>
         <Grid item xs={12} sm={6} md={4}>
           <Typography variant="h4" className={heading}>Administrator Portal</Typography>
@@ -160,7 +169,7 @@ const Login = ({login}) => {
               onChange={handleChange}
             />
             <TextField
-              type="text"
+              type="email"
               error={usernameError}
               id="username"
               name="username"
@@ -215,7 +224,12 @@ const Login = ({login}) => {
 };
 
 const mapDispatch = dispatch => ({
-  login: (payload) => dispatch(login(payload))
+  login:     (payload) => dispatch(login(payload)),
+  hideAlert: () => dispatch({type: 'HIDE_ALERT'})
 });
 
-export default connect(null, mapDispatch)(Login);
+const mapState = ({account}) => ({
+  alert: account.alert
+});
+
+export default connect(mapState, mapDispatch)(Login);

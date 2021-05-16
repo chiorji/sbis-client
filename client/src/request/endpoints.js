@@ -23,5 +23,20 @@ export default {
       method: 'POST',
       body: JSON.stringify(payload)
     }
+  },
+
+  addNewStaff: (payload) => {
+    return {
+      url: `${API_BASE_URL}/staff/details/add`,
+      method: 'POST',
+      body: JSON.stringify(payload)
+    }
+  },
+
+  fetchStaffList: () => {
+    return {
+      url: `${API_BASE_URL}/staff/details`,
+      method: 'GET'
+    }
   }
 };

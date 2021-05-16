@@ -66,3 +66,46 @@ export const showAlert = (payload) => ({
   type: types.SHOW_ALERT,
   payload
 });
+
+export const fetchAllStudents = () => ({
+  type: types.FETCH_ALL_STUDENTS
+});
+
+export const fetchAllStudentsSuccess = (payload) => ({
+  type: types.FETCH_ALL_STUDENTS_SUCCESS,
+  payload
+});
+
+export const fetchAllStudentsFailure = (payload) => ({
+  type: types.FETCH_ALL_STUDENTS_FAILURE,
+  payload
+});
+
+export const addStaff = (payload) => ({
+  type: types.ADD_STAFF,
+  payload
+});
+
+export const addStaffSuccess = (payload) => ({
+  type: types.ADD_STAFF_SUCCESS,
+  payload
+});
+
+export const addStaffFailure = (payload) => ({
+  type: types.ADD_STAFF_FAILURE,
+  payload
+});
+
+export const fetchStaffList = () => ({
+  type: types.FETCH_STAFF_LIST
+});
+
+export const fetchStaffListSuccess = (payload) => ({
+  type: types.FETCH_STAFF_LIST_SUCCESS,
+  payload
+});
+
+export const fetchStaffListFailure = (payload) => ({
+  type: types.FETCH_STAFF_LIST_FAILURE,
+  payload
+});

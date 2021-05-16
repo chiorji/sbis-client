@@ -24,8 +24,8 @@ const Landing = ({isLoggedIn}) => {
     </Layout>;
 };
 
-const mapState = ({staff}) => ({
-  isLoggedIn: staff.isLoggedIn
+const mapState = ({account}) => ({
+  isLoggedIn: account.isLoggedIn
 });
 
 export default connect(mapState)(Landing);
