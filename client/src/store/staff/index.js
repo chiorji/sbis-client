@@ -72,17 +72,6 @@ const staff = (state = initialState, action) => {
       lgas: action.payload
     };
 
-  case types.FETCH_LGAS_FAILURE:
-  case types.FETCH_STATES_FAILURE:
-    return {
-      ...state,
-      alert: {
-        shouldOpen: true,
-        severity:   'error',
-        message:    action.payload
-      }
-    };
-
   case types.FETCH_ALL_STUDENTS:
     return {
       ...state,
@@ -96,7 +85,10 @@ const staff = (state = initialState, action) => {
       stats:     {...state.stats, students: action.payload}
     };
 
+  case types.FETCH_LGAS_FAILURE:
+  case types.FETCH_STATES_FAILURE:
   case types.FETCH_ALL_STUDENTS_FAILURE:
+  case types.ADD_STAFF_FAILURE:
     return {
       ...state,
       alert: {

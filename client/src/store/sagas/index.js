@@ -4,9 +4,10 @@ import states from '../staff/fetchStatesSaga';
 import lgas from '../staff/fetchLgasSaga';
 import regStudent from '../staff/RegStudentSaga';
 import students from '../staff/studentsSaga';
+import admin from '../staff/adminSaga';
 
 export default function* () {
-  const sagas = [states, lgas, regStudent, students];
+  const sagas = [states, lgas, regStudent, students, admin];
 
   yield all(sagas.map(saga =>
     spawn(function* () {

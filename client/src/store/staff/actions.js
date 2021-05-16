@@ -80,3 +80,18 @@ export const fetchAllStudentsFailure = (payload) => ({
   type: types.FETCH_ALL_STUDENTS_FAILURE,
   payload
 });
+
+export const addStaff = (payload) => ({
+  type: types.ADD_STAFF,
+  payload
+});
+
+export const addStaffSuccess = (payload) => ({
+  type: types.ADD_STAFF_SUCCESS,
+  payload
+});
+
+export const addStaffFailure = (payload) => ({
+  type: types.ADD_STAFF_FAILURE,
+  payload
+});

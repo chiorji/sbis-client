@@ -22,5 +22,9 @@ export default KeyMirror({
 
   FETCH_ALL_STUDENTS:         null,
   FETCH_ALL_STUDENTS_SUCCESS: null,
-  FETCH_ALL_STUDENTS_FAILURE: null
+  FETCH_ALL_STUDENTS_FAILURE: null,
+
+  ADD_STAFF:         null,
+  ADD_STAFF_SUCCESS: null,
+  ADD_STAFF_FAILURE: null
 });
