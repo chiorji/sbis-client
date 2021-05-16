@@ -11,7 +11,6 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import makeStyles from '@material-ui/styles/makeStyles';
-import Alert from '../Alert';
 import {makeId} from '../../utils/makeId';
 import {addStaff} from '../../store/staff/actions';
 
@@ -40,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const AddStaffForm = ({addStaff=f => f, alert, hideAlert}) => {
+const AddStaffForm = ({addStaff=f => f}) => {
   const {gridItem, heading, textFields, rowText, submitBtn} = useStyles();
   const [formValues, setFormValues] = useState({
     id:             '',
@@ -106,12 +105,6 @@ const AddStaffForm = ({addStaff=f => f, alert, hideAlert}) => {
   return (
     <Grid item xs={12} md={6} className={gridItem}>
       <Typography variant="h6" className={heading}>Add new member</Typography>
-      {alert.shouldOpen && <Alert
-        openAlert={alert.shouldOpen}
-        handleClose={hideAlert}
-        msg={alert.message}
-        severity={alert.severity}
-      />}
       <form noValidate onSubmit={handleSubmit}>
         <FormGroup row={true}>
           <TextField
@@ -200,12 +193,7 @@ const AddStaffForm = ({addStaff=f => f, alert, hideAlert}) => {
 };
 
 const mapDispatch = (dispatch) => ({
-  addStaff:  (payload) => dispatch(addStaff(payload)),
-  hideAlert: () => dispatch({type: 'HIDE_ALERT'})
+  addStaff: (payload) => dispatch(addStaff(payload))
 });
 
-const mapState = ({staff}) => ({
-  alert: staff.alert
-});
-
-export default connect(mapState, mapDispatch)(AddStaffForm);
+export default connect(null, mapDispatch)(AddStaffForm);
