@@ -11,8 +11,8 @@ export const adminLinks = [
   {id: 'students', label: 'Student List', to: '/dashboard/students'},
   {id: 'register', label: 'Register Student', to: '/dashboard/register'},
   {id: 'check', label: 'New Result Entry', to: '/dashboard/result-entry'},
-  {id: 'addstaff', label: 'Add New Staff', to: '/dashboard/add-new-staff'},
-  {id: 'stafflist', label: 'Staff List', to: '/dashboard/staff-list'},
+  {id: 'addstaff', label: 'Add New Staff', to: '/dashboard/staff/details/add'},
+  {id: 'stafflist', label: 'Staff List', to: '/dashboard/staff/details'},
   {id: 'subjects', label: 'Subjects', to: '/dashboard/subjects'},
   {id: 'subjectcreate', label: 'Create Subject', to: '/dashboard/subjects/create'}
 ];
