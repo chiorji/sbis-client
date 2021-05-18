@@ -38,5 +38,33 @@ export default {
       url: `${API_BASE_URL}/staff/details`,
       method: 'GET'
     }
+  },
+
+  createSubject: (payload) => {
+    return {
+      url: `${API_BASE_URL}/subjects/create`,
+      method: 'POST',
+      body: JSON.stringify(payload)
+    }
+  },
+
+  updateSubject: (payload) => {
+    return {
+       url: `${API_BASE_URL}/subjects/update`,
+      method: 'PUT',
+      body: JSON.stringify(payload)
+    }
+  },
+  
+  /**
+   * Fetches subject list
+   * @param {string} level filters either senior or junior level categorized subject
+   * @returns 
+   */
+  subjectList: (level) => {
+    return {
+      url: `${API_BASE_URL}/subjects?filter=${level}`,
+      method: 'GET'
+    }
   }
 };
