@@ -13,6 +13,6 @@ export const adminLinks = [
   {id: 'check', label: 'New Result Entry', to: '/dashboard/result-entry'},
   {id: 'addstaff', label: 'Add New Staff', to: '/dashboard/staff/details/add'},
   {id: 'stafflist', label: 'Staff List', to: '/dashboard/staff/details'},
-  {id: 'subjects', label: 'Subjects', to: '/dashboard/subjects'},
-  {id: 'subjectcreate', label: 'Create Subject', to: '/dashboard/subjects/create'}
+  {id: 'subcreate', label: 'Create Subject', to: '/dashboard/subjects/create'},
+  {id: 'subjects', label: 'Subjects', to: '/dashboard/subjects'}
 ];

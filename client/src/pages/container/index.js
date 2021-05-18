@@ -7,7 +7,8 @@ import {
   Admission,
   ResultEntry,
   Students,
-  StaffDetails
+  StaffDetails,
+  Subjects
 } from '../staff';
 import NotFound from '../404';
 import {adminLinks} from '../../request/links';
@@ -21,6 +22,7 @@ const Container = () => {
         <Route path='/dashboard/result-entry' component={ResultEntry} />
         <Route path='/dashboard/students' component={Students} />
         <Route path='/dashboard/staff/' component={StaffDetails} />
+        <Route path='/dashboard/subjects' component={Subjects} />
         <Route component={NotFound} />
       </Switch>
     </Wrapper>
