@@ -2,10 +2,10 @@ import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
-const Alert = ({openAlert, handleClose, msg, severity}) => {
+const Alert = ({handleClose, msg, severity}) => {
   return <Snackbar
     autoHideDuration={6000}
-    open={openAlert}
+    open={true}
     onClose={handleClose}
     anchorOrigin={{vertical: 'top', horizontal: 'right'}}
     key='slide'

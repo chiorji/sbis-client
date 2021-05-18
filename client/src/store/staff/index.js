@@ -99,6 +99,7 @@ const staff = (state = initialState, action) => {
   case types.FETCH_ALL_STUDENTS_FAILURE:
   case types.ADD_STAFF_FAILURE:
   case types.FETCH_STAFF_LIST_FAILURE:
+  case types.CREATE_SUBJECT_FAILURE:
     return {
       ...state,
       isLoading: false,

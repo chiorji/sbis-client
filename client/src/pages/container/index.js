@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Route, Switch} from 'react-router-dom';
 import Wrapper from '../../components/container';
+import Alert from '../../components/Alert';
 import {
   Overview,
   Admission,
@@ -13,9 +14,15 @@ import {
 import NotFound from '../404';
 import {adminLinks} from '../../request/links';
 
-const Container = () => {
+const Container = ({alert}) => {
   return (
     <Wrapper links={adminLinks}>
+      {alert.shouldOpen &&
+        <Alert
+          openAlert={alert.shouldOpen}
+          msg={alert.message}
+          severity={alert.severity}
+        />}
       <Switch>
         <Route path={'/dashboard'} exact component={Overview} />
         <Route path='/dashboard/register' component={Admission} />
@@ -29,10 +36,8 @@ const Container = () => {
   );
 };
 
-const mapState = ({router}) => ({
-  pathname: router.location.pathname,
-  search:   router.location.search,
-  hash:     router.location.hash
+const mapState = ({staff}) => ({
+  alert: staff.alert
 });
 
 export default connect(mapState)(Container);

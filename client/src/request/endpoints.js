@@ -61,7 +61,7 @@ export default {
    * @param {string} level filters either senior or junior level categorized subject
    * @returns 
    */
-  subjectList: (level) => {
+  listSubjects: (level) => {
     return {
       url: `${API_BASE_URL}/subjects?filter=${level}`,
       method: 'GET'
