@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
-// import validator from 'validator';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -11,8 +10,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import FormGroup from '@material-ui/core/FormGroup';
 import {makeStyles} from '@material-ui/styles';
+import {createSubject} from '../../store/staff/actions';
 
-/* eslint-disable no-console */
 const useStyles = makeStyles(theme => ({
   textFields: {
     width:        '100%',
@@ -20,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CreateSubject = () => {
+const CreateSubject = ({createSubject}) => {
   const {textFields} = useStyles();
 
   const [subject, setSubject] = useState({
@@ -64,14 +63,14 @@ const CreateSubject = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validated()) {
-      console.log('Submitted');
+      const {name, code, category, teacher} = subject;
+      createSubject({name, code, category, teacher});
     } else {
-      console.log('Submission failed');
+      return false;
     }
   };
 
   const handleChange = (prop) => (e) => {
-    console.log(prop, e.target.value);
     setSubject(prevState => ({...prevState, [prop]: e.target.value}));
   };
 
@@ -155,4 +154,8 @@ const CreateSubject = () => {
   );
 };
 
-export default connect()(CreateSubject);
+const mapDispatch = (dispatch) => ({
+  createSubject: (payload) => dispatch(createSubject(payload))
+});
+
+export default connect(null, mapDispatch)(CreateSubject);
