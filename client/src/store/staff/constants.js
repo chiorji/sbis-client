@@ -30,5 +30,17 @@ export default KeyMirror({
 
   FETCH_STAFF_LIST:         null,
   FETCH_STAFF_LIST_SUCCESS: null,
-  FETCH_STAFF_LIST_FAILURE: null
+  FETCH_STAFF_LIST_FAILURE: null,
+
+  CREATE_SUBJECT:         null,
+  CREATE_SUBJECT_SUCCESS: null,
+  CREATE_SUBJECT_FAILURE: null,
+
+  LIST_SUBJECTS:         null,
+  LIST_SUBJECTS_SUCCESS: null,
+  LIST_SUBJECTS_FAILURE: null,
+
+  UPDATE_SUBJECT:         null,
+  UPDATE_SUBJECT_SUCCESS: null,
+  UPDATE_SUBJECT_FAILURE: null
 });

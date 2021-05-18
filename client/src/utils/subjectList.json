@@ -1,0 +1,8 @@
+[
+  {"name": "English", "code": "ENG101", "teacher": "Bright", "category": ""},
+  {"name": "Mathematics", "code": "MT101", "teacher": "Jude", "category": ""},
+  {"name": "Biology", "code": "BIO101", "teacher": "Val", "category": ""},
+  {"name": "Physics", "code": "PHY101", "teacher": "Chisom", "category": ""},
+  {"name": "Chemistry", "code": "CHEM101", "teacher": "Dan", "category": ""},
+  {"name": "CRS", "code": "CRS101", "teacher": "Christian", "category": ""}
+]

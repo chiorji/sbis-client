@@ -109,3 +109,49 @@ export const fetchStaffListFailure = (payload) => ({
   type: types.FETCH_STAFF_LIST_FAILURE,
   payload
 });
+
+// subjects
+export const createSubject = (payload) => ({
+  type: types.CREATE_SUBJECT,
+  payload
+});
+
+export const createSubjectSuccess = (payload) => ({
+  type: types.CREATE_SUBJECT_SUCCESS,
+  payload
+});
+
+export const createSubjectFailure = (payload) => ({
+  type: types.CREATE_SUBJECT_FAILURE,
+  payload
+});
+
+export const listSubjects = (payload) => ({
+  type: types.LIST_SUBJECTS,
+  payload
+});
+
+export const listSubjectsSuccess = (payload) => ({
+  type: types.LIST_SUBJECTS_SUCCESS,
+  payload
+});
+
+export const listSubjectsFailure = (payload) => ({
+  type: types.LIST_SUBJECTS_FAILURE,
+  payload
+});
+
+export const updateSubject = (payload) => ({
+  type: types.UPDATE_SUBJECT,
+  payload
+});
+
+export const updateSubjectSuccess = (payload) => ({
+  type: types.UPDATE_SUBJECT_SUCCESS,
+  payload
+});
+
+export const updateSubjectFailure = (payload) => ({
+  type: types.UPDATE_SUBJECT_FAILURE,
+  payload
+});
