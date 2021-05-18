@@ -11,8 +11,8 @@ function* fetchAllStudents() {
     yield delay(3000); // TODO: remove - it simulate delayed network request
     yield put(actions.fetchAllStudentsSuccess(stds));
   } catch (error) {
-    yield(cancel());
     yield put(actions.fetchAllStudentsFailure('Error getting students list'));
+    yield(cancel());
   } finally {
     yield put(hideLoading());
   }
