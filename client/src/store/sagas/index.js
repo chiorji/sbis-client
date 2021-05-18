@@ -1,10 +1,10 @@
-/* eslint-disable */
+/* eslint-disable import/no-anonymous-default-export, no-console */
 import {all, call, spawn} from 'redux-saga/effects';
 import states from '../staff/fetchStatesSaga';
 import lgas from '../staff/fetchLgasSaga';
 import students from '../staff/studentsSaga';
 import admin from '../staff/adminSaga';
-import subjects from '../staff/subjectsSaga'
+import subjects from '../staff/subjectsSaga';
 
 export default function* () {
   const sagas = [states, lgas, students, admin, subjects];
