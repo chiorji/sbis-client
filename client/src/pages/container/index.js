@@ -5,9 +5,10 @@ import Wrapper from '../../components/container';
 import {
   Overview,
   Admission,
-  ResultEntry,
+  Results,
   Students,
-  StaffDetails
+  StaffDetails,
+  Subjects
 } from '../staff';
 import NotFound from '../404';
 import {adminLinks} from '../../request/links';
@@ -18,9 +19,10 @@ const Container = () => {
       <Switch>
         <Route path={'/dashboard'} exact component={Overview} />
         <Route path='/dashboard/register' component={Admission} />
-        <Route path='/dashboard/result-entry' component={ResultEntry} />
+        <Route path='/dashboard/results' component={Results} />
         <Route path='/dashboard/students' component={Students} />
         <Route path='/dashboard/staff/' component={StaffDetails} />
+        <Route path='/dashboard/subjects' component={Subjects} />
         <Route component={NotFound} />
       </Switch>
     </Wrapper>

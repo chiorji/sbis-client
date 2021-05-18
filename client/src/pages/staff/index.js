@@ -1,13 +1,15 @@
 import Overview from './Overview';
 import Admission from './Admission';
-import ResultEntry from './ResultEntry';
+import Results from './Results';
 import Students from './Students';
 import StaffDetails from './StaffDetails';
+import Subjects from './Subjects';
 
 export {
   Overview,
   Admission,
-  ResultEntry,
+  Results,
   Students,
-  StaffDetails
+  StaffDetails,
+  Subjects
 };
