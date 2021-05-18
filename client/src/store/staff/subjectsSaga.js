@@ -9,6 +9,38 @@ import types from './constants';
 import subjects from '../../utils/subjectList.json';
 import endpoints from '../../request/endpoints';
 
+function* registerStudent({payload}) {
+  yield put(showLoading());
+  try {
+    const {data} = yield call(axios, endpoints.registerStudent(payload));
+    yield put(actions.registerStudentSuccess(data));
+    yield put(actions.showAlert({
+      shouldOpen: true,
+      message:    'Registration successful',
+      severity:   'success'
+    }));
+  } catch (error) {
+    if (error.response?.data) {
+      yield put(actions.registerStudentFailure(error.response.data.message));
+      yield put(actions.showAlert({
+        shouldOpen: true,
+        message:    error.response.data.message,
+        severity:   'error'
+      }));
+    } else {
+      yield put(actions.registerStudentFailure(error.message));
+      yield put(actions.showAlert({
+        shouldOpen: true,
+        message:    error.message,
+        severity:   'error'
+      }));
+    }
+    yield (cancel());
+  } finally {
+    yield put(hideLoading());
+  }
+}
+
 function* createSubject(payload) {
   try {
     yield put(showLoading());
@@ -93,6 +125,7 @@ function* updateSubject(payload) {
 }
 
 function* watcher() {
+  yield takeLatest(types.REGISTER_STUDENT, registerStudent);
   yield takeEvery(types.CREATE_SUBJECT, createSubject);
   yield takeLatest(types.LIST_SUBJECTS, listSubjects);
   yield takeEvery(types.UPDATE_SUBJECT, updateSubject);

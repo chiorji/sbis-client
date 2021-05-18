@@ -42,10 +42,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "yarn clean && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint . --fix",
+    "clean": "rm -rf build",
     "cypress:open": "npx cypress open"
   },
   "browserslist": {
