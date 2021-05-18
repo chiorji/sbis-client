@@ -24,15 +24,15 @@ function* createSubject(payload) {
       yield put(actions.createSubjectFailure(error.response.data.message));
       yield put(actions.showAlert({
         shouldOpen: true,
-        message:    'Request successful',
-        severity:   'success'
+        message:    'Request failed',
+        severity:   'error'
       }));
     } else {
       yield put(actions.createSubjectFailure(error.message));
       yield put(actions.showAlert({
         shouldOpen: true,
-        message:    'Request successful',
-        severity:   'success'
+        message:    'Request failed',
+        severity:   'error'
       }));
     }
     yield cancel();
