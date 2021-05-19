@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "1.x",
+    "@fontsource/roboto": "^4.3.0",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
@@ -17,7 +18,6 @@
     "connected-react-router": "^6.9.1",
     "date-fns": "^2.21.3",
     "dotenv": "^9.0.0",
-    "fontsource-roboto": "^4.0.0",
     "history": "4.10.1",
     "key-mirror": "^1.0.1",
     "lodash": "^4.17.21",
@@ -62,7 +62,6 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^7.2.0",
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "redux-logger": "^3.0.6"

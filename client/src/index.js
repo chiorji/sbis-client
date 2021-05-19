@@ -6,10 +6,10 @@ import {MuiPickersUtilsProvider} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import '@fontsource/roboto';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Themes from './components/Themes';
 import  ScrollToTop from './components/ScrollToTop';
-import 'fontsource-roboto';
 import './index.css';
 import configureStore, {history} from './store';
 
