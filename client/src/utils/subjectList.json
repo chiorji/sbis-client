@@ -1,8 +1,12 @@
 [
-  {"name": "English", "code": "ENG101", "teacher": "Bright", "category": ""},
-  {"name": "Mathematics", "code": "MT101", "teacher": "Jude", "category": ""},
-  {"name": "Biology", "code": "BIO101", "teacher": "Val", "category": ""},
-  {"name": "Physics", "code": "PHY101", "teacher": "Chisom", "category": ""},
-  {"name": "Chemistry", "code": "CHEM101", "teacher": "Dan", "category": ""},
-  {"name": "CRS", "code": "CRS101", "teacher": "Christian", "category": ""}
+  {"name": "English", "code": "ENG101", "teacher": "Bright", "category": "General"},
+  {"name": "Mathematics", "code": "MT101", "teacher": "Jude", "category": "General"},
+  {"name": "Biology", "code": "BIO101", "teacher": "Val", "category": "Sciences"},
+  {"name": "Physics", "code": "PHY101", "teacher": "Chisom", "category": "Sciences"},
+  {"name": "Chemistry", "code": "CHEM101", "teacher": "Dan", "category": "Sciences"},
+  {"name": "CRS", "code": "CRS101", "teacher": "Christian", "category": "Arts"},
+  {"name": "Government", "code": "GOV101", "teacher": "Governor", "category": "Arts"},
+  {"name": "Commerce", "code": "COM101", "teacher": "Mercy", "category": "Finance"},
+  {"name": "Economics", "code": "ECO101", "teacher": "Julius", "category": "Finance"},
+  {"name": "Accounting", "code": "ACT101", "teacher": "Harrison", "category": "Finance"}
 ]
