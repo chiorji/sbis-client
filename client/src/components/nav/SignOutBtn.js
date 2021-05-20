@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Button from '@material-ui/core/Button';
 import makeStyles from '@material-ui/styles/makeStyles';
 import {signout} from '../../store/staff/staffThunk';
+import MapIcon from '../../utils/MapIcon';
 
 const useStyles = makeStyles(theme => ({
   btn: {
@@ -27,7 +28,8 @@ const SignOutBtn = ({label, signout}) => {
         onClick:   signout,
         color:     'inherit',
         id:        'signout',
-        className: btn
+        className: btn,
+        endIcon:   <MapIcon name="signOut" />
       }}
     >
       {label}
