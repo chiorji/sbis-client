@@ -4,6 +4,7 @@ const initialState = {
   isLoading: false,
   states:    [],
   lgas:      [],
+  subjects:  [],
   alert:     {
     shouldOpen: false,
     severity:   '',
