@@ -1,0 +1,10 @@
+{
+    "clear": true,
+    "debounce": 30,
+    "dedupe": true,
+    "notfiy": false,
+    "ignore": [
+        "client/",
+        "node_modules/"
+    ]
+}
