@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const logger = require('morgan');
+const tooBusy = require('./tooBusy');
 const appConfig = require('../configs/appConfig')(process.env.NODE_ENV);
 
 module.exports = (app) => {
@@ -20,5 +21,6 @@ module.exports = (app) => {
     app.use(logger('dev'));
   }
 
+  app.use(tooBusy());
   return app;
 };
