@@ -21,6 +21,6 @@ module.exports = (app) => {
     app.use(logger('dev'));
   }
 
-  app.use(tooBusy());
+  app.use(tooBusy);
   return app;
 };

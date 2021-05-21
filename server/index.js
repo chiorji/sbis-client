@@ -12,6 +12,7 @@ require('./configs/dbConfig')(appConfig);
 // Add pre-route middleware
 require('./middlewares/preRoute')(app);
 require('./routes')(app);
+require('./middlewares/postRoute');
 
 // Checks if app is required as a module or ran directly
 if (require.main === module) {
