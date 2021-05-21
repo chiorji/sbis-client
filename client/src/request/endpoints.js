@@ -19,7 +19,7 @@ export default {
 
   registerStudent: (payload) => {
     return {
-      url: `${API_BASE_URL}/register-student`,
+      url: `${API_BASE_URL}/students/register`,
       method: 'POST',
       body: JSON.stringify(payload)
     }
