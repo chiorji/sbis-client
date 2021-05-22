@@ -1,10 +1,5 @@
 /* global describe, it */
 /* eslint-disable node/handle-callback-err, no-console, no-unused-expressions */
-process.env.NODE_ENV = 'test';
-require('dotenv').config();
-if (!global.Promise) {
-  global.Promise = require('q');
-}
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
@@ -24,18 +19,22 @@ describe('STUDENT', function () {
           expect(err).to.be.null;
           expect(res).to.have.status(200);
           expect(res.body).to.have.property('message', 'Registration successful');
+          expect(res.body.data).to.exist;
+          expect(res.body.data.id).to.exist;
           done();
         });
     });
 
     it('Fails when a required field is missing', function (done) {
       chai.request(app)
-        .post('/student/register')
+        .post('/students/register')
         .send({ ...student, first_name: '' })
         .end(function (err, res) {
           expect(err).to.be.null;
-          expect(res).to.have.status(200);
-          expect(res.body).to.have.property('message', 'could not validate request, a required field might be misssing');
+          expect(res).to.have.status(400);
+          expect(res.body).to.haveOwnProperty('message');
+          expect(res.body).to.have.property('message', 'Failed, a required field might be missing');
+          done();
         });
     });
   });
