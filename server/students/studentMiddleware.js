@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars, no-console */
 const { body, check, validationResult } = require('express-validator');
-const respondWith = require('../utils/respondWith');
+const formatResponse = require('../utils/formatResponse');
 const CustomError = require('../utils/customError');
 
 class StudentValidator {
@@ -22,6 +22,8 @@ class StudentValidator {
     if (hasError.isEmpty()) {
       return next();
     }
-    return next(new CustomError(400, 'could not validate request'));
+    return next(new CustomError(400, 'Failed, a required field might be missing'));
   }
 }
+
+module.exports = new StudentValidator();
