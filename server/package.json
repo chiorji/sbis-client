@@ -48,6 +48,10 @@
     "sort": true,
     "checkLeaks": true,
     "exit": true,
-    "asyncOnly": true
+    "asyncOnly": true,
+    "watch": true,
+    "watchFiles": ["test/"],
+    "require": "mochaFixtures.js",
+    "growl": true
     }
 }
