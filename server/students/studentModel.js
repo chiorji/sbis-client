@@ -21,7 +21,7 @@ const StudentSchema = new Schema({
   guardian_email:        { type: String, lowercase: true },
   guardian_gender:       { type: String, enum: genderList, required: true },
   guardian_nationality:  { type: String, required: true, lowercase: true }
-}, { timestamps: true });
+}, { timestamps: { updatedAt: 'updated_at', createdAt: 'created_at' } });
 
 const Student = mongoose.model('Student', StudentSchema);
 module.exports = Student;
