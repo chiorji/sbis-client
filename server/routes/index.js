@@ -4,7 +4,7 @@ const studentRoute = require('../students/studentRoutes');
 
 module.exports = (app) => {
   app.use('/staff', staffRoute);
-  app.use('/student', studentRoute);
+  app.use('/students', studentRoute);
 
   return app;
 };
