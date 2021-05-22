@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import PinAndIdForm from './PinAndIdForm';
+import PinSerialForm from './PinSerialForm';
 import DataForm from './DataForm';
 import {useQuery} from '../../utils';
 
@@ -45,7 +45,7 @@ const Portal = () => {
             : query.get('page') === 'display'
               ? <Typography variant="h6">Loading result...</Typography>
               : query.get('page') === 'validate'
-                ? <PinAndIdForm />
+                ? <PinSerialForm />
                 : <Box width={1/3} className={errorBox}>
                   <Typography variant="h1">Oops!</Typography>
                   <Typography variant="body2">

@@ -1,10 +1,10 @@
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import makeStyles from '@material-ui/styles/makeStyles';
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import validator from 'validator';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import makeStyles from '@material-ui/styles/makeStyles';
-import Grid from '@material-ui/core/Grid';
 import {validatePin} from '../../store/result/resultThunk';
 
 const useStyles = makeStyles(theme => ({
@@ -18,10 +18,10 @@ const useStyles = makeStyles(theme => ({
 const PinAndId = ({handlePinValidation=f => f}) => {
   const {textFields} = useStyles();
   const [formValues, setFormValues] = useState({
-    pin:        '',
-    pinError:   false,
-    regno:      '',
-    regnoError: false
+    pin:         '',
+    pinError:    false,
+    serial:      '',
+    serialError: false
   });
 
   // handle input changes
@@ -31,18 +31,18 @@ const PinAndId = ({handlePinValidation=f => f}) => {
   };
 
   const validateInputs = () => {
-    const {pin, regno} = formValues;
+    const {pin, serial} = formValues;
     setFormValues(prevState => ({
       ...prevState,
-      pinError:   false,
-      regnoError: false
+      pinError:    false,
+      serialError: false
     }));
 
-    if (!pin && !regno) {
+    if (!pin && !serial) {
       setFormValues(prevState => ({
         ...prevState,
-        pinError:   true,
-        regnoError: true
+        pinError:    true,
+        serialError: true
       }));
       return false;
     }
@@ -52,8 +52,8 @@ const PinAndId = ({handlePinValidation=f => f}) => {
       return false;
     }
 
-    if (!regno) {
-      setFormValues(prevState => ({...prevState, regnoError: true}));
+    if (!serial || !validator.isLength(serial, 13)) {
+      setFormValues(prevState => ({...prevState, serialError: true}));
       return false;
     }
 
@@ -62,15 +62,15 @@ const PinAndId = ({handlePinValidation=f => f}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const {pin, regno} = formValues;
+    const {pin, serial} = formValues;
     if (validateInputs()) {
-      handlePinValidation({pin, regno});
+      handlePinValidation({pin, serial});
     } else {
 
     }
   };
 
-  const {pin, pinError, regno, regnoError} = formValues;
+  const {pin, pinError, serial, serialError} = formValues;
   return (
     <Grid item xs={12} sm={6}>
       <form noValidate onSubmit={handleSubmit}>
@@ -79,9 +79,9 @@ const PinAndId = ({handlePinValidation=f => f}) => {
           error={pinError}
           id="pin"
           name="pin"
-          label="Scratch card pin"
+          label="Card pin"
           variant="outlined"
-          helperText={`Must be 12 characters; ${pin.length}/12`}
+          helperText={`Card pin, must be 12 characters; ${pin.length}/12`}
           autoComplete="off"
           className={textFields}
           value={pin}
@@ -90,22 +90,22 @@ const PinAndId = ({handlePinValidation=f => f}) => {
 
         <TextField
           type="text"
-          error={regnoError}
-          id="regno"
-          name="regno"
-          label="Reg. number"
+          error={serialError}
+          id="serial"
+          name="serial"
+          label="Card serial number"
           variant="outlined"
-          helperText="Your registration number"
+          helperText="Card serial number"
           autoComplete="off"
           className={textFields}
-          value={regno}
+          value={serial}
           onChange={handleChange}
         />
         <Button {...{
           variant: 'outlined',
           type:    'submit',
           color:   'primary',
-          id:      'validatePinReg',
+          id:      'pinSerialBtn',
           size:    'large'
         }}
         >
