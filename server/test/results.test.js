@@ -1,10 +1,5 @@
 /* global describe, it */
 /* eslint-disable node/handle-callback-err, no-console, no-unused-expressions */
-process.env.NODE_ENV = 'test';
-require('dotenv').config();
-if (!global.Promise) {
-  global.Promise = require('q');
-}
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
