@@ -6,6 +6,7 @@ module.exports = {
     nationality:           'American',
     dob:                   new Date(),
     state_of_origin:       'Texas',
+    registered_class:      'JS2',
     local_govt_of_origin:  'Texas city',
     guardian_name:         'Akinsola Oyelakin',
     guardian_home_address: 'Texas city',
