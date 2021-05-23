@@ -22,7 +22,7 @@ const CopyRight = () => {
   return(
     <Box className={box}>
       <Typography variant="body2" component="div">
-        all right reserved &copy; {new Date().getFullYear()} success
+        &copy; All Right Reserved {new Date().getFullYear()} success
        builders int&#39;l schools
       | <Link href="https://chigboguorji.netlify.app" target="_blank" rel="noopener noreferrer"><strong>Site developed by Chigbogu</strong></Link>
       </Typography>

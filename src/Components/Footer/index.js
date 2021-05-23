@@ -1,29 +1,30 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
-import { Link as RouterLink } from 'react-router-dom';
-import { HashLink } from 'react-router-hash-link';
-import makeStyles from '@material-ui/styles/makeStyles';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import WhatsAppIcon from '@material-ui/icons/WhatsApp';
-import TwitterIcon from '@material-ui/icons/Twitter';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import EmailIcon from '@material-ui/icons/Email';
+import FacebookIcon from '@material-ui/icons/Facebook';
 import PhoneEnabledIcon from '@material-ui/icons/PhoneEnabled';
 import RoomIcon from '@material-ui/icons/Room';
-import CopyRight from './CopyRight';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import WhatsAppIcon from '@material-ui/icons/WhatsApp';
+import makeStyles from '@material-ui/styles/makeStyles';
+import { Link as RouterLink } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 import { links } from '../../request/links';
+import CopyRight from './CopyRight';
 
 const useStyles = makeStyles(theme => ({
   container: {
     backgroundColor: theme.palette.primary.light,
-    paddingTop:      theme.spacing(2)
+    paddingTop:      theme.spacing(2),
+    fontWeight:      '600'
   },
   paper: {
     backgroundColor:                'transparent',
-    color:                          theme.palette.common.dark,
+    color:                          theme.palette.grey[400],
     [theme.breakpoints.down('sm')]: {
       marginTop: theme.spacing(2)
     }
@@ -40,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius:    '5px',
     padding:         theme.spacing(1),
     color:           theme.palette.primary.main,
-    backgroundColor: theme.palette.grey[200]
+    backgroundColor: theme.palette.grey[400]
   },
   linksWrapper: {
     [theme.breakpoints.down('sm')]: {
@@ -50,10 +51,10 @@ const useStyles = makeStyles(theme => ({
   link: {
     display:   'block',
     marginTop: theme.spacing(3),
-    color:     theme.palette.common.dark
+    color:     theme.palette.grey[400]
   },
   footerText: {
-    color: theme.palette.common.dark
+    color: theme.palette.grey[300]
   }
 }));
 
@@ -76,7 +77,7 @@ const Footer = () => {
               <Link href="https://twitter.com/sbis" target="_blank" rel="noopener noreferrer">
                 <TwitterIcon className={icons} fill="currentColor"/>
               </Link>
-              <Link href="mailto:successbuilders28@yahoo.com" target="_blank" rel="noopener noreferrer">
+              <Link href="mailto:successbuildersiyiowa@gmail.com" target="_blank" rel="noopener noreferrer">
                 <EmailIcon className={icons} fill="currentColor"/>
               </Link>
               <Link href="tel:+2348052452125">
