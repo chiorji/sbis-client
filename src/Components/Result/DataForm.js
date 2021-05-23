@@ -1,4 +1,6 @@
-/* eslint-disable no-unused-vars, no-console */
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import validator from 'validator';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -7,10 +9,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
+import { KeyboardDatePicker } from '@material-ui/pickers';
 import makeStyles from '@material-ui/styles/makeStyles';
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { getResult } from '../../store/result/resultThunk';
 
 const useStyles = makeStyles(theme => ({
@@ -32,29 +32,30 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DataForm = ({ getResult }) => {
-  const history = useHistory();
   const { formControl, btn } = useStyles();
   const [formValues, setFormValues] = useState({
-    examYear:       '',
+    examYear:       new Date(),
     examYearError:  false,
     examTerm:       '',
     examTermError:  false,
     examClass:      '',
-    examClassError: false
+    examClassError: false,
+    regno:          '',
+    regnoError:     false
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues(prevValues => ({ ...prevValues, [name]: value }));
+  const handleChange = (prop) => (e) => {
+    setFormValues(prevValues => ({ ...prevValues, [prop]: prop === 'examYear' ? new Date(e) : e.target.value }));
   };
 
   const validateFormValues = () => {
-    const { examYear, examTerm, examClass } = formValues;
+    const { examYear, examTerm, examClass, regno } = formValues;
     setFormValues(prevValues => ({
       ...prevValues,
       examYearError:  false,
       examTermError:  false,
-      examClassError: false
+      examClassError: false,
+      regnoError:     false
     }));
 
     if (!examYear && !examTerm && !examClass) {
@@ -81,22 +82,27 @@ const DataForm = ({ getResult }) => {
       setFormValues(prevValues => ({ ...prevValues, examClassError: true }));
       return false;
     }
+    // Regno format is "SBIS/2021/UNfve2"
+    if (!regno || !validator.matches(regno, /^SBIS\/\b\d{4}\b\/\b[A-Z0-9]{6}\b$/i)) {
+      setFormValues(prevValues => ({ ...prevValues, regnoError: true }));
+      return false;
+    }
     // return true when all fields validates
     return true;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { examYear, examTerm, examClass } = formValues;
+    const { examYear, examTerm, examClass, regno } = formValues;
     if (validateFormValues()) {
-      getResult({ examYear, examTerm, examClass });
+      getResult({
+        examYear: new Date(examYear).getFullYear(),
+        examTerm, examClass, regno
+      });
     } else {
-      console.log('validation failed');
+      console.log(''); // eslint-disable-line
     }
   };
-
-  // TODO: modify to programmatically generate year values
-  const yearOpts = ['', '2021', '2022', '2023', '2024', '2025'];
 
   const clsOpts = [
     { label: 'Select class', value: '' },
@@ -119,30 +125,26 @@ const DataForm = ({ getResult }) => {
     examYear,
     examTerm,
     examClass,
+    regno,
     examYearError,
     examTermError,
-    examClassError
+    examClassError,
+    regnoError
   } = formValues;
 
   return (
     <Grid item xs={12} sm={6}>
       <form noValidate onSubmit={handleSubmit}>
         <FormGroup row={true}>
-          <FormControl variant="outlined" className={formControl} error={examYearError}>
-            <InputLabel id="examYear">Year</InputLabel>
-            <Select
-              labelId="examYear"
-              id="examYear"
-              value={examYear}
-              name="examYear"
-              onChange={handleChange}
-              label="Year"
-            >
-              {yearOpts.map(year => (
-                <MenuItem key={year} value={year} disabled={year === ''}>{year !== '' ? year : 'Select year'}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <KeyboardDatePicker
+            error=     {examYearError}
+            views=     {[ 'year' ]}
+            label=     'Exam Year'
+            value=     {examYear}
+            onChange= {handleChange('examYear')}
+            inputVariant=   'outlined'
+            className={formControl}
+          />
 
           <FormControl variant="outlined" className={formControl} error={examTermError}>
             <InputLabel id="examTerm">Term</InputLabel>
@@ -151,7 +153,7 @@ const DataForm = ({ getResult }) => {
               id="examTerm"
               value={examTerm}
               name="examTerm"
-              onChange={handleChange}
+              onChange={handleChange('examTerm')}
               label="Term"
             >
               {termOpts.map(({ label, value }) => (
@@ -169,7 +171,7 @@ const DataForm = ({ getResult }) => {
               id="examClass"
               value={examClass}
               name="examClass"
-              onChange={handleChange}
+              onChange={handleChange('examClass')}
               label="Class"
             >
               {clsOpts.map(({ label, value }) => (
@@ -177,8 +179,17 @@ const DataForm = ({ getResult }) => {
               ))}
             </Select>
           </FormControl>
-          <FormControl>
-            <TextField />
+          <FormControl className={formControl}>
+            <TextField
+              error={regnoError}
+              label="Reg No"
+              id="regno"
+              name="regno"
+              variant="outlined"
+              autoComplete="off"
+              value={regno}
+              onChange={handleChange('regno')}
+            />
           </FormControl>
         </FormGroup>
         <FormGroup row={true}>

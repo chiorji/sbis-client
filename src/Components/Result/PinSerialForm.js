@@ -1,9 +1,9 @@
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import makeStyles from '@material-ui/styles/makeStyles';
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import validator from 'validator';
 import { validatePin } from '../../store/result/resultThunk';
 
