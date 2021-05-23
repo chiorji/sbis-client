@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
-import schHall from '../assets/img/5.jpg';
+import schHall from '../../assets/img/5.jpg';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2)
   },
   heading: {
-    color:        theme.palette.secondary.main,
+    color:        theme.palette.secondary.dark,
     fontWeight:   'bold',
     marginBottom: theme.spacing(3)
   },
