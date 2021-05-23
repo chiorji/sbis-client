@@ -137,13 +137,17 @@ const DataForm = ({ getResult }) => {
       <form noValidate onSubmit={handleSubmit}>
         <FormGroup row={true}>
           <KeyboardDatePicker
-            error=     {examYearError}
-            views=     {[ 'year' ]}
-            label=     'Exam Year'
-            value=     {examYear}
-            onChange= {handleChange('examYear')}
-            inputVariant=   'outlined'
+            error={examYearError}
+            views={[ 'year' ]}
+            label='Exam Year'
+            value={examYear}
+            onChange={handleChange('examYear')}
+            inputVariant='outlined'
+            variant='dialog'
             className={formControl}
+            autoOk={true}
+            orientation='landscape'
+            animateYearScrolling={true}
           />
 
           <FormControl variant="outlined" className={formControl} error={examTermError}>
