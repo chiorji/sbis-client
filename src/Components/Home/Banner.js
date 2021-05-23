@@ -4,8 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
-import first from '../assets/img/8.jpg';
-import second from '../assets/img/7.jpg';
+import first from '../../assets/img/8.jpg';
+import second from '../../assets/img/7.jpg';
 
 const useStyles = makeStyles(theme => ({
   banner: {

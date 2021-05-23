@@ -23,12 +23,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const WhyChooseUsGrid = ({ avatar, heading, body }) => {
-  const { paper, img, head } = useStyles();
+  const { paper, head } = useStyles();
   return (
     <Grid item xs={12} sm={6} md={4}>
-      <Paper elevation={3} className={paper}>
-        <img alt={heading} src={avatar} className={img} />
-        <Typography variant="h6" className={head}>{heading}</Typography>
+      <Paper elevation={0} className={paper} variant="outlined">        <Typography variant="h6" className={head}>{heading}</Typography>
         <Typography variant="body2">{body}</Typography>
       </Paper>
     </Grid>

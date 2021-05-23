@@ -3,8 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
-import React from 'react';
-import schHall from '../assets/img/5.jpg';
+import schHall from '../../assets/img/5.jpg';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -16,8 +15,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2)
   },
   heading: {
-    color:        theme.palette.secondary.main,
-    fontWeight:   'medium',
+    color:        theme.palette.secondary.dark,
+    fontWeight:   'bold',
     marginBottom: theme.spacing(3)
   },
   paper: {
@@ -47,7 +46,7 @@ const About = () => {
         </Grid>
         <Grid item xs={12} md={7}>
           <Paper className={paper} elevation={0}>
-            <Typography component="h2" variant="h3" className={heading}>About SBIS</Typography>
+            <Typography component="h2" variant="h4" className={heading}>About SBIS</Typography>
             <Typography>Lorem ipsum dolor sit amet consectetur
             adipisicing elit. Ipsa rem, molestias dolorem ab
             repudiandae qui nulla maxime amet porro temporibus

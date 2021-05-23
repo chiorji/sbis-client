@@ -1,9 +1,9 @@
 import React from 'react';
-import Hero from '../../Components/Hero';
-import Banner from '../../Components/Banner';
-import About from '../../Components/About';
-import EduFacilities from '../../Components/EduFacilities';
-import WhyChooseUs from '../../Components/WhyChooseUs';
+import Hero from '../../Components/Home/Hero';
+import Banner from '../../Components/Home/Banner';
+import About from '../../Components/Home/About';
+import EduFacilities from '../../Components/Home/EduFacilities';
+import WhyChooseUs from '../../Components/Home/WhyChooseUs';
 import { whyChooseUs } from '../../request/whyChooseUs';
 import Staff from '../../Components/Staff';
 

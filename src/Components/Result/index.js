@@ -40,7 +40,7 @@ const Portal = () => {
       </Container>
       <Container>
         <Grid container className={grid} spacing={4}>
-          {query.get('page') === 'validated' && (query.get('pin') && query.get('regno'))
+          {query.get('page') === 'validated' && (query.get('pin') && query.get('serial'))
             ? <DataForm />
             : query.get('page') === 'display'
               ? <Typography variant="h6">Loading result...</Typography>

@@ -4,12 +4,12 @@ import * as actions from './actions';
 
 /* eslint-disable no-unused-vars, no-console */
 export const validatePin = (payload) => {
-  const { pin, regno } = payload;
+  const { pin, serial } = payload;
   return dispatch => {
     dispatch(showLoading());
     setTimeout(() => {
       try {
-        dispatch(push(`/result?page=validated&pin=${pin}&regno=${regno}`));
+        dispatch(push(`/result?page=validated&pin=${pin}&serial=${serial}`));
         dispatch(hideLoading());
       } catch (error) {
         dispatch(actions.validateRegnoFailure(error));

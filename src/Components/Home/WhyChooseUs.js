@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import makeStyles from '@material-ui/styles/makeStyles';
-import WhyChooseUsGrid from '../utils/WhyChoseUsGrid';
+import WhyChooseUsGrid from './WhyChoseUsGrid';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -41,11 +41,13 @@ const WhyChooseUs = ({ data }) => {
       <Typography component="div" className={callToAction}>
         <Button
           {...{
-            component: RouterLink,
-            to:        '/academics',
-            variant:   'contained',
-            color:     'secondary',
-            endIcon:   <KeyboardArrowRightIcon/>
+            component:        RouterLink,
+            to:               '/academics',
+            variant:          'contained',
+            color:            'secondary',
+            size:             'large',
+            endIcon:          <KeyboardArrowRightIcon/>,
+            disableElevation: true
           }}
         >Explore our academics</Button>
       </Typography>

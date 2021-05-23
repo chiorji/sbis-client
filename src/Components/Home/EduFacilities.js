@@ -1,9 +1,7 @@
-import React from 'react';
 import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
 
 const useStyles = makeStyles(theme => ({
@@ -13,12 +11,13 @@ const useStyles = makeStyles(theme => ({
   },
   box: {
     backgroundColor: theme.palette.primary.main,
+    color:           theme.palette.grey[300],
     textAlign:       'center',
     paddingTop:      theme.spacing(5),
     paddingBottom:   theme.spacing(5)
   },
   heading: {
-    fontWeight: 'medium'
+    fontWeight: 'bold'
   },
   grid: {
     textAlign:                      'center',
@@ -27,11 +26,9 @@ const useStyles = makeStyles(theme => ({
     }
   },
   eduLevels: {
-    textAlign:      'center',
-    fontWeight:     'bold',
-    color:          theme.palette.secondary.light,
-    marginBottom:   theme.spacing(2),
-    textDecoration: 'underline'
+    textAlign:  'center',
+    fontWeight: 'bold',
+    color:      theme.palette.secondary.dark
   },
   paper: {
     padding:   theme.spacing(5),
@@ -44,9 +41,9 @@ const useStyles = makeStyles(theme => ({
 const EduFacilities = () => {
   const { container, heading, box, eduLevels, grid, paper } = useStyles();
   return (
-    <Box className={box}>
+    <Container maxWidth='lg' className={box}>
       <Container className={container}>
-        <Typography variant="h4" className={heading}>Education and Facilities</Typography>
+        <Typography variant="h4" className={heading} gutterBottom>Education and Facilities</Typography>
         <Typography>Our school is a great place for learning.
         A place for moulding future leaders of the society.
         <br /> Our cores values surrounds every life of our student,
@@ -56,8 +53,8 @@ const EduFacilities = () => {
       <Container>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={4} className={grid}>
-            <Paper className={paper}>
-              <Typography variant="h5" className={eduLevels}>Basic</Typography>
+            <Paper className={paper} variant="outlined">
+              <Typography variant="h5" className={eduLevels} gutterBottom>Basic</Typography>
               <Typography>Success Builders International School
               is a well-established independent co-educational
               school with educated teachers, a rich blend of
@@ -68,8 +65,8 @@ const EduFacilities = () => {
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6} md={4} className={grid}>
-            <Paper className={paper}>
-              <Typography variant="h5" className={eduLevels}>Primary</Typography>
+            <Paper className={paper}  variant="outlined">
+              <Typography variant="h5" className={eduLevels} gutterBottom>Primary</Typography>
               <Typography>From the very first moment a child enters
               the school, he/she benefits from an excellent
               academic education supported by highly qualified and
@@ -80,8 +77,8 @@ const EduFacilities = () => {
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6} md={4} className={grid}>
-            <Paper className={paper}>
-              <Typography variant="h5" className={eduLevels}>Secondary</Typography>
+            <Paper className={paper}  variant="outlined">
+              <Typography variant="h5" className={eduLevels} gutterBottom>Secondary</Typography>
               <Typography>The college has a tradition of excellent
               teaching and learning combined with discipline
               and traditional values which are the bedrock of
@@ -93,7 +90,7 @@ const EduFacilities = () => {
           </Grid>
         </Grid>
       </Container>
-    </Box>
+    </Container>
   );
 };
 
