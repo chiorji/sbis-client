@@ -81,11 +81,11 @@ const AddStaffForm = ({ addStaff=f => f }) => {
       setFormValues(prevState => ({ ...prevState, emailError: true }));
       return false;
     }
-    if (!form_class || !/(JS1|JS2|JS3|SS1|SS2|SS3)/i.test(form_class)) {
+    if (!form_class) {
       setFormValues(prevState => ({ ...prevState, formClassError: true }));
       return false;
     }
-    if (!role || !/(USER|SUPERUSER|ADMIN)/i.test(role)) {
+    if (!role) {
       setFormValues(prevState => ({ ...prevState, roleError: true }));
       return false;
     }
