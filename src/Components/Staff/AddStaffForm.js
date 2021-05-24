@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import validator from 'validator';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
-import { makeId } from '../../utils/makeId';
 import { addStaff } from '../../store/staff/actions';
+import { makeId } from '../../utils/makeId';
 
 const useStyles = makeStyles(theme => ({
   gridItem: {
@@ -81,11 +81,11 @@ const AddStaffForm = ({ addStaff=f => f }) => {
       setFormValues(prevState => ({ ...prevState, emailError: true }));
       return false;
     }
-    if (!form_class || !/(JS1|JS2|JS3|SS1|SS2|SS3)/i.test(form_class)) {
+    if (!form_class) {
       setFormValues(prevState => ({ ...prevState, formClassError: true }));
       return false;
     }
-    if (!role || !/(USER|SUPERUSER|ADMIN)/i.test(role)) {
+    if (!role) {
       setFormValues(prevState => ({ ...prevState, roleError: true }));
       return false;
     }
@@ -133,11 +133,12 @@ const AddStaffForm = ({ addStaff=f => f }) => {
           />
           <Button
             type="button"
-            variant="contained"
+            variant="outlined"
             color="default"
             size="large"
             disabled={id ? true : false}
             className={rowText}
+            disableElevation={true}
             onClick={() => setFormValues(prev => ({ ...prev, id: makeId() }))}
           >Generate ID</Button>
         </FormGroup>
@@ -239,6 +240,7 @@ const AddStaffForm = ({ addStaff=f => f }) => {
           size='large'
           color="primary"
           className={submitBtn}
+          disableElevation={true}
         >Complete</Button>
       </form>
     </Grid>

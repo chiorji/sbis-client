@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import TextField from '@material-ui/core/TextField';
+import { createSubject } from '../../store/staff/actions';
 import Button from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import FormGroup from '@material-ui/core/FormGroup';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/styles';
-import { createSubject } from '../../store/staff/actions';
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    flexDirection:  'column',
+    display:        'flex',
+    justifyContent: 'center',
+    alignContent:   'center',
+    alignItems:     'center'
+  },
   textFields: {
     width:        '100%',
     marginBottom: theme.spacing(3)
@@ -20,13 +27,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CreateSubject = ({ createSubject }) => {
-  const { textFields } = useStyles();
+  const { container, textFields } = useStyles();
 
   const [subject, setSubject] = useState({
     name:          '',
     nameError:     false,
     code:          '',
-    category:      '',
+    category:      'UNCATEGORIZED',
     categoryError: false,
     teacher:       '',
     teacherError:  false
@@ -76,8 +83,8 @@ const CreateSubject = ({ createSubject }) => {
 
   return (
     <>
-      <Typography variant="h4" gutterBottom>Create Subject</Typography>
-      <Grid container>
+      <Typography variant="h4" align="center" gutterBottom>Create Subject</Typography>
+      <Grid container className={container}>
         <Grid item xs={12} sm={12} md={6}>
           <form noValidate onSubmit={handleSubmit}>
             <TextField
@@ -131,7 +138,7 @@ const CreateSubject = ({ createSubject }) => {
                   onChange={handleChange('category')}
                   label="Category"
                 >
-                  {['SENIOR', 'JUNIOR', 'UNCATEGORIZED'].map((value) => (
+                  {['ALL', 'SENIOR', 'JUNIOR', 'UNCATEGORIZED'].map((value) => (
                     <MenuItem key={value} value={value}>{value}</MenuItem>
                   ))}
                 </Select>
