@@ -1,70 +1,78 @@
-/* eslint-disable */
+/* eslint-disable import/no-anonymous-default-export */
 const STATES_API_BASE = process.env.REACT_APP_STATE_API_BASE;
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export default {
   fetchStates: () => {
     return {
-      url: `${STATES_API_BASE}/states`,
+      url:    `${STATES_API_BASE}/states`,
       method: 'GET'
-    }
+    };
   },
 
   fetchStateLgas: (stateName) => {
     return {
-      url: `${STATES_API_BASE}/states/${stateName}/details`,
+      url:    `${STATES_API_BASE}/states/${stateName}/details`,
       method: 'GET'
-    }
+    };
   },
 
-  registerStudent: (payload) => {
+  registerStudent: (data) => {
     return {
-      url: `${API_BASE_URL}/students/register`,
+      url:    `${API_BASE_URL}/api/v1/students`,
       method: 'POST',
-      body: JSON.stringify(payload)
-    }
+      data
+    };
   },
 
-  addNewStaff: (payload) => {
+  addNewStaff: (data) => {
     return {
-      url: `${API_BASE_URL}/staff/details/add`,
+      url:    `${API_BASE_URL}/api/v1/staff`,
       method: 'POST',
-      body: JSON.stringify(payload)
-    }
+      data
+    };
   },
 
   fetchStaffList: () => {
     return {
-      url: `${API_BASE_URL}/staff/details`,
+      url:    `${API_BASE_URL}/api/v1/staff`,
       method: 'GET'
-    }
+    };
   },
 
-  createSubject: (payload) => {
+  createSubject: (data) => {
     return {
-      url: `${API_BASE_URL}/subjects/create`,
+      url:    `${API_BASE_URL}/api/v1/subjects`,
       method: 'POST',
-      body: JSON.stringify(payload)
-    }
+      data
+    };
   },
 
-  updateSubject: (payload) => {
+  updateSubject: (data) => {
     return {
-       url: `${API_BASE_URL}/subjects/update`,
+      url:    `${API_BASE_URL}/api/v1/subjects`,
       method: 'PUT',
-      body: JSON.stringify(payload)
-    }
+      data
+    };
   },
-  
+
   /**
    * Fetches subject list
    * @param {string} level filters either senior or junior level categorized subject
-   * @returns 
+   * @returns
    */
   listSubjects: (level) => {
     return {
-      url: `${API_BASE_URL}/subjects?filter=${level}`,
+      url:    `${API_BASE_URL}/api/v1/subjects?filter=${level}`,
       method: 'GET'
-    }
+    };
+  },
+
+  staffLogin: (data) => {
+    return {
+      url:    `${API_BASE_URL}/api/v1/auth/login`,
+      method: 'POST',
+      data
+    };
   }
 };
