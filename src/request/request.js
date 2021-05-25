@@ -1,0 +1,74 @@
+/* eslint-disable no-console */
+import axios from 'axios';
+import formUrlEncoded from 'form-urlencoded';
+
+const request = {};
+let CancelToken = axios.CancelToken;
+let cancel;
+
+request.make = (options, withToken) => {
+  let access_token;
+  let headers = {};
+  let _options = options || {};
+  let isEncoded = options.encode;
+
+  _options.headers = _options.headers || {};
+  headers = {
+    ..._options.headers,
+    'Content-Type': isEncoded ? 'application/x-www-form-urlencoded' : 'application/json'
+  };
+
+  if (withToken) {
+    access_token = ''; // get token from seesion
+    if (typeof access_token === 'object') {
+      request.cancel();
+      alert('Access token expired, kindly login again to generate new token');
+      window.location.href = '/';
+    }
+    headers[ 'Authorization' ] = `Bearer ${access_token}`;
+  }
+
+  const defer = new Promise(function(resolve, reject){
+    axios({
+      cancelToken: new CancelToken(function ex(c) {
+        cancel = c;
+      }),
+      url:     _options.url,
+      method:  _options.method,
+      baseURL: _options.baseURL,
+      headers: headers,
+      params:  _options.params,
+      data:    isEncoded ? formUrlEncoded(_options.data || {}) :
+        _options.data || {}
+    }).then((response) => {
+      resolve(response);
+    }).catch((error) => {
+      if (axios.isCancel(error)) {
+        // Do nothing if error is as a result of cancelled request
+      } else if (error.response) {
+        reject(error.response);
+      } else if (error.request) {
+        console.log('Request error', error);
+      } else {
+        reject('ERROR_NO_RESPONSE');
+      }
+    });
+  });
+  return defer;
+};
+
+request.get = (options) => {
+  options.method = 'GET';
+  return request.make(options);
+};
+
+request.post = (options) => {
+  options.method = 'POST';
+  return request.make(options);
+};
+
+request.cancel = () => {
+  cancel && request.cancel();
+};
+
+export default request;

@@ -5468,6 +5468,11 @@ form-data@~2.3.2:
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
 
+form-urlencoded@^6.0.4:
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/form-urlencoded/-/form-urlencoded-6.0.4.tgz#62305ea704bb86e1c8b946d1aae5a34e02b6634f"
+  integrity sha512-39GnqmnZkThJBXiKhBCrBGPKiwFHDgi3lcGO3SfURjXoz9x8quxNRTiIWViYN+QzQXxxl/uyKm+i+0PCj7Aqbw==
+
 forwarded@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
