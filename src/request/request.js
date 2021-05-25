@@ -28,7 +28,6 @@ request.make = (options, withToken) => {
     }
     headers[ 'Authorization' ] = `Bearer ${access_token}`;
   }
-  console.log({ ...options, headers }); // Todo: remove string
   const defer = new Promise(function(resolve, reject){
     axios({
       cancelToken: new CancelToken(function ex(c) {
