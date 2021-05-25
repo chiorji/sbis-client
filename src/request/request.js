@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 import formUrlEncoded from 'form-urlencoded';
+import { getSession } from '../session/cookies';
 
 const request = {};
 let CancelToken = axios.CancelToken;
@@ -19,7 +20,7 @@ request.make = (options, withToken) => {
   };
 
   if (withToken) {
-    access_token = ''; // get token from seesion
+    access_token = getSession('access_token');
     if (typeof access_token === 'object') {
       request.cancel();
       alert('Access token expired, kindly login again to generate new token');

@@ -1,23 +1,34 @@
-import { createStore, applyMiddleware } from 'redux';
-import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { loadingBarMiddleware } from 'react-redux-loading-bar';
+import { createBrowserHistory } from 'history';
 import { throttle } from 'lodash';
+import { loadingBarMiddleware } from 'react-redux-loading-bar';
+import { applyMiddleware, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
-import { createLogger } from 'redux-logger';
+import { getSession } from '../session/cookies';
+import { loadState, saveState } from '../session/sessionStorage';
 import createRootReducer from './root';
-import { loadState, saveState } from './sessionStorage';
 import sagas from './sagas';
-// TODO: Add session timing via cookie
+
 export const history = createBrowserHistory();
 
+let secondsRemaining = 0;
 const sagaMiddleware = createSagaMiddleware();
+
+if (getSession().expiryDate) {
+  let expiry = new Date(getSession().expiryDate);
+  let currentDate = new Date();
+  let timeRemaining = expiry - currentDate;
+  secondsRemaining = Math.floor(timeRemaining / 1e3);
+}
+
 const composeEnhancers = composeWithDevTools({
   trace:      true,
   traceLimit: 25
 });
+
 
 const getMiddleware = () => {
   if (process.env.NODE_ENV === 'production') {
@@ -54,7 +65,7 @@ const configureStore = () => {
         email:           store.getState().account.email,
         id:              store.getState().account.id,
         role:            store.getState().account.role,
-        sessionInterval: 100
+        sessionInterval: secondsRemaining
       }
     });
   }));
