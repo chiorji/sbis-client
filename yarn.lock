@@ -3820,6 +3820,11 @@ cookie@0.4.0:
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.4.0.tgz#beb437e7022b3b6d49019d088665303ebe9c14ba"
   integrity sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg==
 
+cookie@^0.1.2:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.1.5.tgz#6ab9948a4b1ae21952cd2588530a4722d4044d7c"
+  integrity sha1-armUiksa4hlSzSWIUwpHItQETXw=
+
 copy-concurrently@^1.0.0:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/copy-concurrently/-/copy-concurrently-1.0.5.tgz#92297398cae34937fcafd6ec8139c18051f0b5e0"
@@ -3964,6 +3969,11 @@ crypto-browserify@^3.11.0:
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
     randomfill "^1.0.3"
+
+crypto-js@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.0.0.tgz#2904ab2677a9d042856a2ea2ef80de92e4a36dcc"
+  integrity sha512-bzHZN8Pn+gS7DQA6n+iUmBfl0hO5DJq++QP3U6uTucDtk/0iGpXd/Gg7CGR0p8tJhofJyaKoWBuJI4eAO00BBg==
 
 crypto-random-string@^1.0.0:
   version "1.0.0"
@@ -5467,6 +5477,11 @@ form-data@~2.3.2:
     asynckit "^0.4.0"
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
+
+form-urlencoded@^6.0.4:
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/form-urlencoded/-/form-urlencoded-6.0.4.tgz#62305ea704bb86e1c8b946d1aae5a34e02b6634f"
+  integrity sha512-39GnqmnZkThJBXiKhBCrBGPKiwFHDgi3lcGO3SfURjXoz9x8quxNRTiIWViYN+QzQXxxl/uyKm+i+0PCj7Aqbw==
 
 forwarded@~0.1.2:
   version "0.1.2"
@@ -9623,6 +9638,13 @@ react-beautiful-dnd@13.0.0:
     react-redux "^7.1.1"
     redux "^4.0.4"
     use-memo-one "^1.1.1"
+
+react-cookie@0.4.8:
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/react-cookie/-/react-cookie-0.4.8.tgz#4391453c42b2c860b1a79527ac96da04e0d7968a"
+  integrity sha1-Q5FFPEKyyGCxp5UnrJbaBODXloo=
+  dependencies:
+    cookie "^0.1.2"
 
 react-dev-utils@^11.0.3:
   version "11.0.4"
