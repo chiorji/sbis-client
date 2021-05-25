@@ -23,12 +23,12 @@ request.make = (options, withToken) => {
     access_token = getSession('access_token');
     if (typeof access_token === 'object') {
       request.cancel();
-      alert('Access token expired, kindly login again to generate new token');
+      alert('Session expired, kindly login again to begin new session');
       window.location.href = '/';
     }
     headers[ 'Authorization' ] = `Bearer ${access_token}`;
   }
-
+  console.log({ ...options, headers }); // Todo: remove string
   const defer = new Promise(function(resolve, reject){
     axios({
       cancelToken: new CancelToken(function ex(c) {
@@ -49,7 +49,7 @@ request.make = (options, withToken) => {
       } else if (error.response) {
         reject(error.response);
       } else if (error.request) {
-        console.log('Request error', error);
+        reject(error.message);
       } else {
         reject('ERROR_NO_RESPONSE');
       }
@@ -64,6 +64,11 @@ request.get = (options) => {
 };
 
 request.post = (options) => {
+  options.method = 'POST';
+  return request.make(options, true);
+};
+
+request.auth = (options) => {
   options.method = 'POST';
   return request.make(options);
 };
