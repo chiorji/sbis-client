@@ -17,7 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 import makeStyles from '@material-ui/styles/makeStyles';
 
 import Alert from '../Alert';
-import { login } from '../../store/staff/staffThunk';
+import { loginRequest } from '../../store/staff/actions';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -43,7 +43,7 @@ const Login = ({ login, alert, hideAlert }) => {
   const { container, textFields, gridContainer, heading } = useStyles();
   const [staffInfo, setStaffInfo] = useState({
     id:            '000001',
-    username:      'tester@domain.com',
+    username:      'admin@domain.com',
     password:      '123456',
     idError:       false,
     usernameError: false,
@@ -224,7 +224,7 @@ const Login = ({ login, alert, hideAlert }) => {
 };
 
 const mapDispatch = dispatch => ({
-  login:     (payload) => dispatch(login(payload)),
+  login:     (payload) => dispatch(loginRequest(payload)),
   hideAlert: () => dispatch({ type: 'HIDE_ALERT' })
 });
 

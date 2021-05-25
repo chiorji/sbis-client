@@ -1,7 +1,8 @@
 import types from './constants';
 
-export const loginRequest = () => ({
-  type: types.LOGIN_REQUEST
+export const loginRequest = (payload) => ({
+  type: types.LOGIN_REQUEST,
+  payload
 });
 
 export const loginSuccess = (payload) => ({
