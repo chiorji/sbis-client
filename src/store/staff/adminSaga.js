@@ -17,7 +17,7 @@ function* staffLogin({ payload }){
     yield put(actions.loginSuccess(data));
   } catch (error) {
     if (error.response) {
-      yield actions.loginFailure(error.response.data.message);
+      yield put(actions.loginFailure(error.response.data.message));
     } else {
       yield put(actions.loginFailure(error));
     }
