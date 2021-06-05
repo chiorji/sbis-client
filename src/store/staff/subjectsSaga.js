@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import axios from 'axios';
 import {
   put, cancel, delay, takeEvery, takeLatest, call
 } from 'redux-saga/effects';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
+import api from '../../request/request';
 import * as actions from './actions';
 import types from './constants';
 import subjects from '../../utils/subjectList.json';
@@ -13,7 +13,7 @@ import endpoints from '../../request/endpoints';
 function* createSubject(payload) {
   try {
     yield put(showLoading());
-    const sub = yield call(axios, endpoints.createSubject(payload));
+    const sub = yield call(api.post, endpoints.createSubject(payload));
     yield put(actions.createSubjectSuccess(sub.data));
     yield put(actions.showAlert({
       shouldOpen: true,
@@ -44,9 +44,8 @@ function* createSubject(payload) {
 
 function* listSubjects() {
   try {
-    yield(delay(3000)); // TODO: remove this
     yield put(showLoading());
-    // const list = yield call(axios, endpoints.listSubjects());
+    const list = yield call(api.get, endpoints.listSubjects(), true);
     yield put(actions.listSubjectsSuccess(subjects));
     yield put(actions.showAlert({
       shouldOpen: true,
@@ -79,7 +78,7 @@ function* listSubjects() {
 function* updateSubject(payload) {
   try {
     yield put(showLoading());
-    const upd = call(axios, endpoints.updateSubject(payload));
+    const upd = call(api.put, endpoints.updateSubject(payload));
     yield put(actions.updateSubjectSuccess(upd.data));
   } catch (error) {
     if (error.response?.data) {
