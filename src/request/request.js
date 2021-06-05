@@ -44,13 +44,11 @@ request.make = (options, withToken) => {
       resolve(response);
     }).catch((error) => {
       if (axios.isCancel(error)) {
-        // Do nothing if error is as a result of cancelled request
-      } else if (error.response) {
-        reject(error.response);
-      } else if (error.request) {
         reject(error.message);
+      } else if (error.response) { // server returns an error
+        reject(error.response.data);
       } else {
-        reject('ERROR_NO_RESPONSE');
+        reject('OOPS! NO RESPONSE');
       }
     });
   });
@@ -70,6 +68,11 @@ request.post = (options) => {
 request.auth = (options) => {
   options.method = 'POST';
   return request.make(options);
+};
+
+request.put = (options) => {
+  options.method = 'PUT';
+  return request.make(options, true);
 };
 
 request.cancel = () => {
