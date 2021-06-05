@@ -1,4 +1,4 @@
-/* eslint-disable no-console, no-unused-vars */
+/* eslint-disable no-console */
 import { replace } from 'connected-react-router';
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import {
@@ -10,14 +10,16 @@ import _list from '../../utils/staff.json';
 import * as actions from './actions';
 import types from './constants';
 
-function* staffLogin({ payload }){
+function* staffLogin({ payload }) {
+  // const { username, id, email } = payload;
   try {
     yield put(showLoading());
     const { data } = yield call(api.auth, endpoints.staffLogin(payload));
     yield put(actions.loginSuccess(data));
+    yield put(replace('/dashboard'));
   } catch (error) {
-    if (error.response) {
-      yield put(actions.loginFailure(error.response.data.message));
+    if (error.message) {   // If server returns an error message
+      yield put(actions.loginFailure(error.message));
     } else {
       yield put(actions.loginFailure(error));
     }
