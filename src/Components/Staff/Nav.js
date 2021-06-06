@@ -19,7 +19,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import SignOutBtn from '../../Components/Nav/SignOutBtn';
-import { adminLinks } from '../../request/links';
+import { adminLinks, superUserLinks } from '../../request/links';
 import MapIcon from '../../utils/MapIcon';
 
 /* eslint-disable max-len, no-undefined */
@@ -76,7 +76,20 @@ function ResponsiveDrawer(props) {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {adminLinks.map(({ id, label, to, icon }, index) => (
+        {adminLinks.map(({ id, label, to, icon }) => (
+          <ListItem {...{
+            component: Link,
+            button:    true,
+            key:       id,
+            id:        id,
+            to:        to
+          }}
+          >
+            <ListItemIcon><MapIcon name={icon} /></ListItemIcon>
+            <ListItemText primary={label} />
+          </ListItem>
+        ))}
+        {role.toLowerCase() === 'super_user' && superUserLinks.map(({ id, label, to, icon }) => (
           <ListItem {...{
             component: Link,
             button:    true,
