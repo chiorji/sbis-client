@@ -61,9 +61,8 @@ const configureStore = () => {
     saveState({
       account: {
         isLoggedIn:      store.getState().account.isLoggedIn,
-        username:        store.getState().account.username,
         email:           store.getState().account.email,
-        id:              store.getState().account.id,
+        token:           store.getState().account.token,
         role:            store.getState().account.role,
         sessionInterval: secondsRemaining
       }
