@@ -15,6 +15,7 @@ function* staffLogin({ payload }) {
   try {
     yield put(showLoading());
     const { data } = yield call(api.auth, endpoints.staffLogin(payload));
+    console.log({ login: data });
     yield put(actions.loginSuccess(data));
     yield put(replace('/dashboard'));
   } catch (error) {
@@ -29,8 +30,9 @@ function* staffLogin({ payload }) {
 }
 
 function* signOut() {
-  yield put(actions.signout());
-  yield put(replace('/'));
+  yield console.log('Signout initiated...');
+  // yield put(actions.signout());
+  yield put(replace('/login'));
 }
 
 function* addNewStaff({ payload }) {
