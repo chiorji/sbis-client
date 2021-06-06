@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ResponsiveDrawer(props) {
-  const { window, username } = props;
+  const { window, email, role } = props; // eslint-disable-line
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -89,9 +89,9 @@ function ResponsiveDrawer(props) {
             <ListItemText primary={label} />
           </ListItem>
         ))}
-        <Divider />
-        <SignOutBtn label="Sign Out" />
       </List>
+      <Divider />
+      <SignOutBtn label="Sign Out" />
     </div>
   );
 
@@ -113,7 +113,7 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>{username}</Typography>
+          <Typography variant="h6" noWrap>{email}</Typography>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
@@ -160,7 +160,8 @@ ResponsiveDrawer.propTypes = {
 };
 
 const mapState = ({ account }) => ({
-  role: account.role
+  role:  account.role,
+  email: account.email
 });
 
 export default connect(mapState)(ResponsiveDrawer);

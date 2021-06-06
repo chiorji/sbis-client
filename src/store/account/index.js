@@ -27,9 +27,9 @@ const account = (state = initialState, action) => {
     return {
       ...state,
       isLoggedIn:      true,
-      role:            action.payload.role,
-      username:        action.payload.username,
-      email:           action.payload.email,
+      role:            action.payload.data.user.role,
+      email:           action.payload.data.user.email,
+      token:           action.payload.data.token,
       sessionInterval: '',
       alert:           {
         shouldOpen: true,
@@ -56,9 +56,14 @@ const account = (state = initialState, action) => {
       ...state,
       isLoggedIn:      false,
       role:            '',
-      username:        '',
       email:           '',
-      sessionInterval: ''
+      token:           '',
+      sessionInterval: '',
+      alert:           {
+        shouldOpen: true,
+        severity:   'success',
+        message:    'Signed out'
+      }
     };
 
   case types.HIDE_ALERT:
