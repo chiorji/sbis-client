@@ -19,5 +19,5 @@ export const adminLinks = [
 ];
 
 export const superUserLinks = [
-  { id: 'genPin', label: 'Generate Pin', to: '/dashboard/results/pin', icon: 'publishResult' }
+  { id: 'genPin', label: 'Generate Pin', to: '/dashboard/results/pin', icon: 'generatePin' }
 ];

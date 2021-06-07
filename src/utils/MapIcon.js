@@ -10,6 +10,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AdjustIcon from '@material-ui/icons/Adjust';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
+import FiberPinIcon from '@material-ui/icons/FiberPin';
 
 const MapIcon = ({ name, props }) => {
   switch (name) {
@@ -41,7 +42,10 @@ const MapIcon = ({ name, props }) => {
     return <PublishIcon {...props} />;
 
   case 'signOut':
-    return <ExitToAppIcon {...props}/>;
+    return <ExitToAppIcon {...props} />;
+
+  case 'generatePin':
+    return <FiberPinIcon {...props} />;
 
   default:
     return <AdjustIcon {...props} />;
