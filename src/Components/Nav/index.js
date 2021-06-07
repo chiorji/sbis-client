@@ -5,7 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import DesktopMenu from './DesktopMenu';
 import MobileMenu from './MobileMenu';
 
-const NavBar = ({ links, topName, isLoggedIn }) => {
+const NavBar = ({ links }) => {
   const [view, setView] = useState({
     mobileView: false,
     drawerOpen: false
@@ -43,7 +43,7 @@ const NavBar = ({ links, topName, isLoggedIn }) => {
         closeDrawer={toggleDrawer}
         links={links}
       /> : <DesktopMenu
-        name={topName || 'Success Builders Int\'l Schools'}
+        name="Success Builders Int\'l Schools"
         links={links}
       />}
     </AppBar>

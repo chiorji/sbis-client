@@ -42,10 +42,8 @@ const useStyles = makeStyles(theme => ({
 const Login = ({ login, alert, hideAlert }) => {
   const { container, textFields, gridContainer, heading } = useStyles();
   const [staffInfo, setStaffInfo] = useState({
-    id:            '000001',
-    username:      'admin@domain.com',
-    password:      '123456',
-    idError:       false,
+    username:      '', // maps to user email address
+    password:      '',
     usernameError: false,
     passwordError: false,
     showPassword:  false
@@ -77,20 +75,14 @@ const Login = ({ login, alert, hideAlert }) => {
       passwordError: false
     }));
 
-    const { id, username, password } = staffInfo;
+    const { username, password } = staffInfo;
 
-    if (!id && !password && !username) {
+    if (!password && !username) {
       setStaffInfo(prevState => ({
         ...prevState,
-        idError:       true,
         usernameError: true,
         passwordError: true
       }));
-      return false;
-    }
-
-    if (!validator.isLength(id, { min: 6, max: 6 })) {
-      setStaffInfo(prevState => ({ ...prevState, idError: true }));
       return false;
     }
 
@@ -115,9 +107,9 @@ const Login = ({ login, alert, hideAlert }) => {
   /* eslint-disable no-console */
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { id, username, password } = staffInfo;
+    const { username, password } = staffInfo;
     if (allFieldIsValid()) {
-      login({ id, username, password });
+      login({ username, password });
     } else {
       console.log('Submission failed: invalid params');
     }
@@ -125,10 +117,8 @@ const Login = ({ login, alert, hideAlert }) => {
   /* eslint-enable no-console */
 
   const {
-    id,
     username,
     password,
-    idError,
     usernameError,
     passwordError,
     showPassword
@@ -156,18 +146,6 @@ const Login = ({ login, alert, hideAlert }) => {
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <form noValidate onSubmit={handleSubmit}>
-            <TextField
-              type="text"
-              error={idError}
-              id="id"
-              name="id"
-              label="Staff ID"
-              variant="outlined"
-              autoComplete="off"
-              className={textFields}
-              value={id}
-              onChange={handleChange}
-            />
             <TextField
               type="email"
               error={usernameError}
