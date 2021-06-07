@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import ResponsiveDrawer from '../Staff/Nav';
 import makeStyles from '@material-ui/styles/makeStyles';
 
@@ -13,11 +12,11 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar
 }));
 
-const Container = ({ username, children }) => {
+const Container = ({ children }) => {
   const { root, toolbar, content } = useStyles();
   return (
     <section className={root}>
-      <ResponsiveDrawer username={username} />
+      <ResponsiveDrawer />
       <main className={content}>
         <div className={toolbar} />
         {children}
@@ -26,8 +25,5 @@ const Container = ({ username, children }) => {
   );
 };
 
-const mapState = ({ account }) => ({
-  username: account.username
-});
 
-export default connect(mapState)(Container);
+export default Container;

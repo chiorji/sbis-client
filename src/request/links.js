@@ -17,3 +17,7 @@ export const adminLinks = [
   { id: 'check', label: 'New Result Entry', to: '/dashboard/results/entry', icon: 'addResult' },
   { id: 'publish', label: 'Publish Result', to: '/dashboard/results/publish', icon: 'publishResult' }
 ];
+
+export const superUserLinks = [
+  { id: 'genPin', label: 'Generate Pin', to: '/dashboard/results/pin', icon: 'generatePin' }
+];

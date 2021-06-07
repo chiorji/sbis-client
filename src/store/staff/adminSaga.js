@@ -11,7 +11,6 @@ import * as actions from './actions';
 import types from './constants';
 
 function* staffLogin({ payload }) {
-  // const { username, id, email } = payload;
   try {
     yield put(showLoading());
     const { data } = yield call(api.auth, endpoints.staffLogin(payload));
