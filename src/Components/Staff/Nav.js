@@ -89,6 +89,7 @@ function ResponsiveDrawer(props) {
             <ListItemText primary={label} />
           </ListItem>
         ))}
+        <Divider />
         {role.toLowerCase() === 'super_user' && superUserLinks.map(({ id, label, to, icon }) => (
           <ListItem {...{
             component: Link,
