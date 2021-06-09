@@ -21,9 +21,7 @@ request.make = (options, withToken) => {
   if (withToken) {
     access_token = getSession('access_token');
     if (typeof access_token === 'object') {
-      request.cancel();
-      alert('Session expired, kindly login again to begin new session');
-      window.location.href = '/';
+      request.cancel('current session expired, kindly login again.');
     }
     headers[ 'Authorization' ] = `Bearer ${access_token}`;
   }
@@ -79,8 +77,11 @@ request.delete = (options) => {
   return request.make(options, true);
 };
 
-request.cancel = () => {
-  cancel && request.cancel();
+request.cancel = (reason) => {
+  if (cancel && /session expired/i.test(reason)) {
+    window.sessionStorage.removeItem('state');
+    window.location.href = '/login';
+  }
 };
 
 export default request;
