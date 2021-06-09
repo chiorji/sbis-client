@@ -9,12 +9,13 @@ import api from '../../request/request';
 import _list from '../../utils/staff.json';
 import * as actions from './actions';
 import types from './constants';
+import { saveSession, removeSession } from '../../session/cookies';
 
 function* staffLogin({ payload }) {
   try {
     yield put(showLoading());
     const { data } = yield call(api.auth, endpoints.staffLogin(payload));
-    console.log({ login: data });
+    yield saveSession(data, data.data.token);
     yield put(actions.loginSuccess(data));
     yield put(replace('/dashboard'));
   } catch (error) {
@@ -30,8 +31,8 @@ function* staffLogin({ payload }) {
 
 function* signOut() {
   yield console.log('Signout initiated...');
-  // yield put(actions.signout());
-  yield put(replace('/login'));
+  yield removeSession();
+  window.location.href = '/login'; // this reloads the page, ensuring persistent data are removed
 }
 
 function* addNewStaff({ payload }) {
@@ -70,11 +71,57 @@ function* fetchStaffList() {
   }
 }
 
+// Get scratch card listing
+function* getCards() {
+  try {
+    yield put(showLoading());
+    const { data: { data } } = yield call(api.get, endpoints.getCards());
+    yield put(actions.getCardsSuccess(data));
+  } catch (error) {
+    yield put(actions.getCardsFailure(error.message));
+  } finally {
+    yield put(hideLoading());
+  }
+}
+/**
+ * Generates new set of scratch cards
+ * @param {number} payload The quantity of scratch cards to be generated
+ */
+function* generateCard({ payload }) {
+  try {
+    yield put(showLoading());
+    const { data } = yield call(api.put, endpoints.generateCards(payload));
+    yield put(actions.getCardsSuccess(data.data));
+  } catch (error) {
+    yield put(actions.getCardsFailure(error.message));
+  }finally {
+    yield put(hideLoading());
+  }
+}
+/**
+ * Deletes a particular card
+ * @param {string} payload card id to delete
+ */
+function* deleteCard({ payload }) {
+  try {
+    yield put(showLoading());
+    yield call(api.delete, endpoints.deleteCard(payload));
+    yield put(actions.deleteCardSuccess({ ...payload, msg: 'Pin deleted successfully' }));
+  } catch (error) {
+    yield put(actions.deleteCardFailure(error.message));
+  }finally {
+    yield put(hideLoading());
+  }
+}
+
 function* watcher() {
   yield takeLatest(types.ADD_STAFF, addNewStaff);
   yield takeLatest(types.FETCH_STAFF_LIST, fetchStaffList);
   yield takeEvery(types.LOGIN_REQUEST, staffLogin);
   yield takeEvery(types.SIGN_OUT, signOut);
+  yield takeLatest(types.GET_SCRATCH_CARDS, getCards);
+  yield takeEvery(types.GENERATE_SCRATCH_CARDS, generateCard);
+  yield takeEvery(types.DELETE_SCRATCH_CARD, deleteCard);
 }
 
 export default watcher;

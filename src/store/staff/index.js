@@ -5,6 +5,7 @@ const initialState = {
   states:    [],
   lgas:      [],
   subjects:  [],
+  pins:      [],
   alert:     {
     shouldOpen: false,
     severity:   '',
@@ -25,6 +26,7 @@ const staff = (state = initialState, action) => {
   switch (action.type) {
   case types.REGISTER_STUDENT:
   case types.FETCH_STAFF_LIST:
+  case types.GET_SCRATCH_CARDS:
     return {
       ...state,
       isLoading: true
@@ -101,6 +103,8 @@ const staff = (state = initialState, action) => {
   case types.ADD_STAFF_FAILURE:
   case types.FETCH_STAFF_LIST_FAILURE:
   case types.CREATE_SUBJECT_FAILURE:
+  case types.GET_SCRATCH_CARDS_FAILURE:
+  case types.DELETE_SCRATCH_CARD_FAILURE:
     return {
       ...state,
       isLoading: false,
@@ -111,6 +115,24 @@ const staff = (state = initialState, action) => {
       }
     };
 
+  case types.GET_SCRATCH_CARDS_SUCCESS:
+    return {
+      ...state,
+      isLoading: false,
+      pins:      action.payload
+    };
+
+    // When actions perfomed on card is successful
+  case types.DELETE_SCRATCH_CARD_SUCCESS:
+    return {
+      ...state,
+      pins:  state.pins.filter(item => item.pin !== action.payload.pin),
+      alert: {
+        shouldOpen: true,
+        severity:   'success',
+        message:    action.payload.msg
+      }
+    };
   default:
     return state;
   }

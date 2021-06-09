@@ -2,7 +2,6 @@
 import axios from 'axios';
 import formUrlEncoded from 'form-urlencoded';
 import { getSession } from '../session/cookies';
-
 const request = {};
 let CancelToken = axios.CancelToken;
 let cancel;
@@ -22,9 +21,7 @@ request.make = (options, withToken) => {
   if (withToken) {
     access_token = getSession('access_token');
     if (typeof access_token === 'object') {
-      request.cancel();
-      alert('Session expired, kindly login again to begin new session');
-      window.location.href = '/';
+      request.cancel('current session expired, kindly login again.');
     }
     headers[ 'Authorization' ] = `Bearer ${access_token}`;
   }
@@ -75,8 +72,16 @@ request.put = (options) => {
   return request.make(options, true);
 };
 
-request.cancel = () => {
-  cancel && request.cancel();
+request.delete = (options) => {
+  options.method = 'DELETE';
+  return request.make(options, true);
+};
+
+request.cancel = (reason) => {
+  if (cancel && /session expired/i.test(reason)) {
+    window.sessionStorage.removeItem('state');
+    window.location.href = '/login';
+  }
 };
 
 export default request;

@@ -156,3 +156,42 @@ export const updateSubjectFailure = (payload) => ({
   type: types.UPDATE_SUBJECT_FAILURE,
   payload
 });
+
+/**
+ *
+ * @param {number} payload Quantity to be generated
+ * @returns
+ */
+export const generateCard = (payload) => ({
+  type: types.GENERATE_SCRATCH_CARDS,
+  payload
+});
+
+export const getCards = () => ({
+  type: types.GET_SCRATCH_CARDS
+});
+
+export const getCardsSuccess = (payload) => ({
+  type: types.GET_SCRATCH_CARDS_SUCCESS,
+  payload
+});
+
+export const getCardsFailure = (payload) => ({
+  type: types.GET_SCRATCH_CARDS_FAILURE,
+  payload
+});
+
+export const deleteCard = (payload) => ({
+  type: types.DELETE_SCRATCH_CARD,
+  payload
+});
+
+export const deleteCardSuccess = (payload) => ({
+  type: types.DELETE_SCRATCH_CARD_SUCCESS,
+  payload
+});
+
+export const deleteCardFailure = (payload) => ({
+  type: types.DELETE_SCRATCH_CARD_FAILURE,
+  payload
+});

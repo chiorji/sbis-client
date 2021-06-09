@@ -74,5 +74,40 @@ export default {
       method: 'POST',
       data
     };
+  },
+
+  /**
+   * Retrieve all scratch card
+   * @returns
+   */
+  getCards: () => {
+    return {
+      url:    `${API_BASE_URL}/api/v1/pin/`,
+      method: 'GET'
+    };
+  },
+
+  /**
+ * Generates and populate the database with new scratch cards
+ * @param {number} data
+ * @returns
+ */
+  generateCards: (data) => {
+    return {
+      url:    `${API_BASE_URL}/api/v1/pin/${data}`,
+      method: 'PUT'
+    };
+  },
+
+  /**
+   * Deletes the specified card
+   * @param {string} data
+   * @returns
+   */
+  deleteCard: ({ pin, serial }) => {
+    return {
+      url:    `${API_BASE_URL}/api/v1/pin/${pin}/serial/${serial}`,
+      method: 'DELETE'
+    };
   }
 };
