@@ -9,12 +9,13 @@ import api from '../../request/request';
 import _list from '../../utils/staff.json';
 import * as actions from './actions';
 import types from './constants';
+import { saveSession, removeSession } from '../../session/cookies';
 
 function* staffLogin({ payload }) {
   try {
     yield put(showLoading());
     const { data } = yield call(api.auth, endpoints.staffLogin(payload));
-    console.log({ login: data });
+    yield saveSession(data, data.data.token);
     yield put(actions.loginSuccess(data));
     yield put(replace('/dashboard'));
   } catch (error) {
@@ -30,8 +31,8 @@ function* staffLogin({ payload }) {
 
 function* signOut() {
   yield console.log('Signout initiated...');
-  // yield put(actions.signout());
-  yield put(replace('/login'));
+  yield removeSession();
+  window.location.href = '/login'; // this reloads the page, ensuring persistent data are removed
 }
 
 function* addNewStaff({ payload }) {
