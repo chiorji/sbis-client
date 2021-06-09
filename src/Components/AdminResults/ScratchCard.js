@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -10,6 +10,16 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/styles';
+import MaterialTable from 'material-table';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import SearchIcon from '@material-ui/icons/Search';
+import ClearIcon from '@material-ui/icons/Clear';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
+import { getCards, generateCard, deleteCard } from '../../store/staff/actions';
 
 const useStyles = makeStyles(theme => ({
   gridItem: {
@@ -27,21 +37,24 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
-const ScratchCard = ({ generatePin=f => f }) => {
+const ScratchCard = ({ genCards, pins, getAllCard, isLoading, deleteCard }) => {
   const { gridItem, rowText, submitBtn } = useStyles();
   const [quantity, setQuantity] = useState(10);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    generatePin(quantity);
+    genCards(quantity);
   };
+
+  useEffect(() => {
+    getAllCard();
+  }, [getAllCard]);
 
   return (
     <Container>
       <Typography variant="h4">Scratch Card</Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6} className={gridItem}>
+        <Grid item xs={12} className={gridItem}>
           <form noValidate onSubmit={handleSubmit}>
             <FormGroup row={true}>
               <FormControl variant="outlined" size="small" className={rowText}>
@@ -77,13 +90,64 @@ const ScratchCard = ({ generatePin=f => f }) => {
             </FormGroup>
           </form>
         </Grid>
+        <Grid item xs={12}>
+          <MaterialTable
+            title={`Total: ${pins.length}`}
+            columns={[
+              { title: 'Pin.', field: 'pin' },
+              { title: 'Serial', field: 'serial' },
+              { title: 'Usage', field: 'usage_count' },
+              { title: 'Generated on', field: 'created_at' },
+              { title: 'Expiration', field: 'updated_at' }
+            ]}
+            options={{
+              search:              false,
+              sorting:             false,
+              actionsColumnIndex:  -1,
+              // toolbar:             false,
+              paging:              true,
+              pageSize:            10,
+              pageSizeOptions:     [10, 20, 50, 100],
+              debounceInterval:    600,
+              emptyRowsWhenPaging: false
+            }}
+            data={pins}
+            actions={[
+              {
+                icon:    DeleteForeverIcon,
+                tooltip: 'Delete',
+                onClick: (e, rowData) => {
+                  deleteCard({ pin: rowData.pin, serial: rowData.serial });
+                }
+              }
+            ]}
+            icons={{
+              Search:       SearchIcon,
+              ResetSearch:  ClearIcon,
+              SortArrow:    ArrowDropUpIcon,
+              PreviousPage: ArrowLeftIcon,
+              NextPage:     ArrowRightIcon,
+              FirstPage:    SkipPreviousIcon,
+              LastPage:     SkipNextIcon
+            }}
+            tableLayout="fixed"
+            isLoading={isLoading}
+          />
+        </Grid>
       </Grid>
     </Container>
   );
 };
 
 const mapDispatch = (dispatch) => ({
-  generatePin: (pin) => console.log({ pin }) // eslint-disable-line
+  genCards:   (qty) => dispatch(generateCard(qty)),
+  getAllCard: () => dispatch(getCards()),
+  deleteCard: (pin) => dispatch(deleteCard(pin))
 });
 
-export default connect(null, mapDispatch)(ScratchCard);
+const mapState = ({ staff }) => ({
+  pins:      staff.pins,
+  isLoading: staff.isLoading
+});
+
+export default connect(mapState, mapDispatch)(ScratchCard);

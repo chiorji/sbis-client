@@ -2,7 +2,6 @@
 import axios from 'axios';
 import formUrlEncoded from 'form-urlencoded';
 import { getSession } from '../session/cookies';
-
 const request = {};
 let CancelToken = axios.CancelToken;
 let cancel;
@@ -72,6 +71,11 @@ request.auth = (options) => {
 
 request.put = (options) => {
   options.method = 'PUT';
+  return request.make(options, true);
+};
+
+request.delete = (options) => {
+  options.method = 'DELETE';
   return request.make(options, true);
 };
 
