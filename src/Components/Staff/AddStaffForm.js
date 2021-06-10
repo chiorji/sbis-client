@@ -40,11 +40,11 @@ const AddStaffForm = ({ addStaff = f => f }) => {
   const { gridItem, heading, rowText, submitBtn } = useStyles();
   const [ formValues, setFormValues ] = useState({
     password:       '',
-    email:          'test@domain.com',
-    form_class:     'SS2',
+    email:          '',
+    form_class:     '',
     role:           'USER',
-    first_name:     'Chigbogu',
-    last_name:      'Orji',
+    first_name:     '',
+    last_name:      '',
     gender:         'Rather not say',
     passwordError:  false,
     firstNameError: false,
