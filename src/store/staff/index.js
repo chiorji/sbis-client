@@ -94,7 +94,18 @@ const staff = (state = initialState, action) => {
     return {
       ...state,
       isLoading: false,
-      stats:     { ...state.stats, staff: action.payload }
+      stats:     { ...state.stats, staff: action.payload.members }
+    };
+
+  case types.ADD_STAFF_SUCCESS:
+    return {
+      ...state,
+      isLoading: false,
+      alert:     {
+        shouldOpen: true,
+        severity:   'success',
+        message:    action.payload.message
+      }
     };
 
   case types.FETCH_LGAS_FAILURE:
