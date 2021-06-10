@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import validator from 'validator';
+import { customAlphabet } from 'nanoid';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -12,7 +13,6 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
 import { addStaff } from '../../store/staff/actions';
-import { makeId } from '../../utils/makeId';
 
 const useStyles = makeStyles(theme => ({
   gridItem: {
@@ -35,19 +35,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const AddStaffForm = ({ addStaff=f => f }) => {
+const AddStaffForm = ({ addStaff = f => f }) => {
+  const ALPHAS = 'ABCDEF@$0123456789><%&';
   const { gridItem, heading, rowText, submitBtn } = useStyles();
-  const [formValues, setFormValues] = useState({
-    id:             '',
-    email:          'test@doamin.com',
-    form_class:     'SS2',
+  const [ formValues, setFormValues ] = useState({
+    password:       '',
+    email:          '',
+    form_class:     '',
     role:           'USER',
     first_name:     '',
-    middle_name:    '',
     last_name:      '',
+    gender:         'Rather not say',
+    passwordError:  false,
     firstNameError: false,
     lastNameError:  false,
-    idError:        false,
     emailError:     false,
     formClassError: false,
     roleError:      false
@@ -57,16 +58,15 @@ const AddStaffForm = ({ addStaff=f => f }) => {
     // reset error fields to default
     setFormValues(prevState => ({
       ...prevState,
+      passwordError:  false,
       firstNameError: false,
       lastNameError:  false,
-      idError:        false,
       emailError:     false,
       formClassError: false,
       roleError:      false
     }));
-
-    if (!id || !validator.isLength(id, { min: 6, max: 6 })) {
-      setFormValues(prevState => ({ ...prevState, idError: true }));
+    if (!password) {
+      setFormValues(prevState => ({ ...prevState, passwordError: true }));
       return false;
     }
     if (!first_name) {
@@ -98,37 +98,53 @@ const AddStaffForm = ({ addStaff=f => f }) => {
   };
 
   const handleSubmit = (e) => {
-    const { id, email, form_class, role } = formValues;
+    const {
+      password,
+      first_name,
+      last_name,
+      gender,
+      email,
+      form_class,
+      role
+    } = formValues;
     e.preventDefault();
     if (validateFields()) {
-      addStaff({ id, email, form_class, role });
+      addStaff({
+        password,
+        first_name,
+        last_name,
+        email,
+        form_class,
+        gender,
+        role
+      });
     } else {
       console.log('submission failed...'); // eslint-disable-line
       return false;
     }
   };
 
-  const clsOpts = ['Select Form Class', 'JS1', 'JS2', 'JS3', 'SS1', 'SS2', 'SS3', 'SS4'];
+  const clsOpts = ['Select Form Class', 'JS1', 'JS2', 'JS3', 'SS1', 'SS2', 'SS3'];
 
-  const { id, idError, first_name, last_name, middle_name, email,
+  const { password, passwordError, first_name, last_name, email,
     emailError, form_class, formClassError, role, roleError,
-    firstNameError, lastNameError } = formValues;
+    firstNameError, lastNameError, gender } = formValues;
 
   return (
     <Grid item xs={12} md={6} className={gridItem}>
-      <Typography variant="h6" className={heading}>Add new member</Typography>
+      <Typography variant="h4" className={heading}>Add new member</Typography>
       <form noValidate onSubmit={handleSubmit}>
         <FormGroup row={true}>
           <TextField
             type="text"
-            error={idError}
+            error={passwordError}
             id="id"
             name="id"
-            label="Staff ID"
+            label="Password*"
             variant="outlined"
             autoComplete="off"
             className={rowText}
-            value={id}
+            value={password}
             readOnly
           />
           <Button
@@ -136,19 +152,23 @@ const AddStaffForm = ({ addStaff=f => f }) => {
             variant="outlined"
             color="default"
             size="large"
-            disabled={id ? true : false}
+            disabled={password ? true : false}
             className={rowText}
             disableElevation={true}
-            onClick={() => setFormValues(prev => ({ ...prev, id: makeId() }))}
-          >Generate ID</Button>
+            onClick={() => setFormValues(prev => ({
+              ...prev,
+              password: customAlphabet(ALPHAS, 12)()
+            }))}
+          >Generate Password</Button>
         </FormGroup>
+
         <FormGroup row={true}>
           <TextField
             type="text"
             error={firstNameError}
             id="first_name"
             name="first_name"
-            label="First Name"
+            label="First Name*"
             variant="outlined"
             autoComplete="off"
             className={rowText}
@@ -157,35 +177,24 @@ const AddStaffForm = ({ addStaff=f => f }) => {
           />
           <TextField
             type="text"
-            id="middle_name"
-            name="middle_name"
-            label="Middle Name"
-            variant="outlined"
-            autoComplete="off"
-            className={rowText}
-            value={middle_name}
-            onChange={handleChange('middle_name')}
-          />
-        </FormGroup>
-        <FormGroup row={true}>
-          <TextField
-            type="text"
             error={lastNameError}
             id="last_name"
             name="last_name"
-            label="Last Name"
+            label="Last Name*"
             variant="outlined"
             autoComplete="off"
             className={rowText}
             value={last_name}
             onChange={handleChange('last_name')}
           />
+        </FormGroup>
+        <FormGroup row={true}>
           <TextField
             type="email"
             error={emailError}
             id="username"
             name="email"
-            label="Email Address"
+            label="Email Address*"
             variant="outlined"
             autoComplete="off"
             className={rowText}
@@ -194,6 +203,21 @@ const AddStaffForm = ({ addStaff=f => f }) => {
           />
         </FormGroup>
         <FormGroup row={true}>
+          <FormControl variant="outlined" className={rowText}>
+            <InputLabel id="gender">Gender*</InputLabel>
+            <Select
+              labelId="gender"
+              id="role"
+              value={gender}
+              name="gender"
+              onChange={handleChange('gender')}
+              label="Gender*"
+            >
+              {['Rather not say', 'Male', 'Female'].map((value, index) => (
+                <MenuItem key={value} value={value}>{value}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <FormControl variant="outlined" className={rowText} error={formClassError}>
             <InputLabel id="examClass">Form Class</InputLabel>
             <Select
@@ -215,6 +239,8 @@ const AddStaffForm = ({ addStaff=f => f }) => {
               ))}
             </Select>
           </FormControl>
+        </FormGroup>
+        <FormGroup row={true}>
           <FormControl variant="outlined" className={rowText} error={roleError}>
             <InputLabel id="role">Role</InputLabel>
             <Select
@@ -225,9 +251,9 @@ const AddStaffForm = ({ addStaff=f => f }) => {
               onChange={handleChange('role')}
               label="Role"
             >
-              {['Assign Role', 'USER', 'ADMIN', 'SUPERUSER'].map((value, index) => (
+              {['ASSIGN ROLE', 'USER', 'ADMIN'].map((value, index) => (
                 <MenuItem key={value} value={value}
-                  disabled={index === 0}
+                  disabled={index === 0 || value !== 'USER'}
                 >{value}</MenuItem>
               ))}
             </Select>

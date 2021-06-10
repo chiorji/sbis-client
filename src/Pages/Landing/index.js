@@ -7,7 +7,7 @@ import Academics from '../Academics';
 import Gallery from '../Gallery';
 import Result from '../Result';
 import NotFound from '../404';
-import Login from '../Staff/Login';
+import { Login } from '../Staff';
 import { links } from '../../request/links';
 
 const Landing = ({ isLoggedIn }) => {

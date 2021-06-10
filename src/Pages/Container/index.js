@@ -14,7 +14,7 @@ import {
 import NotFound from '../404';
 import { adminLinks } from '../../request/links';
 
-const Container = ({ alert }) => {
+const Container = ({ alert, hideAlert }) => {
   return (
     <Wrapper links={adminLinks}>
       {alert.shouldOpen &&
@@ -22,6 +22,7 @@ const Container = ({ alert }) => {
           openAlert={alert.shouldOpen}
           msg={alert.message}
           severity={alert.severity}
+          handleClose={hideAlert}
         />}
       <Switch>
         <Route path={'/dashboard'} exact component={Overview} />
@@ -40,4 +41,8 @@ const mapState = ({ staff }) => ({
   alert: staff.alert
 });
 
-export default connect(mapState)(Container);
+const mapDispatch = (dispatch) => ({
+  hideAlert: () => dispatch({ type: 'HIDE_ALERT' })
+});
+
+export default connect(mapState, mapDispatch)(Container);

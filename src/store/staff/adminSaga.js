@@ -6,7 +6,6 @@ import {
 } from 'redux-saga/effects';
 import endpoints from '../../request/endpoints';
 import api from '../../request/request';
-import _list from '../../utils/staff.json';
 import * as actions from './actions';
 import types from './constants';
 import { saveSession, removeSession } from '../../session/cookies';
@@ -38,16 +37,11 @@ function* signOut() {
 function* addNewStaff({ payload }) {
   try {
     yield put(showLoading());
-    yield delay(2000);
-    const mem = yield call(api.post, endpoints.addNewStaff({ payload }));
-    yield put(actions.addStaffSuccess(mem.data));
+    const { data } = yield call(api.post, endpoints.addNewStaff(payload));
+    yield put(actions.addStaffSuccess(data));
   } catch (error) {
-    if (error.response?.data) {
-      yield put(actions.addStaffFailure(error.response.data.message));
-    } else {
-      yield put(actions.addStaffFailure(error.message));
-      yield (cancel());
-    }
+    yield put(actions.addStaffFailure(error.message));
+    yield (cancel());
   } finally {
     yield put(hideLoading());
   }
@@ -57,14 +51,10 @@ function* fetchStaffList() {
   try {
     yield put(showLoading());
     yield delay(3000);
-    // const list = yield call(request.make, endpoints.fetchStaffList());
-    yield put(actions.fetchStaffListSuccess(_list));
+    const { data } = yield call(api.get, endpoints.fetchStaffList(), true);
+    yield put(actions.fetchStaffListSuccess(data.data));
   } catch (error) {
-    if (error.response?.data) {
-      yield put(actions.fetchStaffListFailure(error.response.data.message));
-    } else {
-      yield put(actions.fetchStaffListFailure(error.message));
-    }
+    yield put(actions.fetchStaffListFailure(error.message));
     yield(cancel());
   } finally {
     yield put(hideLoading());

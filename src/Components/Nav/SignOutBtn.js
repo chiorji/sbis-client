@@ -6,15 +6,17 @@ import MapIcon from '../../utils/MapIcon';
 
 const useStyles = makeStyles(theme => ({
   btn: {
-    backgroundColor: theme.palette.primary.dark,
-    color:           theme.palette.grey[300],
+    backgroundColor: theme.palette.grey[100],
     width:           '90%',
     borderRadius:    'unset',
     marginLeft:      theme.spacing(1.5),
     marginTop:       theme.spacing(3),
+    color:           theme.palette.primary.dark,
+    border:          `1px solid ${theme.palette.primary.light}`,
     '&:hover':       {
-      color:  theme.palette.primary.dark,
-      border: `1px solid ${theme.palette.primary.dark}`
+      borderColor:     `${theme.palette.primary.dark}`,
+      backgroundColor: theme.palette.primary.dark,
+      color:           theme.palette.grey[100]
     }
   }
 }));
