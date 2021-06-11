@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import StudentsTable from '../../Components/Staff/StudentsTable';
 import makeStyles from '@material-ui/styles/makeStyles';
-import { fetchAllStudents } from '../../store/staff/actions';
+import { fetchAllStudents, getStudent } from '../../store/staff/actions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Students = ({ fetchAllStudents }) => {
+const Students = ({ fetchAllStudents, getById }) => {
   const { root, header } = useStyles();
 
   useEffect(() => {
@@ -26,17 +26,18 @@ const Students = ({ fetchAllStudents }) => {
     <Grid container spacing={2} className={root}>
       <Grid item xs={12}>
         <Typography variant="h4" component="header" className={header}>
-        Students</Typography>
+        Student Listing</Typography>
       </Grid>
       <Grid item xs={12}>
-        <StudentsTable />
+        <StudentsTable getById={getById}/>
       </Grid>
     </Grid>
   );
 };
 
 const mapDispatch = (dispatch) => ({
-  fetchAllStudents: () => dispatch(fetchAllStudents())
+  fetchAllStudents: () => dispatch(fetchAllStudents()),
+  getById:          (payload) => dispatch(getStudent(payload))
 });
 
 export default connect(null, mapDispatch)(Students);

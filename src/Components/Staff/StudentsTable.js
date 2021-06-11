@@ -10,28 +10,31 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 
-const StudentsTable = ({ students, isLoading }) => {
+const StudentsTable = ({ students, isLoading, getById }) => {
   return (
     <MaterialTable
-      title="Students  List"
       columns={[
         { title: 'First Name', field: 'first_name' },
         { title: 'Last Name', field: 'last_name' },
-        { title: 'Class', field: 'class' },
-        { title: 'Reg no', field: 'regno' },
-        { title: 'Date Admitted', field: 'date_admitted' }
+        { title: 'Current Class', field: 'current_class' },
+        { title: 'Student ID', field: 'id' },
+        { title: 'Sex', field: 'gender' }
       ]}
       data={students}
       options={{
-        search:             true,
-        sorting:            true,
-        actionsColumnIndex: -1
+        search:              true,
+        sorting:             true,
+        actionsColumnIndex:  -1,
+        showTitle:           false,
+        pageSize:            10,
+        pageSizeOptions:     [ 10, 20, 30, 40, 50, 100 ],
+        emptyRowsWhenPaging: false
       }}
       actions={[
         {
           icon:    VisibilityIcon,
           tooltip: 'View',
-          onClick: (event, rowData) => alert('You viewed ' + rowData.regno)
+          onClick: (event, rowData) => getById(rowData.id)
         }
       ]}
       icons={{
