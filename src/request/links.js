@@ -14,7 +14,7 @@ export const adminLinks = [
 ];
 
 export const superUserLinks = [
-  { id: 'register', label: 'Register Student', to: '/dashboard/register', icon: 'addStudent' },
+  { id: 'register', label: 'Register Student', to: '/dashboard/students/admission', icon: 'addStudent' },
   { id: 'stafflist', label: 'Staff List', to: '/dashboard/staff/details', icon: 'staffList' },
   { id: 'addstaff', label: 'Add New Staff', to: '/dashboard/staff/details/add', icon: 'addStaff' },
   { id: 'subcreate', label: 'Create Subject', to: '/dashboard/subjects/create', icon: 'createSubject' },

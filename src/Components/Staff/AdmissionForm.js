@@ -253,6 +253,7 @@ const AdmissionForm = ({ registerStudent, isLoading, fetchStates, states,
 
   return (
     <Box width={1} component="section">
+      <Typography variant="h4">Admission Form</Typography>
       <Typography paragraph>NB: All the field marked with
       asterisk(*) are considered compulsory, and the form will not
       submit until these fields are filled out.

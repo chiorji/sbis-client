@@ -1,43 +1,21 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import React from 'react';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import Container from '@material-ui/core/Container';
 import StudentsTable from '../../Components/Staff/StudentsTable';
-import makeStyles from '@material-ui/styles/makeStyles';
-import { fetchAllStudents, getStudent } from '../../store/staff/actions';
+import AdmissionForm from '../../Components/Staff/AdmissionForm';
+import NotFound from '../../Pages/404';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    marginBottom: theme.spacing(5)
-  },
-  header: {
-    marginBottom: theme.spacing(3)
-  }
-}));
-
-const Students = ({ fetchAllStudents, getById }) => {
-  const { root, header } = useStyles();
-
-  useEffect(() => {
-    fetchAllStudents();
-  }, [fetchAllStudents]);
-
+const Students = () => {
+  const match = useRouteMatch();
   return (
-    <Grid container spacing={2} className={root}>
-      <Grid item xs={12}>
-        <Typography variant="h4" component="header" className={header}>
-        Student Listing</Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <StudentsTable getById={getById}/>
-      </Grid>
-    </Grid>
+    <Container>
+      <Switch>
+        <Route path={match.path} exact component={StudentsTable} />
+        <Route path={`${match.path}/admission`} component={AdmissionForm} />
+        <Route component={NotFound} />
+      </Switch>
+    </Container>
   );
 };
 
-const mapDispatch = (dispatch) => ({
-  fetchAllStudents: () => dispatch(fetchAllStudents()),
-  getById:          (payload) => dispatch(getStudent(payload))
-});
-
-export default connect(null, mapDispatch)(Students);
+export default Students;
