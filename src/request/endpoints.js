@@ -3,6 +3,13 @@ const STATES_API_BASE = process.env.REACT_APP_STATE_API_BASE;
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export default {
+  getStats: () => {
+    return {
+      url:    `${API_BASE_URL}/api/v1/staff/stats`,
+      method: 'GET'
+    };
+  },
+
   fetchStates: () => {
     return {
       url:    `${STATES_API_BASE}/states`,

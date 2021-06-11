@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import makeStyles from '@material-ui/styles/makeStyles';
-
-import Alert from '../../Components/Alert';
+import { getStats } from '../../store/staff/actions';
 
 const useStyles = makeStyles(theme => ({
   grid: {
@@ -19,6 +18,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection:  'column',
     justifyContent: 'center',
     padding:        theme.spacing(1),
+    transition:     'all, .4s ease-in-out',
     '&:hover':      {
       backgroundColor: theme.palette.primary.light,
       color:           theme.palette.grey[300]
@@ -26,28 +26,25 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Overview = ({ users, subjects, classes,
-  results, staff, alert, hideAlert }) => {
+const Overview = ({ students, subjects, classes,
+  results, staff, pins, alert, hideAlert, getStats }) => {
   const { grid, gridItem, paper } = useStyles();
+
+  useEffect(() => {
+    getStats();
+  }, [ getStats ]);
+
   return (
     <section>
       <Typography variant="h4">Overview</Typography>
       <Grid container spacing={3} className={grid}>
         <Grid item xs={12} sm={6} md={4} className={gridItem}>
           <Paper className={paper} variant="outlined">
-            <Typography variant="h1" component="h6">{users}</Typography>
+            <Typography variant="h1" component="h6">{students}</Typography>
             <Typography paragraph>Total number of registered
             students</Typography>
           </Paper>
         </Grid>
-        {alert?.shouldOpen &&
-        <Alert
-          openAlert={alert.shouldOpen}
-          msg={alert.message}
-          severity={alert.severity}
-          handleClose={hideAlert}
-        />
-        }
         <Grid item xs={12} sm={6} md={4} className={gridItem}>
           <Paper className={paper} variant="outlined">
             <Typography variant="h1" component="h6">{subjects}</Typography>
@@ -63,7 +60,7 @@ const Overview = ({ users, subjects, classes,
         <Grid item xs={12} sm={6} md={4} className={gridItem}>
           <Paper className={paper} variant="outlined">
             <Typography variant="h1" component="h6">{results}</Typography>
-            <Typography paragraph>Total number of results decalred</Typography>
+            <Typography paragraph>Total number of results declared</Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6} md={4} className={gridItem}>
@@ -72,22 +69,31 @@ const Overview = ({ users, subjects, classes,
             <Typography paragraph>Total number of active staff</Typography>
           </Paper>
         </Grid>
+        <Grid item xs={12} sm={6} md={4} className={gridItem}>
+          <Paper className={paper} variant="outlined">
+            <Typography variant="h1" component="h6">{pins}</Typography>
+            <Typography paragraph>
+              Total number of scratch cards generated
+            </Typography>
+          </Paper>
+        </Grid>
       </Grid>
     </section>
   );
 };
 
 const mapState = ({ staff, account }) => ({
-  users:    staff.stats.totalRegStudents,
-  subjects: staff.stats.totalSubjects,
-  classes:  staff.stats.totalClassListed,
-  results:  staff.stats.totalResultsDeclared,
-  staff:    staff.stats.activeStaff,
-  alert:    account.alert
+  students: staff.stats.sum.students,
+  subjects: staff.stats.sum.subjects,
+  classes:  staff.stats.sum.classes,
+  results:  staff.stats.sum.results,
+  staff:    staff.stats.sum.staff,
+  pins:     staff.stats.sum.pins
 });
 
 const mapDispatch = (dispatch) => ({
-  hideAlert: () => dispatch({ type: 'HIDE_ALERT' })
+  hideAlert: () => dispatch({ type: 'HIDE_ALERT' }),
+  getStats:  () => dispatch(getStats())
 });
 
 export default connect(mapState, mapDispatch)(Overview);
