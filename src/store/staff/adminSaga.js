@@ -104,6 +104,28 @@ function* deleteCard({ payload }) {
   }
 }
 
+function* getStats() {
+  try {
+    yield put(showLoading());
+    const { data } = yield call(api.get, endpoints.getStats(), true);
+    console.log({ data });
+    yield put(actions.getStatsSuccess(data.data));
+    yield put(actions.showAlert({
+      shouldOpen: true,
+      message:    data.message,
+      severity:   'success'
+    }));
+  } catch (error) {
+    yield put(actions.showAlert({
+      shouldOpen: true,
+      message:    error.message,
+      severity:   'error'
+    }));
+  }finally {
+    yield put(hideLoading());
+  }
+}
+
 function* watcher() {
   yield takeLatest(types.ADD_STAFF, addNewStaff);
   yield takeLatest(types.FETCH_STAFF_LIST, fetchStaffList);
@@ -112,6 +134,7 @@ function* watcher() {
   yield takeLatest(types.GET_SCRATCH_CARDS, getCards);
   yield takeEvery(types.GENERATE_SCRATCH_CARDS, generateCard);
   yield takeEvery(types.DELETE_SCRATCH_CARD, deleteCard);
+  yield takeLatest(types.GET_STATS, getStats);
 }
 
 export default watcher;

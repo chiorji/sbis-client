@@ -210,3 +210,13 @@ export const deleteCardFailure = (payload) => ({
   type: types.DELETE_SCRATCH_CARD_FAILURE,
   payload
 });
+
+// Getting statistics for admin overview page
+export const getStats = () => ({
+  type: types.GET_STATS
+});
+
+export const getStatsSuccess = (payload) => ({
+  type: types.GET_STATS_SUCCESS,
+  payload
+});

@@ -12,18 +12,26 @@ const initialState = {
     message:    ''
   },
   stats: {
-    totalRegStudents:     1030,
-    totalSubjects:        15,
-    totalClassListed:     6,
-    totalResultsDeclared: 34,
-    activeStaff:          18,
-    students:             [],
-    staff:                []
+    sum: {
+      students: 0,
+      staff:    0,
+      pins:     0,
+      results:  0,
+      subjects: 0,
+      classes:  0
+    },
+    students: [],
+    staff:    []
   }
 };
 
 const staff = (state = initialState, action) => {
   switch (action.type) {
+  case types.GET_STATS_SUCCESS:
+    return {
+      ...state,
+      stats: { ...state.stats, sum: { ...state.stats.sum, ...action.payload } }
+    };
   case types.REGISTER_STUDENT:
   case types.FETCH_STAFF_LIST:
   case types.GET_SCRATCH_CARDS:

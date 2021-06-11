@@ -53,5 +53,8 @@ export default KeyMirror({
   GET_SCRATCH_CARDS_FAILURE:   null,
   DELETE_SCRATCH_CARD:         null,
   DELETE_SCRATCH_CARD_SUCCESS: null,
-  DELETE_SCRATCH_CARD_FAILURE: null
+  DELETE_SCRATCH_CARD_FAILURE: null,
+
+  GET_STATS:         null,
+  GET_STATS_SUCCESS: null
 });
