@@ -19,5 +19,5 @@ export const superUserLinks = [
   { id: 'addstaff', label: 'Add New Staff', to: '/dashboard/staff/details/add', icon: 'addStaff' },
   { id: 'subcreate', label: 'Create Subject', to: '/dashboard/subjects/create', icon: 'createSubject' },
   { id: 'subjects', label: 'Subjects', to: '/dashboard/subjects', icon: 'subjects' },
-  { id: 'genPin', label: 'Generate Pin', to: '/dashboard/results/pin', icon: 'generatePin' }
+  { id: 'genPin', label: 'Scratch Card', to: '/dashboard/results/pin', icon: 'generatePin' }
 ];
