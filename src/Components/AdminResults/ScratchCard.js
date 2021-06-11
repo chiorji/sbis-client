@@ -104,12 +104,12 @@ const ScratchCard = ({ genCards, pins, getAllCard, isLoading, deleteCard }) => {
               search:              false,
               sorting:             false,
               actionsColumnIndex:  -1,
-              // toolbar:             false,
               paging:              true,
               pageSize:            10,
               pageSizeOptions:     [10, 20, 50, 100],
               debounceInterval:    600,
-              emptyRowsWhenPaging: false
+              emptyRowsWhenPaging: false,
+              tableLayout:         'auto'
             }}
             data={pins}
             actions={[
@@ -130,10 +130,11 @@ const ScratchCard = ({ genCards, pins, getAllCard, isLoading, deleteCard }) => {
               FirstPage:    SkipPreviousIcon,
               LastPage:     SkipNextIcon
             }}
-            tableLayout="fixed"
             isLoading={isLoading}
           />
         </Grid>
+        <small>&copy; Brightside Technologies {new Date().getFullYear()}
+          {'||'} All Right Reserved</small>
       </Grid>
     </Container>
   );
