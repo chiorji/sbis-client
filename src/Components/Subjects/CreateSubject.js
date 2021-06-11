@@ -83,7 +83,7 @@ const CreateSubject = ({ createSubject }) => {
 
   return (
     <>
-      <Typography variant="h4" align="center" gutterBottom>Create Subject</Typography>
+      <Typography variant="h4" align="center" gutterBottom>Add Subject</Typography>
       <Grid container className={container}>
         <Grid item xs={12} sm={12} md={6}>
           <form noValidate onSubmit={handleSubmit}>
