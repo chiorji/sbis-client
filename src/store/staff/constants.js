@@ -20,6 +20,9 @@ export default KeyMirror({
   HIDE_ALERT: null,
   SHOW_ALERT: null,
 
+  FETCH_STUDENT:              null,
+  FETCH_STUDENT_SUCCESS:      null,
+  FETCH_STUDENT_FAILURE:      null,
   FETCH_ALL_STUDENTS:         null,
   FETCH_ALL_STUDENTS_SUCCESS: null,
   FETCH_ALL_STUDENTS_FAILURE: null,

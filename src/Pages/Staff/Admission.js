@@ -6,7 +6,7 @@ import AdmissionForm from '../../Components/Staff/AdmissionForm';
 const Admission = () => {
   return (
     <Box width={1} component="section">
-      <Typography variant="h4">Register Student</Typography>
+      <Typography variant="h4">Student Admission Form</Typography>
       <AdmissionForm />
     </Box>
   );
