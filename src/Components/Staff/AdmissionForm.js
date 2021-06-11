@@ -12,8 +12,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import makeStyles from '@material-ui/styles/makeStyles';
 import { KeyboardDatePicker } from '@material-ui/pickers';
-import Alert from '../Alert';
-import { registerStudent, fetchStates, fetchLgas } from '../../store/staff/actions';
+import {
+  registerStudent, fetchStates, fetchLgas
+} from '../../store/staff/actions';
 
 const useStyles = makeStyles(theme => ({
   gridContainer: {
@@ -45,30 +46,30 @@ const useStyles = makeStyles(theme => ({
 }));
 
 /* eslint-disable no-console */
-const AdmissionForm = ({ registerStudent, isLoading,
-  hideAlert, openAlert, alertMsg, severity, fetchStates, states,
+const AdmissionForm = ({ registerStudent, isLoading, fetchStates, states,
   fetchLgas = f => f, lgas }) => {
   const { gridContainer, textFields } = useStyles();
 
   const [formValues, setFormValues] = useState({
-    first_name:            'ORJI',
+    first_name:            '',
     middle_name:           '',
-    last_name:             'BRIGHT',
-    gender:                'Rather not say',
+    last_name:             '',
+    gender:                '',
     nationality:           'Nigerian',
+    current_class:         '',
     registered_class:      '',
     blood_group:           '',
     religious_belief:      '',
-    state_of_origin:       'Anambra',
-    local_govt_of_origin:  'NKANU EAST',
+    state_of_origin:       '',
+    local_govt_of_origin:  '',
     bio:                   '',
-    guardian_name:         'AKINSOLA',
-    guardian_home_address: 'NYC',
-    guardian_phone_number: '+2348071347475',
+    guardian_name:         '',
+    guardian_home_address: '',
+    guardian_phone_number: '',
     guardian_email:        '',
-    guardian_gender:       'Rather not say',
+    guardian_gender:       '',
     guardian_nationality:  'Nigerian',
-    dob:                   new Date()
+    dob:                   new Date('01-01-2000')
   });
 
   const {
@@ -78,7 +79,8 @@ const AdmissionForm = ({ registerStudent, isLoading,
     middle_name,
     gender, // required
     nationality, // required
-    registered_class,
+    registered_class, // required
+    current_class, // required
     blood_group,
     religious_belief,
     dob, // required
@@ -96,6 +98,8 @@ const AdmissionForm = ({ registerStudent, isLoading,
     firstNameError:           false,
     lastNameError:            false,
     genderError:              false,
+    currentClassError:        false,
+    registeredClassError:     false,
     stateOfOriginError:       false,
     dobError:                 false,
     nationalityError:         false,
@@ -109,6 +113,8 @@ const AdmissionForm = ({ registerStudent, isLoading,
   const { firstNameError,
     lastNameError,
     genderError,
+    currentClassError,
+    registeredClassError,
     stateOfOriginError,
     dobError,
     nationalityError,
@@ -116,6 +122,7 @@ const AdmissionForm = ({ registerStudent, isLoading,
     guardianNameError,
     guardianHomeAddressError,
     guardianPhoneNumberError,
+    guardianGenderError,
     guardianNationalityError } = validState;
 
   const validateRequiredField = () => {
@@ -125,6 +132,8 @@ const AdmissionForm = ({ registerStudent, isLoading,
       firstNameError:           false,
       lastNameError:            false,
       genderError:              false,
+      currentClassError:        false,
+      registeredClassError:     false,
       stateOfOriginError:       false,
       dobError:                 false,
       nationalityError:         false,
@@ -152,18 +161,26 @@ const AdmissionForm = ({ registerStudent, isLoading,
       return false;
     }
 
+    if (!current_class || !registered_class) {
+      setValidState(prevState => ({
+        ...prevState,
+        currentClassError:    true,
+        registeredClassError: true
+      }));
+      return false;
+    }
+
     if (!nationality) {
       setValidState(prevState => ({ ...prevState, nationalityError: true }));
       return false;
     }
 
-    if (!state_of_origin) {
-      setValidState(prevState => ({ ...prevState, stateOfOriginError: true }));
-      return false;
-    }
-
-    if (!local_govt_of_origin) {
-      setValidState(prevState => ({ ...prevState, lgaOfOriginError: true }));
+    if (!state_of_origin || !local_govt_of_origin) {
+      setValidState(prevState => ({
+        ...prevState,
+        stateOfOriginError: true,
+        lgaOfOriginError:   true
+      }));
       return false;
     }
 
@@ -189,6 +206,14 @@ const AdmissionForm = ({ registerStudent, isLoading,
       setValidState(prevState => ({
         ...prevState,
         guardianPhoneNumberError: true
+      }));
+      return false;
+    }
+
+    if (!guardian_gender) {
+      setValidState(prevState => ({
+        ...prevState,
+        guardianGenderError: true
       }));
       return false;
     }
@@ -223,28 +248,26 @@ const AdmissionForm = ({ registerStudent, isLoading,
     fetchLgas(state_of_origin);
   }, [state_of_origin, fetchLgas]);
 
+  const classList = [ 'JS1', 'JS2', 'JS3', 'SS1', 'SS2', 'SS3' ];
+  const genderList = [ 'Male', 'Female', 'Rather not say' ];
+
   return (
     <Box width={1} component="section">
-      <Typography variant="body1">Student Registration Form,
-      the form will not be submitted until required fields are filled out.
+      <Typography paragraph>NB: All the field marked with
+      asterisk(*) are considered compulsory, and the form will not
+      submit until these fields are filled out.
       </Typography>
-      {openAlert && <Alert
-        openAlert={openAlert}
-        handleClose={hideAlert}
-        msg={alertMsg}
-        severity={severity}
-      />}
       <Grid container spacing={3} className={gridContainer}>
         <Grid item xs={12} md={12}>
           <form noValidate onSubmit={handleSubmit}>
             <div>
-              <Typography variant="h6">Student Information</Typography>
+              <Typography variant="h6" gutterBottom>Student Information</Typography>
               <TextField
                 type="text"
                 error={firstNameError}
                 id="first_name"
                 name="first_name"
-                label="First Name"
+                label="First Name*"
                 variant="outlined"
                 autoComplete="off"
                 className={textFields}
@@ -270,7 +293,7 @@ const AdmissionForm = ({ registerStudent, isLoading,
                 error={lastNameError}
                 id="last_name"
                 name="last_name"
-                label="Last Name"
+                label="Last Name*"
                 variant="outlined"
                 autoComplete="off"
                 className={textFields}
@@ -297,7 +320,7 @@ const AdmissionForm = ({ registerStudent, isLoading,
                 error={nationalityError}
                 id="nationality"
                 name="nationality"
-                label="Nationality"
+                label="Nationality*"
                 variant="outlined"
                 autoComplete="off"
                 className={textFields}
@@ -327,7 +350,7 @@ const AdmissionForm = ({ registerStudent, isLoading,
                 id="dob"
                 error={dobError}
                 inputVariant="outlined"
-                label="Date of birth"
+                label="Date of birth*"
                 format="MM/dd/yyyy"
                 value={dob}
                 InputAdornmentProps={{ position: 'end' }}
@@ -335,78 +358,105 @@ const AdmissionForm = ({ registerStudent, isLoading,
               />
 
               <FormControl variant="outlined" className={textFields} error={genderError}>
-                <InputLabel id="gender">Gender</InputLabel>
+                <InputLabel id="gender">Gender*</InputLabel>
                 <Select
                   labelId="gender"
                   id="gender"
                   value={gender}
                   name="gender"
                   onChange={handleChange('gender')}
-                  label="gender"
+                  label="Gender*"
                 >
-                  {['Male', 'Female', 'Rather not say'].map(value => (
-                    <MenuItem key={value} value={value}>{value}</MenuItem>
+                  {genderList.map(value => (
+                    <MenuItem key={value}
+                      value={value.toLowerCase()}
+                    >{value}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
 
               <FormControl variant="outlined" className={textFields} error={stateOfOriginError}>
-                <InputLabel id="state_of_origin">State of Origin</InputLabel>
+                <InputLabel id="state_of_origin">State of Origin*</InputLabel>
                 <Select
                   labelId="state_of_origin"
                   id="state_of_origin"
                   value={state_of_origin}
                   name="state_of_origin"
                   onChange={handleChange('state_of_origin')}
-                  label="state_of_origin"
+                  label="State of Origin*"
                 >
-                  {states.map(({ name, capital }) => (
-                    <MenuItem key={capital} value={name}>{name}</MenuItem>
+                  {states && states.map(({ name, capital }) => (
+                    <MenuItem key={capital}
+                      value={name}
+                    >{name}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
 
               <FormControl variant="outlined" className={textFields} error={lgaOfOriginError}>
-                <InputLabel id="local_govt_of_origin">LGA of Origin</InputLabel>
+                <InputLabel id="local_govt_of_origin">LGA of Origin*</InputLabel>
                 <Select
                   labelId="local_govt_of_origin"
                   id="local_govt_of_origin"
                   value={local_govt_of_origin}
                   name="local_govt_of_origin"
                   onChange={handleChange('local_govt_of_origin')}
-                  label="local_govt_of_origin"
+                  label="LGA of Origin*"
                 >
-                  {lgas.map(value => (
-                    <MenuItem key={value} value={value}>{value}</MenuItem>
+                  {lgas && lgas.map(value => (
+                    <MenuItem key={value}
+                      value={value}
+                    >{value}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
-              <FormControl variant="outlined" className={textFields} error={false}>
-                <InputLabel id="registered_class">Registered class</InputLabel>
+              <FormControl variant="outlined" className={textFields} error={registeredClassError}>
+                <InputLabel id="registered_class">Registered Class*</InputLabel>
                 <Select
                   labelId="registered_class"
                   id="registered_class"
                   value={registered_class}
                   name="registered_class"
                   onChange={handleChange('registered_class')}
-                  label="registered_class"
+                  label="Registered Class*"
                 >
-                  {['JS1', 'JS2', 'JS3', 'SS1', 'SS2', 'SS3'].map(value => (
-                    <MenuItem key={value} value={value}>{value}</MenuItem>
+                  {classList.map(value => (
+                    <MenuItem key={value}
+                      value={value.toLowerCase()}
+                    >{value}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
+              <FormControl variant="outlined" className={textFields} error={currentClassError}>
+                <InputLabel id="current_class">Current Class*</InputLabel>
+                <Select
+                  labelId="current_class"
+                  id="current_class"
+                  value={current_class}
+                  name="current_class"
+                  onChange={handleChange('current_class')}
+                  label="Current Class*"
+                >*
+                  {classList.map(value => (
+                    <MenuItem key={value}
+                      value={value.toLowerCase()}
+                    >{value}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
             </div>
-            <Divider />
             <div>
-              <Typography variant="h6">Guardian Information</Typography>
-
+              <Typography variant="h6" gutterBottom>{''}</Typography>
+              <Divider />
+              <Typography variant="h6" gutterBottom>{''}</Typography>
+              <Typography variant="h6" gutterBottom>Guardian Information</Typography>
               <TextField
                 type="text"
                 error={guardianNameError}
                 id="guardian_name"
                 name="guardian_name"
-                label="Full Name"
+                label="Full Name*"
                 variant="outlined"
                 autoComplete="off"
                 className={textFields}
@@ -430,7 +480,7 @@ const AdmissionForm = ({ registerStudent, isLoading,
                 error={guardianHomeAddressError}
                 id="guardian_home_address"
                 name="guardian_home_address"
-                label="Home Address"
+                label="Home Address*"
                 variant="outlined"
                 autoComplete="off"
                 className={textFields}
@@ -442,7 +492,7 @@ const AdmissionForm = ({ registerStudent, isLoading,
                 error={guardianPhoneNumberError}
                 id="guardian_phone_number"
                 name="guardian_phone_number"
-                label="Phone Number"
+                label="Phone Number*"
                 variant="outlined"
                 autoComplete="off"
                 className={textFields}
@@ -465,25 +515,27 @@ const AdmissionForm = ({ registerStudent, isLoading,
                 error={guardianNationalityError}
                 id="guardian_nationality"
                 name="guardian_nationality"
-                label="Nationality"
+                label="Nationality*"
                 variant="outlined"
                 autoComplete="off"
                 className={textFields}
                 value={guardian_nationality}
                 onChange={handleChange('guardian_nationality')}
               />
-              <FormControl variant="outlined" className={textFields} error={false}>
-                <InputLabel id="guardian_gender">Gender</InputLabel>
+              <FormControl variant="outlined" className={textFields} error={guardianGenderError}>
+                <InputLabel id="guardian_gender">Gender*</InputLabel>
                 <Select
                   labelId="guardian_gender"
                   id="guardian_gender"
                   value={guardian_gender}
                   name="guardian_gender"
                   onChange={handleChange('guardian_gender')}
-                  label="guardian_gender"
+                  label="Gender*"
                 >
-                  {['Male', 'Female', 'Rather not say'].map(value => (
-                    <MenuItem key={value} value={value}>{value}</MenuItem>
+                  {genderList.map(value => (
+                    <MenuItem key={value}
+                      value={value.toLowerCase()}
+                    >{value}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -493,6 +545,7 @@ const AdmissionForm = ({ registerStudent, isLoading,
               variant="contained"
               size="large"
               color="primary"
+              disableElevation
               disabled={isLoading}
             >Register</Button>
           </form>
@@ -511,9 +564,6 @@ const mapDispatch = (dispatch) => ({
 
 const mapState = ({ staff }) => ({
   isLoading: staff.isLoading,
-  openAlert: staff.alert.shouldOpen,
-  alertMsg:  staff.alert.message,
-  severity:  staff.alert.severity,
   states:    staff.states,
   lgas:      staff.lgas
 });
