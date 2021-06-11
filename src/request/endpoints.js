@@ -25,6 +25,20 @@ export default {
     };
   },
 
+  getStudentList: () => {
+    return {
+      url:    `${API_BASE_URL}/api/v1/students`,
+      method: 'GET'
+    };
+  },
+
+  getStudent: (payload) => {
+    return {
+      url:    `${API_BASE_URL}/api/v1/students/student?id=${payload}`,
+      method: 'GET'
+    };
+  },
+
   addNewStaff: (data) => {
     return {
       url:    `${API_BASE_URL}/api/v1/staff`,
