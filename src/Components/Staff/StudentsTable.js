@@ -12,7 +12,7 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import { makeStyles } from '@material-ui/styles';
-import { fetchAllStudents, getStudent } from '../../store/staff/actions';
+import { fetchAllStudents } from '../../store/staff/actions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const StudentsTable = ({ students, isLoading, getById, getListing }) => {
+const StudentsTable = ({ students, isLoading, getListing }) => {
   const { root } = useStyles();
   const history = useHistory();
 
@@ -84,8 +84,7 @@ const mapState = ({ staff }) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  getListing: () => dispatch(fetchAllStudents()),
-  getById:    (payload) => dispatch(getStudent(payload))
+  getListing: () => dispatch(fetchAllStudents())
 });
 
 export default connect(mapState, mapDispatch)(StudentsTable);

@@ -1,12 +1,13 @@
 import types from './constants';
 
 const initialState = {
-  isLoading: false,
-  states:    [],
-  lgas:      [],
-  subjects:  [],
-  pins:      [],
-  alert:     {
+  isLoading:   false,
+  states:      [],
+  lgas:        [],
+  subjects:    [],
+  pins:        [],
+  studentInfo: {},
+  alert:       {
     shouldOpen: false,
     severity:   '',
     message:    ''
@@ -27,6 +28,11 @@ const initialState = {
 
 const staff = (state = initialState, action) => {
   switch (action.type) {
+  case types.FETCH_STUDENT_SUCCESS:
+    return {
+      ...state,
+      studentInfo: action.payload
+    };
   case types.GET_STATS_SUCCESS:
     return {
       ...state,
