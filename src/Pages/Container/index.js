@@ -5,10 +5,9 @@ import Wrapper from '../../Components/Container';
 import Alert from '../../Components/Alert';
 import {
   Overview,
-  Admission,
   Results,
   Students,
-  StaffDetails,
+  Staff,
   Subjects
 } from '../Staff';
 import NotFound from '../404';
@@ -26,10 +25,9 @@ const Container = ({ alert, hideAlert }) => {
         />}
       <Switch>
         <Route path={'/dashboard'} exact component={Overview} />
-        <Route path='/dashboard/register' component={Admission} />
         <Route path='/dashboard/results' component={Results} />
         <Route path='/dashboard/students' component={Students} />
-        <Route path='/dashboard/staff/' component={StaffDetails} />
+        <Route path='/dashboard/staff' component={Staff} />
         <Route path='/dashboard/subjects' component={Subjects} />
         <Route component={NotFound} />
       </Switch>

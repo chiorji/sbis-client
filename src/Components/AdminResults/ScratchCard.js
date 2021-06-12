@@ -97,8 +97,8 @@ const ScratchCard = ({ genCards, pins, getAllCard, isLoading, deleteCard }) => {
               { title: 'Pin.', field: 'pin' },
               { title: 'Serial', field: 'serial' },
               { title: 'Usage', field: 'usage_count' },
-              { title: 'Generated on', field: 'created_at' },
-              { title: 'Expiration', field: 'updated_at' }
+              { title: 'Generated on', field: 'created_at', type: 'date', dateSetting: { locale: 'en-NG', format: 'dd/MM/yyyy' } },
+              { title: 'Expiration', field: 'updated_at', type: 'date', dateSetting: { locale: 'en-NG', format: 'dd/MM/yyyy' } }
             ]}
             options={{
               search:              false,

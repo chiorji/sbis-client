@@ -110,11 +110,6 @@ function* getStats() {
     const { data } = yield call(api.get, endpoints.getStats(), true);
     console.log({ data });
     yield put(actions.getStatsSuccess(data.data));
-    yield put(actions.showAlert({
-      shouldOpen: true,
-      message:    data.message,
-      severity:   'success'
-    }));
   } catch (error) {
     yield put(actions.showAlert({
       shouldOpen: true,

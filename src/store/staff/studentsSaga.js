@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { takeLatest, put, cancel, call } from 'redux-saga/effects';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import endpoints from '../../request/endpoints';
@@ -36,6 +35,11 @@ function* fetchAllStudents() {
     yield put(actions.fetchAllStudentsSuccess(data.data));
   } catch (error) {
     yield put(actions.fetchAllStudentsFailure(error.message));
+    yield put(actions.showAlert({
+      shouldOpen: true,
+      message:    error.message ? error.message : 'Error',
+      severity:   'error'
+    }));
     yield(cancel());
   } finally {
     yield put(hideLoading());
