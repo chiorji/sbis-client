@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import MaterialTable from 'material-table';
+import { useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import SearchIcon from '@material-ui/icons/Search';
@@ -24,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 const StudentsTable = ({ students, isLoading, getById, getListing }) => {
   const { root } = useStyles();
+  const history = useHistory();
 
   useEffect(() => {
     getListing();
@@ -54,7 +56,9 @@ const StudentsTable = ({ students, isLoading, getById, getListing }) => {
             {
               icon:    VisibilityIcon,
               tooltip: 'View',
-              onClick: (event, rowData) => getById(rowData.id)
+              onClick: (e, rowData) => {
+                history.push('/dashboard/students/info?id='+rowData.id);
+              }
             }
           ]}
           icons={{
