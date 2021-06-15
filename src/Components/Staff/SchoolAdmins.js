@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const StaffList = ({ avatar, name, description }) => {
+const SchoolAdmins = ({ avatar, name, description }) => {
   const { media, heading, cardWrap } = useStyles();
   return (
     <div className={cardWrap}>
@@ -45,4 +45,4 @@ const StaffList = ({ avatar, name, description }) => {
   );
 };
 
-export default StaffList;
+export default SchoolAdmins;

@@ -65,7 +65,7 @@ const StaffListing = ({ staff, isLoading, fetchStaffList }) => {
 
   return (
     <>
-      <Typography variant="h4" gutterBottom>Staff member list</Typography>
+      <Typography variant="h4" gutterBottom>Staff Listing</Typography>
       <div style={{ height: 500, width: '100%' }} className={root}>
         <div style={{ display: 'flex', height: '100%' }}>
           <div style={{ flexGrow: 1 }}>
@@ -73,6 +73,7 @@ const StaffListing = ({ staff, isLoading, fetchStaffList }) => {
               autoHeight
               columns={columns}
               rows={staff}
+              loading={isLoading}
               disableColumnMenu
               hideFooterSelectedRowCount
               disableColumnSelector

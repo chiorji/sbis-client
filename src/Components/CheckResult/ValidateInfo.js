@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const DataForm = ({ getResult }) => {
+const ValidateInfo = ({ getResult }) => {
   const { formControl, btn } = useStyles();
   const [formValues, setFormValues] = useState({
     examYear:       new Date(),
@@ -222,4 +222,4 @@ const mapDispatch = (dispatch) => ({
   getResult: (payload) => dispatch(getResult(payload))
 });
 
-export default connect(mapState, mapDispatch)(DataForm);
+export default connect(mapState, mapDispatch)(ValidateInfo);

@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const PinAndId = ({ handlePinValidation=f => f }) => {
+const ValidatePin = ({ handlePinValidation=f => f }) => {
   const { textFields } = useStyles();
   const [formValues, setFormValues] = useState({
     pin:         '',
@@ -120,4 +120,4 @@ const mapDispatch = (dispatch) => ({
   handlePinValidation: (payload) => dispatch(validatePin(payload))
 });
 
-export default connect(null, mapDispatch)(PinAndId);
+export default connect(null, mapDispatch)(ValidatePin);
