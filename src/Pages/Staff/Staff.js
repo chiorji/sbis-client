@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import AddStaffForm from '../../Components/Staff/AddStaffForm';
-import StaffListing from '../../Components/Staff/StaffListing';
+import StaffListing from '../../Components/Staff/StaffTable';
 import NotFound from '../../Pages/404';
 
 const Staff = () => {

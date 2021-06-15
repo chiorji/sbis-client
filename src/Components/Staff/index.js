@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
-import StaffList from './StaffList';
+import SchoolAdmins from './SchoolAdmins';
 import { listing } from '../../utils';
 
 const useStyles = makeStyles(theme => ({
@@ -73,7 +73,7 @@ const Staff = () => {
           }}
           >
             {listing.map((staff, idx) => (
-              <StaffList {...staff} key={idx} />
+              <SchoolAdmins {...staff} key={idx} />
             ))}
           </Slider>
         </Typography>

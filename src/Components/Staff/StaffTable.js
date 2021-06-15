@@ -1,87 +1,83 @@
 /* eslint-disable no-console */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { DataGrid } from '@material-ui/data-grid';
 import Typography from '@material-ui/core/Typography';
+import { DataGrid } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/styles';
-import { fetchAllStudents } from '../../store/staff/actions';
+import { fetchStaffList } from '../../store/staff/actions';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginBottom:     theme.spacing(5),
     '& .list-header': {
       backgroundColor: theme.palette.primary.light,
       color:           theme.palette.grey[300]
     }
-  },
-  header: {
-    marginBottom: theme.spacing(3)
   }
 }));
 
-const StudentsTable = ({ students, isLoading, getListing }) => {
+const StaffListing = ({ staff, isLoading, fetchStaffList }) => {
   const { root } = useStyles();
-  const history = useHistory(); // eslint-disable-line
-
   useEffect(() => {
-    getListing();
-  }, [ getListing ]);
+    fetchStaffList();
+  }, [ fetchStaffList ]);
 
   const columns = [
     {
       headerName:      'First Name',
       field:           'first_name',
+      width:           200,
       id:              1,
-      width:           200,
       headerClassName: 'list-header'
     },
     {
-      headerName:      'Last Name',
+      headerName:
+        'Last Name',
       field:           'last_name',
+      width:           200,
       id:              2,
-      width:           200,
       headerClassName: 'list-header'
     },
     {
-      headerName:      'Current Class',
-      field:           'current_class',
+      headerName:
+        'Gender',
+      field:           'gender',
+      width:           200,
       id:              3,
-      width:           200,
       headerClassName: 'list-header'
     },
     {
-      headerName:      'Student ID',
-      field:           'id',
+      headerName:      'Form Class',
+      field:           'form_class',
+      width:           200,
       id:              4,
+      headerClassName: 'list-header'
+    },
+    {
+      headerName:
+        'Email',
+      field:           'email',
       width:           200,
       flex:            1,
-      headerClassName: 'list-header'
-    },
-    {
-      headerName:      'Sex',
-      field:           'gender',
       id:              5,
-      width:           200,
       headerClassName: 'list-header'
     }
   ];
 
   return (
     <>
-      <Typography variant="h4" gutterBottom>Student Listing</Typography>
+      <Typography variant="h4" gutterBottom>Staff Listing</Typography>
       <div style={{ height: 500, width: '100%' }} className={root}>
         <div style={{ display: 'flex', height: '100%' }}>
           <div style={{ flexGrow: 1 }}>
             <DataGrid
-              columns={columns}
-              rows={students}
-              loading={isLoading}
               autoHeight
+              columns={columns}
+              rows={staff}
+              loading={isLoading}
               disableColumnMenu
               hideFooterSelectedRowCount
               disableColumnSelector
-              onRowClick={({ row:{ id } }, e) => console.log({ id })}
+              onRowClick={({ row:{ email } }, e) => console.log({ email })}
             />
           </div>
         </div>
@@ -91,12 +87,12 @@ const StudentsTable = ({ students, isLoading, getListing }) => {
 };
 
 const mapState = ({ staff }) => ({
-  students:  staff.stats.students,
+  staff:     staff.stats.staff,
   isLoading: staff.isLoading
 });
 
 const mapDispatch = (dispatch) => ({
-  getListing: () => dispatch(fetchAllStudents())
+  fetchStaffList: () => dispatch(fetchStaffList())
 });
 
-export default connect(mapState, mapDispatch)(StudentsTable);
+export default connect(mapState, mapDispatch)(StaffListing);

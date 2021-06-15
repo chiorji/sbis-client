@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const PrintablePage = () => {
+const ShowResult = () => {
   const { printArea } = useStyles();
   return (
     <Grid item xs={12} sm={10} className={printArea}>
@@ -18,4 +18,4 @@ const PrintablePage = () => {
   );
 };
 
-export default PrintablePage;
+export default ShowResult;

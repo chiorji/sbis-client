@@ -6,8 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import PinSerialForm from './PinSerialForm';
-import DataForm from './DataForm';
+import PinSerialForm from './ValidatePin';
+import DataForm from './ValidateInfo';
 import { useQuery } from '../../utils';
 
 const useStyles = makeStyles(theme => ({
