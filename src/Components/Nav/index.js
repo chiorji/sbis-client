@@ -43,7 +43,7 @@ const NavBar = ({ links }) => {
         closeDrawer={toggleDrawer}
         links={links}
       /> : <DesktopMenu
-        name="Success Builders Int\'l Schools"
+        name="Success Builders Int'l Schools"
         links={links}
       />}
     </AppBar>
