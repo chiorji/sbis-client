@@ -1,22 +1,19 @@
+/* eslint-disable no-console */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import MaterialTable from 'material-table';
 import { useHistory } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import SearchIcon from '@material-ui/icons/Search';
-import ClearIcon from '@material-ui/icons/Clear';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
+import { DataGrid } from '@material-ui/data-grid';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/styles';
 import { fetchAllStudents } from '../../store/staff/actions';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginBottom: theme.spacing(5)
+    marginBottom:     theme.spacing(5),
+    '& .list-header': {
+      backgroundColor: theme.palette.primary.light,
+      color:           theme.palette.grey[300]
+    }
   },
   header: {
     marginBottom: theme.spacing(3)
@@ -25,56 +22,71 @@ const useStyles = makeStyles(theme => ({
 
 const StudentsTable = ({ students, isLoading, getListing }) => {
   const { root } = useStyles();
-  const history = useHistory();
+  const history = useHistory(); // eslint-disable-line
 
   useEffect(() => {
     getListing();
-  }, [getListing]);
+  }, [ getListing ]);
+
+  const columns = [
+    {
+      headerName:      'First Name',
+      field:           'first_name',
+      id:              1,
+      width:           200,
+      headerClassName: 'list-header'
+    },
+    {
+      headerName:      'Last Name',
+      field:           'last_name',
+      id:              2,
+      width:           200,
+      headerClassName: 'list-header'
+    },
+    {
+      headerName:      'Current Class',
+      field:           'current_class',
+      id:              3,
+      width:           200,
+      headerClassName: 'list-header'
+    },
+    {
+      headerName:      'Student ID',
+      field:           'id',
+      id:              4,
+      width:           200,
+      flex:            1,
+      headerClassName: 'list-header'
+    },
+    {
+      headerName:      'Sex',
+      field:           'gender',
+      id:              5,
+      width:           200,
+      headerClassName: 'list-header'
+    }
+  ];
 
   return (
-    <Grid container spacing={2} className={root}>
-      <Grid item xs={12}>
-        <MaterialTable
-          title="Student List"
-          columns={[
-            { title: 'First Name', field: 'first_name' },
-            { title: 'Last Name', field: 'last_name' },
-            { title: 'Current Class', field: 'current_class' },
-            { title: 'Student ID', field: 'id' },
-            { title: 'Sex', field: 'gender' }
-          ]}
-          data={students}
-          options={{
-            search:              true,
-            sorting:             true,
-            actionsColumnIndex:  -1,
-            pageSize:            10,
-            pageSizeOptions:     [ 10, 20, 30, 40, 50, 100 ],
-            emptyRowsWhenPaging: false
-          }}
-          actions={[
-            {
-              icon:    VisibilityIcon,
-              tooltip: 'View',
-              onClick: (e, rowData) => {
-                history.push('/dashboard/students/info?id='+rowData.id);
-              }
-            }
-          ]}
-          icons={{
-            Search:       SearchIcon,
-            ResetSearch:  ClearIcon,
-            SortArrow:    ArrowDropUpIcon,
-            PreviousPage: ArrowLeftIcon,
-            NextPage:     ArrowRightIcon,
-            FirstPage:    SkipPreviousIcon,
-            LastPage:     SkipNextIcon
-          }}
-          tableLayout="fixed"
-          isLoading={isLoading}
-        />
-      </Grid>
-    </Grid>
+    <>
+      <Typography variant="h4" gutterBottom>Student Listing</Typography>
+      <div style={{ height: 500, width: '100%' }} className={root}>
+        <div style={{ display: 'flex', height: '100%' }}>
+          <div style={{ flexGrow: 1 }}>
+            <DataGrid
+              columns={columns}
+              rows={students}
+              loading={isLoading}
+              autoHeight
+              disableColumnMenu
+              hideFooterSelectedRowCount
+              disableColumnSelector
+              onRowClick={({ row:{ id } }, e) => console.log({ id })}
+            />
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
