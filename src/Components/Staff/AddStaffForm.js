@@ -259,6 +259,10 @@ const AddStaffForm = ({ addStaff = f => f }) => {
             </Select>
           </FormControl>
         </FormGroup>
+        <Typography color="textPrimary">
+          NB: Please ensure you have written down the
+          password before proceeding
+        </Typography>
         <Button
           type="submit"
           variant="contained"
