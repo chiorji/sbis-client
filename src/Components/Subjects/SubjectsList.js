@@ -1,89 +1,95 @@
-/* eslint-disable no-unused-vars, no-console */
-import React, { useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import MaterialTable from 'material-table';
-import EditIcon from '@material-ui/icons/Edit';
-import DoneIcon from '@material-ui/icons/Done';
-import CancelIcon from '@material-ui/icons/Cancel';
-import subjectsDummyData from '../../utils/subjectList.json';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import { updateSubject } from '../../store/staff/actions';
+import { DataGrid } from '@material-ui/data-grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/styles';
+import { listSubjects } from '../../store/staff/actions';
 
-const SubjectsList = ({ subjects, update }) => {
+const useStyles = makeStyles(theme => ({
+  root: {
+    marginBottom:             theme.spacing(8),
+    height:                   '500px',
+    width:                    '100%',
+    '& .subject-list-header': {
+      backgroundColor: theme.palette.primary.light,
+      color:           theme.palette.grey[300]
+    }
+  }
+}));
 
-  const updateSub = (data) => {
-    return update(data);
-  };
+const SubjectsList = ({ subjects, listSubjects }) => {
+  const { root } =useStyles();
+
+  useEffect(() => {
+    listSubjects();
+  }, [listSubjects]);
+
+  const columns = [
+    {
+      id:              1,
+      headerName:      'Name',
+      description:     'Subject name',
+      field:           'name',
+      width:           200,
+      headerClassName: 'subject-list-header'
+    },
+    {
+      id:              2,
+      headerName:      'Code',
+      description:     'Subject code (optional)',
+      field:           'code',
+      width:           200,
+      headerClassName: 'subject-list-header'
+    },
+    {
+      id:              3,
+      headerName:      'Teacher',
+      description:     'Subject teacher',
+      field:           'teacher',
+      width:           200,
+      flex:            1, // makes teacher name span columns,
+      headerClassName: 'subject-list-header'
+    },
+    {
+      id:              4,
+      headerName:      'Category',
+      description:     'Subject category',
+      field:           'category',
+      width:           200,
+      headerClassName: 'subject-list-header'
+    },
+    {
+      id:              5,
+      headerName:      'Date created',
+      description:     'Date subject was added to curriculum',
+      field:           'created_at',
+      width:           200,
+      headerClassName: 'subject-list-header',
+      type:            'date',
+      valueFormatter:  ({ value }) => {
+        return new Date(value).toDateString();
+      }
+    }
+  ];
 
   return (
-    <MaterialTable
-      title="Subject List"
-      editable={{
-        onRowUpdate: (newData) => {
-          new Promise((resolve, reject) => {
-            setTimeout(() => {
-              try {
-                updateSub(newData);
-                resolve();
-              } catch (error) {
-                reject();
-              }
-            }, 50);
-          });
-        }
-      }}
-      columns={[
-        { title: 'Name', field: 'name', editable: 'always' },
-        { title: 'Code', field: 'code', editable: 'always' },
-        {
-          title:         'Teacher',
-          field:         'teacher',
-          editable:      'always',
-          editComponent: props => (
-            <TextField
-              type="text"
-              select
-              value={props.value}
-              onChange={e => props.onChange(e.target.value)}
-            > {/* replace with staff name list */}
-              {['Henry', 'Bright', 'Michael', 'Joy'].map(value => (
-                <MenuItem key={value} value={value}>{value}</MenuItem>
-              ))}
-            </TextField>
-          ) },
-        {
-          title:         'Category',
-          field:         'category',
-          editable:      'always',
-          editComponent: props => (
-            <TextField
-              type="text"
-              select
-              value={props.value}
-              onChange={e => props.onChange(e.target.value)}
-            >
-              {['General', 'Sciences', 'Arts', 'Finance'].map(value => (
-                <MenuItem key={value} value={value}>{value}</MenuItem>
-              ))}
-            </TextField>
-          )
-        }
-      ]}
-      data={subjects.lenght > 0 ? subjects : subjectsDummyData}
-      options={{
-        search:             false,
-        sorting:            false,
-        actionsColumnIndex: -1,
-        paging:             false,
-        draggable:          false
-      }}
-      icons={{
-        Edit:  EditIcon,
-        Check: DoneIcon,
-        Clear: CancelIcon
-      }}
-    />
+    <div className={root}>
+      <div style={{ display: 'flex', height: '100%' }}>
+        <div style={{ flexGrow: 1 }}>
+          <Typography variant="h5" gutterBottom>
+            Subjects in the curriculum</Typography>
+          <DataGrid
+            columns={columns}
+            rows={subjects}
+            pageSize={8}
+            autoHeight
+            disableColumnMenu
+            hideFooterSelectedRowCount
+            disableColumnSelector
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -92,7 +98,7 @@ const mapState = ({ staff }) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  update: (payload) => dispatch(updateSubject(payload))
+  listSubjects: () => dispatch(listSubjects())
 });
 
 export default connect(mapState, mapDispatch)(SubjectsList);
