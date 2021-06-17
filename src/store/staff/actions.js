@@ -142,9 +142,8 @@ export const createSubjectFailure = (payload) => ({
   payload
 });
 
-export const listSubjects = (payload) => ({
-  type: types.LIST_SUBJECTS,
-  payload
+export const listSubjects = () => ({
+  type: types.LIST_SUBJECTS
 });
 
 export const listSubjectsSuccess = (payload) => ({

@@ -122,6 +122,15 @@ const staff = (state = initialState, action) => {
       }
     };
 
+    /**
+    Subjects related store
+  */
+  case types.LIST_SUBJECTS_SUCCESS:
+    return {
+      ...state,
+      subjects: action.payload
+    };
+
   case types.FETCH_LGAS_FAILURE:
   case types.FETCH_STATES_FAILURE:
   case types.FETCH_ALL_STUDENTS_FAILURE:
