@@ -5,6 +5,8 @@ const initialState = {
   states:      [],
   lgas:        [],
   subjects:    [],
+  classList:   [ 'js1', 'js2', 'js3', 'ss1', 'ss2', 'ss3' ],
+  terms:       ['Choose Term', 'FIRST TERM', 'SECOND TERM', 'THIRD TERM'],
   pins:        [],
   studentInfo: {},
   alert:       {
@@ -28,6 +30,7 @@ const initialState = {
 
 const staff = (state = initialState, action) => {
   switch (action.type) {
+  // returns info for a singe student
   case types.FETCH_STUDENT_SUCCESS:
     return {
       ...state,
