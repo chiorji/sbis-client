@@ -27,8 +27,8 @@ const account = (state = initialState, action) => {
     return {
       ...state,
       isLoggedIn:      true,
-      role:            action.payload.data.user.role,
-      email:           action.payload.data.user.email,
+      role:            action.payload.data.role,
+      email:           action.payload.data.email,
       token:           action.payload.data.token,
       sessionInterval: '',
       alert:           {

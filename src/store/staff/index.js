@@ -1,12 +1,144 @@
 import types from './constants';
 
 const initialState = {
-  isLoading:   false,
-  states:      [],
-  lgas:        [],
-  subjects:    [],
-  classList:   [ 'js1', 'js2', 'js3', 'ss1', 'ss2', 'ss3' ],
-  terms:       ['Choose Term', 'FIRST TERM', 'SECOND TERM', 'THIRD TERM'],
+  isLoading: false,
+  states:    [],
+  lgas:      [],
+  classList: ['Select class', 'js1', 'js2', 'js3', 'ss1', 'ss2', 'ss3' ],
+  terms:     ['Select Term', 'FIRST TERM', 'SECOND TERM', 'THIRD TERM'],
+  subjects:  [ {
+    name:     'English Language',
+    code:     '',
+    category: 'General',
+    teacher:  'Bright',
+    id:       1
+  }, {
+    name:     'Mathematics',
+    code:     '',
+    category: 'General',
+    teacher:  'Naza',
+    id:       2
+  }, {
+    name:     'Igbo Language',
+    code:     '',
+    category: 'General',
+    teacher:  'Kenneth',
+    id:       3
+  }, {
+    name:     'Literature in English',
+    code:     '',
+    category: 'Arts',
+    teacher:  'Bantu',
+    id:       4
+  }, {
+    name:     'Biology',
+    code:     '',
+    category: 'Science',
+    teacher:  'Bright',
+    id:       5
+  } , {
+    name:     'Government',
+    code:     '',
+    category: 'Arts',
+    teacher:  'Bright',
+    id:       6
+  }, {
+    name:     'Economics',
+    code:     '',
+    category: 'Business',
+    teacher:  'Bright',
+    id:       7
+  }, {
+    name:     'NBST',
+    code:     '',
+    category: 'General',
+    teacher:  'Bright',
+    id:       8
+  }, {
+    name:     'Christian Religious Knowledge',
+    code:     '',
+    category: 'General',
+    teacher:  'Bright',
+    id:       9
+  }, {
+    name:     'Civic Education',
+    code:     '',
+    category: 'General',
+    teacher:  'Bright',
+    id:       10
+  }, {
+    name:     'Data Processing',
+    code:     '',
+    category: 'General',
+    teacher:  'Bright',
+    id:       11
+  }, {
+    name:     'Agricultural Science',
+    code:     '',
+    category: 'General',
+    teacher:  'Bright',
+    id:       12
+  }, {
+    name:     'Chemistry',
+    code:     '',
+    category: 'General',
+    teacher:  'Bright',
+    id:       13
+  }, {
+    name:     'Physics',
+    code:     '',
+    category: 'General',
+    teacher:  'Bright',
+    id:       14
+  }, {
+    name:     'Commerce',
+    code:     '',
+    category: 'General',
+    teacher:  'Bright',
+    id:       15
+  }, {
+    name:     'Accounting',
+    code:     '',
+    category: 'General',
+    teacher:  'Bright',
+    id:       16
+  },  {
+    name:     'Food and Nutrition',
+    code:     '',
+    category: 'General',
+    teacher:  'Bright',
+    id:       17
+  }, {
+    name:     'Geography',
+    code:     '',
+    category: 'General',
+    teacher:  'Bright',
+    id:       18
+  }, {
+    name:     'French',
+    code:     '',
+    category: 'General',
+    teacher:  'Bright',
+    id:       19
+  }, {
+    name:     'Cultural and Creative Arts',
+    code:     '',
+    category: 'General',
+    teacher:  'Bright',
+    id:       20
+  } , {
+    name:     'Business Studies',
+    code:     '',
+    category: 'General',
+    teacher:  'Bright',
+    id:       21
+  }, {
+    name:     'Further Maths',
+    code:     '',
+    category: 'General',
+    teacher:  'Bright',
+    id:       22
+  }],
   pins:        [],
   studentInfo: {},
   alert:       {
@@ -111,7 +243,7 @@ const staff = (state = initialState, action) => {
     return {
       ...state,
       isLoading: false,
-      stats:     { ...state.stats, staff: action.payload.members }
+      stats:     { ...state.stats, staff: action.payload }
     };
 
   case types.ADD_STAFF_SUCCESS:
