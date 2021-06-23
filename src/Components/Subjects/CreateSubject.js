@@ -81,6 +81,14 @@ const CreateSubject = ({ createSubject }) => {
     setSubject(prevState => ({ ...prevState, [prop]: e.target.value }));
   };
 
+  const subjectCategories = [
+    'GENERAL',
+    'SCIENCE',
+    'ARTS',
+    'SENIOR',
+    'JUNIOR',
+    'UNCATEGORIZED'
+  ];
   return (
     <>
       <Typography variant="h4" align="center" gutterBottom>Add Subject</Typography>
@@ -138,8 +146,10 @@ const CreateSubject = ({ createSubject }) => {
                   onChange={handleChange('category')}
                   label="Category"
                 >
-                  {['ALL', 'SENIOR', 'JUNIOR', 'UNCATEGORIZED'].map((value) => (
-                    <MenuItem key={value} value={value}>{value}</MenuItem>
+                  {subjectCategories.map((value) => (
+                    <MenuItem key={value}
+                      value={value.toLowerCase()}
+                    >{value}</MenuItem>
                   ))}
                 </Select>
               </FormControl>

@@ -53,8 +53,7 @@ const StaffListing = ({ staff, isLoading, fetchStaffList }) => {
       headerClassName: 'list-header'
     },
     {
-      headerName:
-        'Email',
+      headerName:      'Email',
       field:           'email',
       width:           200,
       flex:            1,

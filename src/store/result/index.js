@@ -1,12 +1,36 @@
 import types from './constants';
 
 const initialState = {
-  regno: '',
-  pin:   ''
+  alert: {
+    shouldOpen: false,
+    severity:   '',
+    message:    ''
+  }
 };
 
 const checker = (state = initialState, action) => {
   switch (action.type) {
+
+  case types.SHOW_RESULT_ALERT:
+    return {
+      ...state,
+      alert: {
+        ...state.alert,
+        shouldOpen: true,
+        severity:   action.payload.severity,
+        message:    action.payload.message
+      }
+    };
+
+  case 'HIDE_ALERT':
+    return {
+      ...state,
+      alert: {
+        shouldOpen: false,
+        severity:   '',
+        message:    ''
+      }
+    };
 
   case types.VALIDATE_PIN_SUCCESS:
     return {

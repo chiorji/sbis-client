@@ -14,5 +14,6 @@ export default keyMirror({
   // Second step of result checking validation
   GET_RESULT_REQUEST: null,
   GET_RESULT_SUCCESS: null,
-  GET_RESULT_FAILURE: null
+  GET_RESULT_FAILURE: null,
+  SHOW_RESULT_ALERT:  null
 });

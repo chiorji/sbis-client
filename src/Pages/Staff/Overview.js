@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Overview = ({ students, subjects, classes,
-  results, staff, pins, alert, hideAlert, getStats }) => {
+  results, staff, pins, getStats }) => {
   const { grid, gridItem, paper } = useStyles();
 
   useEffect(() => {
@@ -82,7 +82,7 @@ const Overview = ({ students, subjects, classes,
   );
 };
 
-const mapState = ({ staff, account }) => ({
+const mapState = ({ staff }) => ({
   students: staff.stats.sum.students,
   subjects: staff.stats.sum.subjects,
   classes:  staff.stats.sum.classes,
@@ -92,8 +92,7 @@ const mapState = ({ staff, account }) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  hideAlert: () => dispatch({ type: 'HIDE_ALERT' }),
-  getStats:  () => dispatch(getStats())
+  getStats: () => dispatch(getStats())
 });
 
 export default connect(mapState, mapDispatch)(Overview);

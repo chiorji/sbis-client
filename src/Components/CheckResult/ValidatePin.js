@@ -52,7 +52,7 @@ const ValidatePin = ({ handlePinValidation=f => f }) => {
       return false;
     }
 
-    if (!serial || !validator.isLength(serial, 13)) {
+    if (!serial || !validator.isLength(serial, { min: 13 })) {
       setFormValues(prevState => ({ ...prevState, serialError: true }));
       return false;
     }
