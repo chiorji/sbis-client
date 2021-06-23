@@ -7,7 +7,8 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import PinSerialForm from './ValidatePin';
-import DataForm from './ValidateInfo';
+import ValidateInfo from './ValidateInfo';
+import Alert from '../../Components/Alert';
 import { useQuery } from '../../utils';
 
 const useStyles = makeStyles(theme => ({
@@ -29,19 +30,30 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Portal = () => {
+const Portal = ({ alert, hideAlert }) => {
   const { root, grid, errorBox } = useStyles();
+
   const query = useQuery();
+  const pin = query.get('pin');
+  const serial = query.get('serial');
+
 
   return (
     <>
+      {alert.shouldOpen &&
+        <Alert
+          openAlert={alert.shouldOpen}
+          msg={alert.message}
+          severity={alert.severity}
+          handleClose={hideAlert}
+        />}
       <Container className={root}>
         <Typography variant="h4">Check Result</Typography>
       </Container>
       <Container>
         <Grid container className={grid} spacing={4}>
-          {query.get('page') === 'validated' && (query.get('pin') && query.get('serial'))
-            ? <DataForm />
+          {query.get('page') === 'validated' && (pin && serial)
+            ? <ValidateInfo />
             : query.get('page') === 'display'
               ? <Typography variant="h6">Loading result...</Typography>
               : query.get('page') === 'validate'
@@ -60,6 +72,13 @@ const Portal = () => {
   );
 };
 
+const mapState = ({ account, result }) => ({
+  isLoggedIn: account.isLoggedIn,
+  alert:      result.alert
+});
 
+const mapDispatch = (dispatch) => ({
+  hideAlert: () => dispatch({ type: 'HIDE_ALERT' })
+});
 
-export default connect()(Portal);
+export default connect(mapState, mapDispatch)(Portal);
