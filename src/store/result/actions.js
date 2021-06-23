@@ -57,3 +57,9 @@ export const getResultFailure = (payload) => {
     });
   };
 };
+
+
+export const showAlert = (payload) => ({
+  type: types.SHOW_RESULT_ALERT,
+  payload
+});

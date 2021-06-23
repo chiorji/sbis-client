@@ -130,5 +130,11 @@ export default {
       url:    `${API_BASE_URL}/api/v1/pin/${pin}/serial/${serial}`,
       method: 'DELETE'
     };
-  }
+  },
+
+  validatePinSerial: (data) => ({
+    url:    `${API_BASE_URL}/api/v1/pin/validate`,
+    method: 'POST',
+    data
+  })
 };
