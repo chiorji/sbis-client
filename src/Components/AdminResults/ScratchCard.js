@@ -50,8 +50,7 @@ const ScratchCard = ({ genCards, pins, getAllCard, isLoading }) => {
       id:         1,
       headerName: 'Pin',
       field:      'pin',
-      width:      200,
-      flex:       1
+      width:      200
     },
     {
       id:         2,
@@ -63,7 +62,7 @@ const ScratchCard = ({ genCards, pins, getAllCard, isLoading }) => {
       id:         3,
       headerName: 'Usage',
       field:      'usage_count',
-      width:      200
+      width:      50
     },
     {
       id:             4,
@@ -77,12 +76,13 @@ const ScratchCard = ({ genCards, pins, getAllCard, isLoading }) => {
     },
     {
       id:             5,
-      headerName:     'Expiration',
-      field:          'updated_at',
-      type:           'date',
+      headerName:     'Will expire on',
+      field:          'expire_at',
+      type:           'dateTime',
       width:          200,
+      flex:           1,
       valueFormatter: ({ value }) => {
-        return new Date(value).toDateString();
+        return new Date(value).toUTCString();
       }
     }
   ];
