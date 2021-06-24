@@ -3,36 +3,52 @@ import { connect } from 'react-redux';
 import validator from 'validator';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import makeStyles from '@material-ui/styles/makeStyles';
-import { getResult } from '../../store/result/resultThunk';
+import CustomizedSwitches from '../Switch';
+import * as actions from '../../store/result/actions';
+import { useQuery } from '../../utils';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
-    margin:                         theme.spacing(1),
+    marginBottom:                   theme.spacing(3),
     flexGrow:                       1,
+    minWidth:                       '100%',
     [theme.breakpoints.down('sm')]: {
       width: '100%'
     }
   },
-  btn: {
-    width:                          '50%',
-    margin:                         theme.spacing(1),
-    [theme.breakpoints.down('sm')]: {
-      width:  '96%',
-      margin: '0 auto'
-    }
+  invalidYear: {
+    backgroundColor: 'red',
+    color:           theme.palette.common.white,
+    padding:         theme.spacing(1),
+    borderRadius:    '3px'
+  },
+  callout: {
+    display:        'flex',
+    flexDirection:  'row',
+    justifyContent: 'space-around',
+    alignContent:   'center',
+    alignItems:     'center',
+    borderRadius:   '5px',
+    marginBottom:   theme.spacing(5)
   }
 }));
 
-const ValidateInfo = ({ getResult }) => {
-  const { formControl, btn } = useStyles();
+const ValidateInfo = ({
+  checkTermlyResult,
+  checkCumulativeResult,
+  classList,
+  termOpts,
+  displayAlert
+}) => {
+  const { formControl, invalidYear, callout } = useStyles();
   const [formValues, setFormValues] = useState({
     examYear:       new Date(),
     examYearError:  false,
@@ -40,102 +56,162 @@ const ValidateInfo = ({ getResult }) => {
     examTermError:  false,
     examClass:      '',
     examClassError: false,
-    regno:          '',
-    regnoError:     false
+    id:             'SBIS/2021/UNfve2',
+    idError:        false,
+    isTermlyResult: true
   });
 
   const handleChange = (prop) => (e) => {
     setFormValues(prevValues => ({ ...prevValues, [prop]: prop === 'examYear' ? new Date(e) : e.target.value }));
   };
 
+  // Validates input before submit
   const validateFormValues = () => {
-    const { examYear, examTerm, examClass, regno } = formValues;
+    const { examYear, examTerm, examClass, id } = formValues;
     setFormValues(prevValues => ({
       ...prevValues,
       examYearError:  false,
       examTermError:  false,
       examClassError: false,
-      regnoError:     false
+      idError:        false
     }));
 
-    if (!examYear && !examTerm && !examClass) {
+    // id format is "SBIS/2021/UNfve2"
+    if (isTermlyResult && !((id && validator.matches(id, /^SBIS\/\b\d{4}\b\/\b[A-Z0-9]{6}\b$/i)) && examYear && examTerm && examClass)) {
       setFormValues(prevValues => ({
         ...prevValues,
+        idError:        true,
         examYearError:  true,
         examTermError:  true,
         examClassError: true
       }));
       return false;
-    }
-
-    if (!examYear) {
-      setFormValues(prevValues => ({ ...prevValues, examYearError: true }));
+    } else if (!isTermlyResult && !((id && validator.matches(id, /^SBIS\/\b\d{4}\b\/\b[A-Z0-9]{6}\b$/i)) && examYear && examClass)) {
+      setFormValues(prevValues => ({
+        ...prevValues,
+        idError:        true,
+        examYearError:  true,
+        examClassError: true
+      }));
       return false;
-    }
-
-    if (!examTerm) {
-      setFormValues(prevValues => ({ ...prevValues, examTermError: true }));
-      return false;
-    }
-
-    if (!examClass) {
-      setFormValues(prevValues => ({ ...prevValues, examClassError: true }));
-      return false;
-    }
-    // Regno format is "SBIS/2021/UNfve2"
-    if (!regno || !validator.matches(regno, /^SBIS\/\b\d{4}\b\/\b[A-Z0-9]{6}\b$/i)) {
-      setFormValues(prevValues => ({ ...prevValues, regnoError: true }));
-      return false;
-    }
-    // return true when all fields validates
-    return true;
+    } else  return true; // return true when all fields validates
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { examYear, examTerm, examClass, regno } = formValues;
-    if (validateFormValues()) {
-      getResult({
+    const { examYear, examTerm, examClass, id, isTermlyResult } = formValues;
+    if (validateFormValues() && isTermlyResult) {
+      displayAlert('success', 'Processing request...');
+      checkTermlyResult({
         examYear: new Date(examYear).getFullYear(),
-        examTerm, examClass, regno
+        examTerm,
+        examClass,
+        id
       });
-    } else {
-      console.log(''); // eslint-disable-line
+      return true;
+    } else if (validateFormValues() && !isTermlyResult) {
+      displayAlert('success', 'Processing request...');
+      checkCumulativeResult({
+        examYear: new Date(examYear).getFullYear(),
+        examClass,
+        id
+      });
+      return true;
     }
+    displayAlert('error', 'Error: can not proceed, all field are required!');
+    return false;
   };
-
-  const clsOpts = [
-    { label: 'Select class', value: '' },
-    { label: 'JS 1', value: 'JS1' },
-    { label: 'JS 2', value: 'JS2' },
-    { label: 'JS 3', value: 'JS3' },
-    { label: 'SS 1', value: 'SS1' },
-    { label: 'SS 2', value: 'SS2' },
-    { label: 'SS 3', value: 'SS3' }
-  ];
-
-  const termOpts = [
-    { label: 'Select term', value: '' },
-    { label: 'FIRST TERM', value: 'first_term' },
-    { label: 'SECOND TERM', value: 'second_term' },
-    { label: 'THIRD TERM', value: 'third_term' }
-  ];
 
   const {
     examYear,
     examTerm,
     examClass,
-    regno,
+    id,
     examYearError,
     examTermError,
     examClassError,
-    regnoError
+    idError,
+    isTermlyResult
   } = formValues;
 
+  // Get search params, will be sent together with form values
+  /* eslint-disable */
+  const query = useQuery();
+  const pin = query.get('pin');
+  const serial = query.get('serial');
+  /* eslint-enable */
   return (
     <Grid item xs={12} sm={6}>
       <form noValidate onSubmit={handleSubmit}>
-        <FormGroup row={true}>
+        <Grid item xs={12} className={callout}>
+          <FormControl variant="outlined">
+            <CustomizedSwitches
+              iosStyle={true}
+              startLabel="Cumulative Result"
+              endLabel="Termly Result"
+              isTermly={isTermlyResult}
+              onChange={() => setFormValues({
+                ...formValues,
+                isTermlyResult: !isTermlyResult
+              })}
+            />
+          </FormControl>
+        </Grid>
+        <FormControl className={formControl}>
+          <TextField
+            error={idError}
+            label="Student ID"
+            id="id"
+            name="id"
+            variant="outlined"
+            autoComplete="off"
+            value={id}
+            onChange={handleChange('id')}
+            helperText="Should be in this format: SBIS/2021/12jHO2"
+          />
+        </FormControl>
+        <FormControl variant="outlined" className={formControl} error={examClassError}>
+          <InputLabel id="examClass">Class</InputLabel>
+          <Select
+            labelId="examClass"
+            id="examClass"
+            value={examClass}
+            name="examClass"
+            onChange={handleChange('examClass')}
+            label="Class"
+          >
+            {classList.map((value, idx) => (
+              <MenuItem
+                key={value}
+                value={value}
+                disabled={idx === 0}
+              >
+                {value.toUpperCase()}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        {isTermlyResult && <FormControl variant="outlined" className={formControl} error={examTermError}>
+          <InputLabel id="examTerm">Term</InputLabel>
+          <Select
+            labelId="examTerm"
+            id="examTerm"
+            value={examTerm}
+            name="examTerm"
+            onChange={handleChange('examTerm')}
+            label="Term"
+          >
+            {termOpts.map((value, idx) => (
+              <MenuItem
+                key={value}
+                value={value}
+                disabled={idx === 0}
+              >{value.toUpperCase()}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>}
+        <FormControl className={formControl}>
           <KeyboardDatePicker
             error={examYearError}
             views={[ 'year' ]}
@@ -144,82 +220,57 @@ const ValidateInfo = ({ getResult }) => {
             onChange={handleChange('examYear')}
             inputVariant='outlined'
             variant='dialog'
-            className={formControl}
+            // className={formControl}
             autoOk={true}
             orientation='landscape'
             animateYearScrolling={true}
-          />
-
-          <FormControl variant="outlined" className={formControl} error={examTermError}>
-            <InputLabel id="examTerm">Term</InputLabel>
-            <Select
-              labelId="examTerm"
-              id="examTerm"
-              value={examTerm}
-              name="examTerm"
-              onChange={handleChange('examTerm')}
-              label="Term"
-            >
-              {termOpts.map(({ label, value }) => (
-                <MenuItem key={value} value={value} disabled={value === ''}>{label}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </FormGroup>
-
-        <FormGroup row={true}>
-          <FormControl variant="outlined" className={formControl} error={examClassError}>
-            <InputLabel id="examClass">Class</InputLabel>
-            <Select
-              labelId="examClass"
-              id="examClass"
-              value={examClass}
-              name="examClass"
-              onChange={handleChange('examClass')}
-              label="Class"
-            >
-              {clsOpts.map(({ label, value }) => (
-                <MenuItem key={value} value={value}  disabled={value === ''}>{label}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl className={formControl}>
-            <TextField
-              error={regnoError}
-              label="Reg No"
-              id="regno"
-              name="regno"
-              variant="outlined"
-              autoComplete="off"
-              value={regno}
-              onChange={handleChange('regno')}
+            minDate={'2020-01-01'}
+            maxDate={new Date()}
+            minDateMessage={<Message cls={invalidYear}
+              msg='Please use the icon at the right to select valid year'
+            />}
+            maxDateMessage={<Message cls={invalidYear}
+              msg='Year can be greater than current year, click the icon at the right to select valid year'
             />
-          </FormControl>
-        </FormGroup>
-        <FormGroup row={true}>
-          <Button {...{
-            variant:   'outlined',
-            type:      'submit',
-            color:     'primary',
-            size:      'large',
-            className: btn
-          }}
-          >
+            }
+          />
+        </FormControl>
+        <Button
+          variant= 'outlined'
+          type=   'submit'
+          color=   'primary'
+          size=   'large'
+        >
           Check Result
-          </Button>
-        </FormGroup>
+        </Button>
       </form>
     </Grid>
   );
 };
 
-const mapState = ({ result }) => ({
-  regno: result.regno,
-  pin:   result.scratchPin
+function Message({ msg, cls }) {
+  return (
+    <Typography className={cls}>
+      {msg || 'Hey! Please use the icon to select valid year'}
+    </Typography>
+  );
+}
+
+const mapState = ({ staff }) => ({
+  classList: staff.classList,
+  termOpts:  staff.terms
 });
 
+
+/* eslint-disable no-console*/
 const mapDispatch = (dispatch) => ({
-  getResult: (payload) => dispatch(getResult(payload))
+  checkTermlyResult:     (payload) => console.log(payload),
+  checkCumulativeResult: (payload) => console.log(payload),
+  displayAlert:          (sev, msg) => dispatch(actions.showAlert({
+    severity: sev,
+    message:  msg
+  }))
 });
+/* eslint-enable no-console */
 
 export default connect(mapState, mapDispatch)(ValidateInfo);
