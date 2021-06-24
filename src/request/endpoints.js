@@ -136,5 +136,17 @@ export default {
     url:    `${API_BASE_URL}/api/v1/pin/validate`,
     method: 'POST',
     data
+  }),
+
+  checkTermlyResult: (data) => ({
+    url:    `${API_BASE_URL}/api/v1/results/check-termly`,
+    method: 'POST',
+    data
+  }),
+
+  checkCumulativeResult: (data) => ({
+    url:    `${API_BASE_URL}/api/v1/results/check-cumulative`,
+    method: 'POST',
+    data
   })
 };

@@ -1,7 +1,8 @@
 import types from './constants';
 
 const initialState = {
-  alert: {
+  isLoading: false,
+  alert:     {
     shouldOpen: false,
     severity:   '',
     message:    ''
@@ -14,7 +15,8 @@ const checker = (state = initialState, action) => {
   case types.SHOW_RESULT_ALERT:
     return {
       ...state,
-      alert: {
+      isLoading: false,
+      alert:     {
         ...state.alert,
         shouldOpen: true,
         severity:   action.payload.severity,
@@ -22,38 +24,21 @@ const checker = (state = initialState, action) => {
       }
     };
 
-  case 'HIDE_ALERT':
+  case types.HIDE_ALERT:
     return {
       ...state,
-      alert: {
+      isLoading: false,
+      alert:     {
         shouldOpen: false,
         severity:   '',
         message:    ''
       }
     };
 
-  case types.VALIDATE_PIN_SUCCESS:
+  case types.GET_RESULT_REQUEST:
     return {
       ...state,
-      pin: action.payload
-    };
-
-  case types.VALIDATE_REGNO_SUCCESS:
-    return {
-      ...state,
-      regno: action.payload
-    };
-
-  case types.GET_RESULT_SUCCESS:
-    return {
-      ...state,
-      resultReady: true
-    };
-
-  case types.GET_RESULT_FAILURE:
-    return {
-      ...state,
-      resultReady: false
+      isLoading: true
     };
 
   default:

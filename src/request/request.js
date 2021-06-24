@@ -43,7 +43,7 @@ request.make = (options, withToken) => {
       if (axios.isCancel(error)) {
         reject(error.message);
       } else if (error.response) { // server returns an error
-        reject(error.response.data);
+        reject(error.response.data.message);
       } else {
         reject('OOPS! NO RESPONSE');
       }
@@ -77,11 +77,12 @@ request.delete = (options) => {
   return request.make(options, true);
 };
 
-request.cancel = (reason) => {
-  if (cancel && /session expired/i.test(reason)) {
+request.cancel = (reason = 'Ooops! request was aborted.') => {
+  if (cancel && (reason && /session expired/i.test(reason))) {
     window.sessionStorage.removeItem('state');
     window.location.href = '/login';
   }
+  throw reason;
 };
 
 export default request;

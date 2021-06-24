@@ -5,7 +5,7 @@ const initialState = {
   states:    [],
   lgas:      [],
   classList: ['Select class', 'js1', 'js2', 'js3', 'ss1', 'ss2', 'ss3' ],
-  terms:     ['Select Term', 'FIRST TERM', 'SECOND TERM', 'THIRD TERM'],
+  terms:     ['Select Term', 'FIRST', 'SECOND', 'THIRD'],
   subjects:  [ {
     name:     'English Language',
     code:     '',

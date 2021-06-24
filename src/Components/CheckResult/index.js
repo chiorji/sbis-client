@@ -72,9 +72,8 @@ const Portal = ({ alert, hideAlert }) => {
   );
 };
 
-const mapState = ({ account, result }) => ({
-  isLoggedIn: account.isLoggedIn,
-  alert:      result.alert
+const mapState = ({ result }) => ({
+  alert: result.alert
 });
 
 const mapDispatch = (dispatch) => ({

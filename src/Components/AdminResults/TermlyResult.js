@@ -135,39 +135,26 @@ const TermlyResult = ({ subjects, classList, terms, alert }) => {
 
   // The aim of this method is to stripe unnecessary score data
   // unnecessay data here are ones automatically added by material table; therbey submitting only the required data to server insead of junks
-  const stripeData = (params) => {
-    const striped = [];
-    if (!params || !params instanceof Array ||
-      (params instanceof Array && !params.length)) {
-      throw new Error('Error: could not submit invalid score data');
+  const stripeData = (mark) => {
+    return {
+      subject:            mark.subject,
+      avgMarksObtained:   mark.avgMarksObtained,
+      avgMarksObtainable: mark.avgMarksObtainable,
+      marksObtained:      mark.marksObtained,
+      classAvgMarks:      mark.classAvgMarks,
+      position:           mark.position
     };
-    params.map(mark => {
-      const val = {
-        subject:            mark.subject,
-        avgMarksObtained:   mark.avgMarksObtained,
-        avgMarksObtainable: mark.avgMarksObtainable,
-        marksObtained:      mark.marksObtained,
-        classAvgMarks:      mark.classAvgMarks,
-        position:           mark.position
-      };
-
-      striped.push(val);
-    });
-    return striped;
   };
 
   const handleResultSubmit = () => {
     try {
-      const data = stripeData(scores);
+      const data = scores.map(score => stripeData(score));
       console.log({ data });
     } catch (error) {
       alert(error.message);
     }
   };
 
-  useEffect(() => {
-    console.log({ basicInfo });
-  }, [basicInfo]);
   return (
     <>
       <Grid item xs={12} className={candidateInfo}>
