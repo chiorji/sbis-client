@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { createSubject } from '../../store/staff/actions';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -11,36 +10,35 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/styles';
+import * as actions from '../../store/staff/actions';
 
 const useStyles = makeStyles(theme => ({
-  container: {
-    flexDirection:  'column',
-    display:        'flex',
-    justifyContent: 'center',
-    alignContent:   'center',
-    alignItems:     'center'
-  },
   textFields: {
     width:        '100%',
     marginBottom: theme.spacing(3)
   }
 }));
 
-const CreateSubject = ({ createSubject }) => {
-  const { container, textFields } = useStyles();
+const CreateSubject = ({ staffList, createSubject, alert, fetchStaffList }) => {
+  const { textFields } = useStyles();
 
   const [subject, setSubject] = useState({
     name:          '',
-    nameError:     false,
-    code:          '',
-    category:      'UNCATEGORIZED',
-    categoryError: false,
+    category:      '',
     teacher:       '',
+    nameError:     false,
+    categoryError: false,
     teacherError:  false
   });
 
-  const { name, nameError, code, category,
-    categoryError, teacher, teacherError } = subject;
+  const {
+    name,
+    nameError,
+    category,
+    categoryError,
+    teacher,
+    teacherError
+  } = subject;
 
   const validated = () => {
     // clear previous error
@@ -51,27 +49,24 @@ const CreateSubject = ({ createSubject }) => {
       teacherError:  false
     }));
 
-    if (!name) {
-      setSubject(prevState => ({ ...prevState, nameError: true }));
+    if (!(name && category && teacher)) {
+      setSubject(prevState => ({
+        ...prevState,
+        nameError:     true,
+        categoryError: true,
+        teacherError:  true
+      }));
+      alert('error', 'Error: all fields are required before submitting');
       return false;
     }
-    if (!category) {
-      setSubject(prevState => ({ ...prevState, categoryError: true }));
-      return false;
-    }
-    if (!teacher) {
-      setSubject(prevState => ({ ...prevState, teacherError: true }));
-      return false;
-    }
-
     return true;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validated()) {
-      const { name, code, category, teacher } = subject;
-      createSubject({ name, code, category, teacher });
+      const { name, category, teacher } = subject;
+      return createSubject({ name, category, teacher });
     } else {
       return false;
     }
@@ -89,11 +84,18 @@ const CreateSubject = ({ createSubject }) => {
     'JUNIOR',
     'UNCATEGORIZED'
   ];
+
+  useEffect(() => {
+    if (!staffList.length) {
+      fetchStaffList();
+    }
+  }, [ staffList, fetchStaffList ]);
+
   return (
     <>
-      <Typography variant="h4" align="center" gutterBottom>Add Subject</Typography>
-      <Grid container className={container}>
-        <Grid item xs={12} sm={12} md={6}>
+      <Typography variant="h5" gutterBottom>Create new subject</Typography>
+      <Grid container>
+        <Grid item xs={12} md={6}>
           <form noValidate onSubmit={handleSubmit}>
             <TextField
               type="text"
@@ -108,43 +110,36 @@ const CreateSubject = ({ createSubject }) => {
               onChange={handleChange('name')}
             />
 
-            <TextField
-              type="text"
-              id="code"
-              name="code"
-              label="Subject code"
-              variant="outlined"
-              helperText="Optional"
-              autoComplete="off"
-              className={textFields}
-              value={code}
-              onChange={handleChange('code')}
-            />
-
-            <TextField
-              type="text"
-              error={teacherError}
-              id="regno"
-              name="regno"
-              label="Subject teacher"
-              variant="outlined"
-              helperText="Teacher handling subject"
-              autoComplete="off"
-              className={textFields}
-              value={teacher}
-              onChange={handleChange('teacher')}
-            />
+            <FormGroup row={true}>
+              <FormControl variant="outlined" className={textFields} error={teacherError}>
+                <InputLabel id="teacher">Select teacher</InputLabel>
+                <Select
+                  labelId="teacher"
+                  id="teacher"
+                  value={teacher}
+                  name="teacher"
+                  onChange={handleChange('teacher')}
+                  label="Select teacher"
+                >
+                  {staffList.map(({ id, first_name, last_name }) => (
+                    <MenuItem key={id}
+                      value={id}
+                    >{`${first_name.toUpperCase()} ${last_name.toUpperCase()}`}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </FormGroup>
 
             <FormGroup row={true}>
               <FormControl variant="outlined" className={textFields} error={categoryError}>
-                <InputLabel id="category">Category</InputLabel>
+                <InputLabel id="category">Select Category</InputLabel>
                 <Select
                   labelId="category"
                   id="category"
                   value={category}
                   name="category"
                   onChange={handleChange('category')}
-                  label="Category"
+                  label="Select Category"
                 >
                   {subjectCategories.map((value) => (
                     <MenuItem key={value}
@@ -153,15 +148,13 @@ const CreateSubject = ({ createSubject }) => {
                   ))}
                 </Select>
               </FormControl>
-              <Button {...{
-                variant: 'outlined',
-                type:    'submit',
-                color:   'primary',
-                id:      'submit',
-                size:    'large'
-              }}
-              >
-          Create subject
+              <Button
+                variant='outlined'
+                type='submit'
+                color='primary'
+                id='submit'
+                size='large'
+              >Create subject
               </Button>
             </FormGroup>
           </form>
@@ -172,7 +165,16 @@ const CreateSubject = ({ createSubject }) => {
 };
 
 const mapDispatch = (dispatch) => ({
-  createSubject: (payload) => dispatch(createSubject(payload))
+  fetchStaffList: () => dispatch(actions.fetchStaffList()),
+  createSubject:  (payload) => dispatch(actions.createSubject(payload)),
+  alert:          (sev, msg) => dispatch(actions.showAlert({
+    severity: sev,
+    message:  msg
+  }))
 });
 
-export default connect(null, mapDispatch)(CreateSubject);
+const mapState = ({ staff }) => ({
+  staffList: staff.stats.staff
+});
+
+export default connect(mapState, mapDispatch)(CreateSubject);

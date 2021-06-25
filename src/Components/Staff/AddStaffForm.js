@@ -12,15 +12,15 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
-import { addStaff } from '../../store/staff/actions';
+import * as actions from '../../store/staff/actions';
+
 
 const useStyles = makeStyles(theme => ({
   gridItem: {
-    display:        'flex',
-    justifyContent: 'center',
-    flexDirection:  'column',
-    margin:         '0 auto',
-    marginTop:      theme.spacing(3)
+    display:       'flex',
+    flexDirection: 'column',
+    margin:        '0 auto',
+    marginTop:     theme.spacing(3)
   },
   heading: {
     marginTop:    theme.spacing(2),
@@ -35,14 +35,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const AddStaffForm = ({ addStaff = f => f }) => {
+const AddStaffForm = ({ addStaff = f => f, alert, classList }) => {
   const ALPHAS = 'ABCDEF@$0123456789><%&';
   const { gridItem, heading, rowText, submitBtn } = useStyles();
   const [ formValues, setFormValues ] = useState({
     password:       '',
     email:          '',
     form_class:     '',
-    role:           'USER',
+    role:           'user',
     first_name:     '',
     last_name:      '',
     gender:         'Rather not say',
@@ -65,28 +65,15 @@ const AddStaffForm = ({ addStaff = f => f }) => {
       formClassError: false,
       roleError:      false
     }));
-    if (!password) {
-      setFormValues(prevState => ({ ...prevState, passwordError: true }));
-      return false;
-    }
-    if (!first_name) {
-      setFormValues(prevState => ({ ...prevState, firstNameError: true }));
-      return false;
-    }
-    if (!last_name) {
-      setFormValues(prevState => ({ ...prevState, lastNameError: true }));
-      return false;
-    }
-    if (!email || !validator.isEmail(email)) {
-      setFormValues(prevState => ({ ...prevState, emailError: true }));
-      return false;
-    }
-    if (!form_class) {
-      setFormValues(prevState => ({ ...prevState, formClassError: true }));
-      return false;
-    }
-    if (!role) {
-      setFormValues(prevState => ({ ...prevState, roleError: true }));
+    if (!(password && first_name && last_name && (email &&
+      validator.isEmail(email)))) {
+      setFormValues(prevState => ({
+        ...prevState,
+        passwordError:  true,
+        firstNameError: true,
+        lastNameError:  true,
+        emailError:     true
+      }));
       return false;
     }
 
@@ -119,12 +106,10 @@ const AddStaffForm = ({ addStaff = f => f }) => {
         role
       });
     } else {
-      console.log('submission failed...'); // eslint-disable-line
+      alert('error', 'Error: Please fill out all required fields');
       return false;
     }
   };
-
-  const clsOpts = ['Select Form Class', 'JS1', 'JS2', 'JS3', 'SS1', 'SS2', 'SS3'];
 
   const { password, passwordError, first_name, last_name, email,
     emailError, form_class, formClassError, role, roleError,
@@ -132,7 +117,7 @@ const AddStaffForm = ({ addStaff = f => f }) => {
 
   return (
     <Grid item xs={12} md={6} className={gridItem}>
-      <Typography variant="h4" className={heading}>Add new member</Typography>
+      <Typography variant="h5" className={heading}>Add new member</Typography>
       <form noValidate onSubmit={handleSubmit}>
         <FormGroup row={true}>
           <TextField
@@ -228,13 +213,13 @@ const AddStaffForm = ({ addStaff = f => f }) => {
               onChange={handleChange('form_class')}
               label="Form Class"
             >
-              {clsOpts.map((value, index) => (
+              {classList.map((value, index) => (
                 <MenuItem
                   key={value}
                   value={value}
                   disabled={index === 0}
                 >
-                  {value}
+                  {value.toUpperCase()}
                 </MenuItem>
               ))}
             </Select>
@@ -251,9 +236,11 @@ const AddStaffForm = ({ addStaff = f => f }) => {
               onChange={handleChange('role')}
               label="Role"
             >
-              {['ASSIGN ROLE', 'USER', 'ADMIN'].map((value, index) => (
-                <MenuItem key={value} value={value}
-                  disabled={index === 0 || value !== 'USER'}
+              {['ASSIGN ROLE', 'NONE', 'USER'].map((value, index) => (
+                <MenuItem
+                  key={value}
+                  value={value.toLowerCase()}
+                  disabled={index === 0}
                 >{value}</MenuItem>
               ))}
             </Select>
@@ -278,7 +265,15 @@ const AddStaffForm = ({ addStaff = f => f }) => {
 };
 
 const mapDispatch = (dispatch) => ({
-  addStaff: (payload) => dispatch(addStaff(payload))
+  addStaff: (payload) => dispatch(actions.addStaff(payload)),
+  alert:    (sev, msg) => dispatch(actions.showAlert({
+    severity: sev,
+    message:  msg
+  }))
 });
 
-export default connect(null, mapDispatch)(AddStaffForm);
+const mapState = ({ staff }) => ({
+  classList: staff.classList
+});
+
+export default connect(mapState, mapDispatch)(AddStaffForm);
