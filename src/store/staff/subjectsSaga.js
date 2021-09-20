@@ -6,7 +6,6 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import api from '../../request/request';
 import * as actions from './actions';
 import types from './constants';
-import subjects from '../../utils/subjectList.json';
 import endpoints from '../../request/endpoints';
 
 
@@ -38,7 +37,7 @@ function* listSubjects() {
     yield put(showLoading());
     // const { data } = yield call(api.get, endpoints.listSubjects(), true);
     // console.log({ data });
-    yield put(actions.listSubjectsSuccess(subjects));
+    // yield put(actions.listSubjectsSuccess(subjects));
   } catch (error) {
     console.log({ error });
     yield put(actions.listSubjectsFailure(error.message));

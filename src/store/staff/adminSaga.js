@@ -14,7 +14,7 @@ function* staffLogin({ payload }) {
   try {
     yield put(showLoading());
     const { data } = yield call(api.auth, endpoints.staffLogin(payload));
-    yield saveSession(data, data.data.token);
+    yield saveSession(data, data.token);
     yield put(actions.loginSuccess(data));
     yield put(replace('/dashboard'));
   } catch (error) {
@@ -40,7 +40,10 @@ function* addNewStaff({ payload }) {
     const { data } = yield call(api.post, endpoints.addNewStaff(payload));
     yield put(actions.addStaffSuccess(data));
   } catch (error) {
-    yield put(actions.addStaffFailure(error.message));
+    yield put(actions.showAlert({
+      severity: 'error',
+      message:  error
+    }));
     yield (cancel());
   } finally {
     yield put(hideLoading());

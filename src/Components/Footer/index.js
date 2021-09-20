@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     backgroundColor:                'transparent',
-    color:                          theme.palette.grey[400],
+    color:                          theme.palette.common.white,
     [theme.breakpoints.down('sm')]: {
       marginTop: theme.spacing(2)
     }
@@ -35,13 +35,11 @@ const useStyles = makeStyles(theme => ({
     padding:        theme.spacing(2)
   },
   icons: {
-    height:          '40px',
-    width:           '40px',
-    marginRight:     theme.spacing(2),
-    borderRadius:    '5px',
-    padding:         theme.spacing(1),
-    color:           theme.palette.primary.main,
-    backgroundColor: theme.palette.grey[400]
+    height:       '40px',
+    width:        '40px',
+    marginRight:  theme.spacing(2),
+    borderRadius: '5px',
+    color:        theme.palette.common.white
   },
   linksWrapper: {
     [theme.breakpoints.down('sm')]: {
@@ -51,10 +49,10 @@ const useStyles = makeStyles(theme => ({
   link: {
     display:   'block',
     marginTop: theme.spacing(3),
-    color:     theme.palette.grey[400]
+    color:     theme.palette.common.white
   },
   footerText: {
-    color: theme.palette.grey[300]
+    color: theme.palette.common.white
   }
 }));
 

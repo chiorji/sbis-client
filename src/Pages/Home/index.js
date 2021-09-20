@@ -1,11 +1,15 @@
 import React from 'react';
-import Hero from '../../Components/Home/Hero';
-import Banner from '../../Components/Home/Banner';
-import About from '../../Components/Home/About';
-import EduFacilities from '../../Components/Home/EduFacilities';
-import WhyChooseUs from '../../Components/Home/WhyChooseUs';
+import loadable from '@loadable/component';
+
 import { whyChooseUs } from '../../request/whyChooseUs';
-import Staff from '../../Components/Staff';
+
+const Hero = loadable(() => import('Components/Home/Hero'));
+const Banner = loadable(() => import('Components/Home/Banner'));
+const About = loadable(() => import('Components/Home/About'));
+const EduFacilities = loadable(() => import('Components/Home/EduFacilities'));
+const WhyChooseUs = loadable(() => import('Components/Home/WhyChooseUs'));
+const Staff = loadable(() => import('Components/Staff'));
+const Gallery = loadable(() => import('Components/Gallery'));
 
 const Home = () => {
   return (
@@ -17,6 +21,7 @@ const Home = () => {
       <EduFacilities/>
       <WhyChooseUs data={whyChooseUs} />
       <Staff />
+      <Gallery />
     </>
   );
 };

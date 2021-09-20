@@ -68,11 +68,21 @@ export const showAlert = (payload) => ({
   payload
 });
 
+/**
+ * Gets an info about single student
+ * @param {string} payload student id
+ * @returns
+ */
 export const getStudent = (payload) => ({
   type: types.FETCH_STUDENT,
   payload
 });
 
+/**
+ *
+ * @param {object} payload student information returned from server
+ * @returns
+ */
 export const getStudentSuccess = (payload) => ({
   type: types.FETCH_STUDENT_SUCCESS,
   payload

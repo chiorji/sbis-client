@@ -571,3 +571,38 @@ const mapState = ({ staff }) => ({
 
 export default connect(mapState, mapDispatch)(AdmissionForm);
 
+/**
+  first_name:      { type: String, required: true, lowercase: true },
+  last_name:       { type: String, required: true, lowercase: true },
+  middle_name:     { type: String, required: true, lowercase: true },
+  id:              { type: String, trim: true, unique: true },
+  bio:             { type: String, trim: true },
+  blood_group:     { type: String, lowercase: true },
+  dob:             { type: Date, required: true },
+  gender:          { type: String, enum: genderList, lowercase: true },
+  nationality:     { type: String, required: true, lowercase: true },
+  state_of_origin: { type: String, required: true, lowercase: true },
+  lga_of_origin:   { type: String, required: true, lowercase: true },
+  faith:           { type: String, lowercase: true },
+
+  academics: {
+    admitted_into: { type: String, required: true, enum: classList },
+    current_class: { type: String, required: true, enum: classList },
+    has_graduated: { type: Boolean, default: false },
+    is_suspended:  { type: Boolean, default: false }
+  },
+
+  guardian: {
+    home_address:         { type: String, required: true },
+    phone_number:         { type: String, required: true },
+    email:                { type: String, lowercase: true },
+    faith:                { type: String, lowercase: true },
+    gender:               { type: String, enum: genderList, required: true },
+    nationality:          { type: String, required: true, lowercase: true },
+    name:                 { type: String, required: true, lowercase: true },
+    state_of_origin:      { type: String, required: true, lowercase: true },
+    local_govt_of_origin: { type: String, required: true, lowercase: true },
+    state_of_residence:   { type: String, required: true, lowercase: true },
+    lga_of_residence:     { type: String, required: true, lowercase: true }
+ */
+
