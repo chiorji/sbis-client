@@ -37,7 +37,7 @@ function* fetchAllStudents() {
     yield put(actions.fetchAllStudentsFailure(error.message));
     yield put(actions.showAlert({
       shouldOpen: true,
-      message:    error.message ? error.message : 'Error',
+      message:    typeof error === 'string' ? error : error.message,
       severity:   'error'
     }));
     yield(cancel());
@@ -49,10 +49,14 @@ function* fetchAllStudents() {
 function* getStudent({ payload }) {
   try {
     yield put(showLoading());
-    let { data } = yield call(api.get, endpoints.getStudent(payload), true);
+    let { data } = yield call(api.get, endpoints.getStudent(payload));
+    console.log({ data }); // eslint-disable-line
     yield put(actions.getStudentSuccess(data.data));
   } catch (error) {
-    yield put(actions.getStudentFailure(error.message));
+    yield put(actions.showAlert({
+      message:  typeof error === 'string' ? error : error.message,
+      severity: 'error'
+    }));
     yield(cancel());
   } finally {
     yield put(hideLoading());

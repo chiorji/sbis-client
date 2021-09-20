@@ -6,13 +6,11 @@ import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
   box: {
-    textAlign:       'center',
-    fontSize:        'small',
-    color:           theme.palette.grey[500],
-    backgroundColor: theme.palette.primary.dark,
-    padding:         theme.spacing(2),
-    '& a':           {
-      color: theme.palette.grey[500]
+    textAlign: 'center',
+    fontSize:  'small',
+    padding:   theme.spacing(2),
+    '& a':     {
+      color: 'inherit'
     }
   }
 }));
@@ -22,9 +20,8 @@ const CopyRight = () => {
   return(
     <Box className={box}>
       <Typography variant="body2" component="div">
-        &copy; All Right Reserved {new Date().getFullYear()} success
-       builders int&#39;l schools
-      | <Link href="https://chigboguorji.netlify.app" target="_blank" rel="noopener noreferrer"><strong>Site developed by Chigbogu</strong></Link>
+        &copy; All Right Reserved {new Date().getFullYear()} SBIS
+      | <Link href="https://github.com/chiorji" target="_blank" rel="noopener noreferrer">Site developed by Chigbogu</Link>
       </Typography>
     </Box>
   );
