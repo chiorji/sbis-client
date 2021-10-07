@@ -71,5 +71,10 @@
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "redux-logger": "^3.0.6"
+  },
+  "engines": {
+    "node": "14.17.5",
+    "yarn": "1.22.5",
+    "npm": "7.22.0"
   }
 }
