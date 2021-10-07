@@ -1,9 +1,9 @@
 export const links = [
-  { id: 'check-result', label: 'Check Result', to: '/result?page=validate' },
-  { id: 'contact', label: 'Contact', to: '/#contacts' },
-  { id: 'academics', label: 'Academics', to: '/academics' },
-  { id: 'gallerylink', label: 'Gallery', to: '/#gallery' },
-  { id: 'staff', label: 'Staff Portal', to: '/login' }
+  { label: 'Check Result', to: '/result?page=validate' },
+  { label: 'Contact', to: '/#contacts' },
+  { label: 'Academics', to: '/#academics' },
+  { label: 'Gallery', to: '/#gallery' },
+  { label: 'Staff Portal', to: '/login' }
 ];
 
 export const adminLinks = [

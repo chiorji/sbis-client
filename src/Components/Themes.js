@@ -1,13 +1,13 @@
-import purple from '@material-ui/core/colors/purple';
+import blue from '@material-ui/core/colors/blue';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: purple[500]
+      main: blue[600]
     },
     secondary: {
-      main: purple['A700']
+      main: blue['A700']
     },
     dark: {
       main: '#1D1E22'

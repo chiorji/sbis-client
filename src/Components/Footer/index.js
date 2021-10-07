@@ -18,15 +18,18 @@ import CopyRight from './CopyRight';
 
 const useStyles = makeStyles(theme => ({
   container: {
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.grey[50],
     paddingTop:      theme.spacing(2),
     fontWeight:      '600'
   },
   paper: {
     backgroundColor:                'transparent',
-    color:                          theme.palette.common.white,
+    color:                          theme.palette.grey[800],
     [theme.breakpoints.down('sm')]: {
       marginTop: theme.spacing(2)
+    },
+    '& h5': {
+      fontWeight: theme.typography.fontWeightBold
     }
   },
   grid: {
@@ -39,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     width:        '40px',
     marginRight:  theme.spacing(2),
     borderRadius: '5px',
-    color:        theme.palette.common.white
+    color:        theme.palette.primary.dark
   },
   linksWrapper: {
     [theme.breakpoints.down('sm')]: {
@@ -49,10 +52,10 @@ const useStyles = makeStyles(theme => ({
   link: {
     display:   'block',
     marginTop: theme.spacing(3),
-    color:     theme.palette.common.white
+    color:     theme.palette.grey[600]
   },
   footerText: {
-    color: theme.palette.common.white
+    color: theme.palette.grey[600]
   }
 }));
 
@@ -87,15 +90,14 @@ const Footer = () => {
         <Grid item xs={12} md={3} className={linksWrapper}>
           <Paper square elevation={0} className={paper}>
             <Typography variant="h5">Important Links</Typography>
-            {links.map(({ id, label, to }) => (
-              <Link {...{
-                component: to.indexOf('#') !== -1 ? HashLink : RouterLink,
-                to:        to,
-                key:       id,
-                color:     'inherit',
-                style:     { textDecoration: 'none' },
-                className: link
-              }}
+            {links.map(({ label, to }) => (
+              <Link
+                component= {to.indexOf('#') > -1 ? HashLink : RouterLink}
+                to=        {to}
+                key=       {label}
+                color=     'inherit'
+                style=     {{ textDecoration: 'none' }}
+                className= {link}
               >{label}</Link>
             ))}
           </Paper>
@@ -104,9 +106,9 @@ const Footer = () => {
           <Paper square elevation={0} className={paper}>
             <Typography variant="body1" component="div" gutterBottom style={{ display: 'flex',  alignItems: 'center' }}>
               <RoomIcon fill="currentColor"/>
-              <Typography variant="h5">Location</Typography>
+              <Typography variant="h5">Our Location</Typography>
             </Typography>
-            <Typography component="address" className={footerText}>
+            <Typography component="p" className={footerText}>
               Success Builders Street by SChool Rd., near Bethel
               Anglican Church, by Acha Str., Iyiowa Odekpe, Onitsha
               Zone, Anambra State.

@@ -10,6 +10,7 @@ const EduFacilities = loadable(() => import('Components/Home/EduFacilities'));
 const WhyChooseUs = loadable(() => import('Components/Home/WhyChooseUs'));
 const Staff = loadable(() => import('Components/Staff'));
 const Gallery = loadable(() => import('Components/Gallery'));
+const Academics = loadable(() => import('Components/Academics'));
 
 const Home = () => {
   return (
@@ -22,6 +23,7 @@ const Home = () => {
       <WhyChooseUs data={whyChooseUs} />
       <Staff />
       <Gallery />
+      <Academics />
     </>
   );
 };

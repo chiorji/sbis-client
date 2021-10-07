@@ -8,10 +8,11 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import MenuDisplayChoice from './MenuDisplayChoice';
 import { ReactComponent as Logo } from '../../logo.svg';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   toolbar: {
-    display:        'flex',
-    justifyContent: 'space-between'
+    display:         'flex',
+    justifyContent:  'space-between',
+    backgroundColor: theme.palette.primary.dark
   },
   menuButton: {
     fontFamily: 'Open Sans, sans-serif',

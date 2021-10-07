@@ -4,8 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
-import first from '../../assets/img/8.jpg';
-import second from '../../assets/img/7.jpg';
+import clsx from 'clsx';
 
 const useStyles = makeStyles(theme => ({
   banner: {
@@ -17,11 +16,18 @@ const useStyles = makeStyles(theme => ({
   carouselImg: {
     height: '100%',
     width:  'auto'
+  },
+  textBox: {
+    backgroundColor: theme.palette.primary.dark,
+    color:           theme.palette.grey[200],
+    display:         'flex',
+    flexDirection:   'column',
+    justifyContent:  'center'
   }
 }));
 
 const Banner = () => {
-  const { banner, carouselBox, carouselImg } = useStyles();
+  const { banner, textBox, carouselBox, carouselImg } = useStyles();
 
   return (
     <Box width={1} className={banner}>
@@ -33,16 +39,22 @@ const Banner = () => {
         showThumbs={false}
       >
         <Typography component="div" className={carouselBox}>
-          <img alt="first slide" src={second} className={carouselImg}/>
-          <p>First carousel slide</p>
+          <div className={clsx(carouselImg, textBox)}>
+            <Typography variant="h1">Success Builders</Typography>
+            <Typography variant="h4">We&#39;re into the art of building dreams</Typography>
+          </div>
         </Typography>
         <Typography component="div" className={carouselBox}>
-          <img alt="second slide" src={first} className={carouselImg}/>
-          <p>Second carousel slide</p>
+          <div className={clsx(carouselImg, textBox)}>
+            <Typography variant="h1">Success Builders</Typography>
+            <Typography variant="h4">Equiping pupils for the greater good</Typography>
+          </div>
         </Typography>
         <Typography component="div" className={carouselBox}>
-          <img alt="third slide" src={second} className={carouselImg}/>
-          <p>Third carousel slide</p>
+          <div className={clsx(carouselImg, textBox)}>
+            <Typography variant="h1">Success Builders</Typography>
+            <Typography variant="h4" component="em">You dream, we build...</Typography>
+          </div>
         </Typography>
       </Carousel>
     </Box>

@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
     fontSize:  'small',
     padding:   theme.spacing(2),
     '& a':     {
-      color: 'inherit'
+      color: theme.palette.grey[600]
     }
   }
 }));
@@ -21,7 +21,7 @@ const CopyRight = () => {
     <Box className={box}>
       <Typography variant="body2" component="div">
         &copy; All Right Reserved {new Date().getFullYear()} SBIS
-      | <Link href="https://github.com/chiorji" target="_blank" rel="noopener noreferrer">Site developed by Chigbogu</Link>
+      | <Link href="https://github.com/chiorji/sbis-client" target="_blank" rel="noopener noreferrer">Site developed by Chigbogu</Link>
       </Typography>
     </Box>
   );
