@@ -3,6 +3,7 @@
 
 html, body{
 	scroll-behavior: smooth;
+	font-family:	Rubik, 'Open Sans', sans-serif;
 }
 
 ::-webkit-scrollbar {
